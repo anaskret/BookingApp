@@ -8,7 +8,8 @@ namespace BookingApp.Services.Interfaces
 {
     public interface IEventService
     {
-        List<Event> GetEvents();
+        List<Event> GetAllEvents();
+        Event GetEventById(int eventId);
 
     }
 }

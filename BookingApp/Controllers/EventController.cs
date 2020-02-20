@@ -19,9 +19,19 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet(ApiRoutes.Events.GetAll)]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            return Ok(_eventService.GetEvents());
+            return Ok(_eventService.GetAllEvents());
+        }
+        [HttpGet(ApiRoutes.Events.Get)]
+        public IActionResult Get([FromRoute] int eventId)
+        {
+            var eventById = _eventService.GetEventById(eventId);
+                
+            if(eventById == null)
+                return NotFound();
+
+            return Ok(eventById);
         }
     }
 }

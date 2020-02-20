@@ -14,6 +14,7 @@ namespace BookingApp.Contracts
         public static class Events
         {
             public const string GetAll = Base + "/events";
+            public const string Get = Base + "/events/{eventId}";
         }
     }
 }

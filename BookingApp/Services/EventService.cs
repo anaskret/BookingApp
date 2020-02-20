@@ -18,10 +18,14 @@ namespace BookingApp.Services
             _dataContext = dataContext;
         }
 
-        public List<Event> GetEvents()
+        public List<Event> GetAllEvents()
         {
             return _dataContext.Events.ToList();
         }
 
+        public Event GetEventById(int eventId)
+        {
+            return _dataContext.Events.SingleOrDefault(x => x.EventId == eventId);
+        }
     }
 }
