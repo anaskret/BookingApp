@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
@@ -10,6 +12,7 @@ namespace BookingApp.Models
             Seats = new HashSet<Seat>();
         }
 
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StatusId { get; set; }
         public string StatusDescription { get; set; }
 

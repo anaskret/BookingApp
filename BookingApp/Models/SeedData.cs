@@ -11,132 +11,151 @@ namespace Booking.App.Models
 {
     public class SeedData
     {
+        public static void Initialize(IServiceProvider serviceProvider)
+        {
+            InitializeTypes(serviceProvider);
+            InitializePlaces(serviceProvider);
+            InitializeEvents(serviceProvider);
+            InitializeSeats(serviceProvider);
+            InitializeSeatPrice(serviceProvider);
+            InitializeSeatStatus(serviceProvider);
+        }
         public static void InitializeTypes(IServiceProvider serviceProvider)
         {
-            using var context = Context(serviceProvider);
-            if (context.EventTypes.Any())
+            using (var context = Context(serviceProvider))
             {
-                return;
-            }
-
-            context.EventTypes.AddRange(
-                new EventType
+                if (context.EventTypes.Any())
                 {
-                    Type = "Football Match"
-                },
-
-                new EventType
-                {
-                    Type = "Basketball Match"
-                },
-
-                new EventType
-                {
-                    Type = "Concert"
-                },
-
-                new EventType
-                {
-                    Type = "Party"
-                },
-
-                new EventType
-                {
-                    Type = "Art"
-                },
-
-                new EventType
-                {
-                    Type = "Convention"
+                    return;
                 }
-                );
-            context.SaveChanges();
+
+                context.EventTypes.AddRange(
+                    new EventType
+                    {
+                        Type = "Football Match"
+                    },
+
+                    new EventType
+                    {
+                        Type = "Basketball Match"
+                    },
+
+                    new EventType
+                    {
+                        Type = "Concert"
+                    },
+
+                    new EventType
+                    {
+                        Type = "Party"
+                    },
+
+                    new EventType
+                    {
+                        Type = "Art"
+                    },
+
+                    new EventType
+                    {
+                        Type = "Convention"
+                    }
+                    );
+                context.SaveChanges();
+            }
         }
 
         public static void InitializePlaces(IServiceProvider serviceProvider)
         {
-            using var context = Context(serviceProvider);
-            if (context.EventTypes.Any())
+            using (var context = Context(serviceProvider))
             {
-                return;
-            }
-            context.Places.AddRange(
-                new Place
+                if (context.Places.Any())
                 {
-                    Name = "Emirates Stadium",
-                    MaximumCapacity = 65000
-                },
-
-                new Place
-                {
-                    Name = "Stamford Bridge",
-                    MaximumCapacity = 55000
-                },
-
-                new Place
-                {
-                    Name = "Anfield",
-                    MaximumCapacity = 50000
-                },
-
-                new Place
-                {
-                    Name = "Międzynarodowe Targi Poznańskie",
-                    MaximumCapacity = 20000
-                },
-
-                new Place
-                {
-                    Name = "Santiago Bernabeu",
-                    MaximumCapacity = 70000
-                },
-
-                new Place
-                {
-                    Name = "Camp Nou",
-                    MaximumCapacity = 40000
+                    return;
                 }
-                );
-            context.SaveChanges();
+                context.Places.AddRange(
+                    new Place
+                    {
+                        Name = "Emirates Stadium",
+                        MaximumCapacity = 65000
+                    },
+
+                    new Place
+                    {
+                        Name = "Stamford Bridge",
+                        MaximumCapacity = 55000
+                    },
+
+                    new Place
+                    {
+                        Name = "Anfield",
+                        MaximumCapacity = 50000
+                    },
+
+                    new Place
+                    {
+                        Name = "Międzynarodowe Targi Poznańskie",
+                        MaximumCapacity = 20000
+                    },
+
+                    new Place
+                    {
+                        Name = "Santiago Bernabeu",
+                        MaximumCapacity = 70000
+                    },
+
+                    new Place
+                    {
+                        Name = "Camp Nou",
+                        MaximumCapacity = 40000
+                    }
+                    );
+                context.SaveChanges();
+            }
         }
 
         public static void InitializeEvents(IServiceProvider serviceProvider)
         {
-            using var context = Context(serviceProvider);
-            if (context.EventTypes.Any())
+            using (var context = Context(serviceProvider))
             {
-                return;
-            }
-            context.Events.AddRange(
-                new Event
+                if (context.Events.Any())
                 {
-                    Name = "Arsenal - Tottenham",
-                    Date = new DateTime(2020, 04, 25),
-                    Description = "Tottenham will travel to Emirates Stadium to try and defeat the better club",
-                    PlaceId = 1,
-                    Type = "Football Match"
+                    return;
                 }
-                );
+                context.Events.AddRange(
+                    new Event
+                    {
+                        Name = "Arsenal - Tottenham",
+                        Date = new DateTime(2020, 04, 25),
+                        Description = "Tottenham will travel to Emirates Stadium to try and defeat the better club",
+                        PlaceId = 1,
+                        Type = "Football Match"
+                    }
+                    );
+                context.SaveChanges();
+            }
         }
 
         public static void InitializeSeatPrice(IServiceProvider serviceProvider)
         {
-            using var context = Context(serviceProvider);
-            if (context.EventTypes.Any())
+            using (var context = Context(serviceProvider))
             {
-                return;
-            }
-            context.SeatPrices.AddRange(
-                new SeatPrice
+                if (context.SeatPrices.Any())
                 {
-                    SeatType = "VIP",
-                    Price = 50,
-                    EventId = 1
+                    return;
                 }
-                );
+                context.SeatPrices.AddRange(
+                    new SeatPrice
+                    {
+                        SeatType = "VIP",
+                        Price = 50,
+                        EventId = 1
+                    }
+                    );
+                context.SaveChanges();
+            }
         }
 
-        public static void InitializeSectors(IServiceProvider serviceProvider)
+       /* public static void InitializeSectors(IServiceProvider serviceProvider)
         {
             using var context = Context(serviceProvider);
             if (context.EventTypes.Any())
@@ -275,120 +294,125 @@ namespace Booking.App.Models
                 );
             context.SaveChanges();
         }
-
+*/
         public static void InitializeSeats(IServiceProvider serviceProvider)
         {
-            using var context = Context(serviceProvider);
-            if (context.EventTypes.Any())
+            using (var context = Context(serviceProvider))
             {
-                return;
-            }
-            context.Seats.AddRange(
-                new Seat
+                if (context.Seats.Any())
                 {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 1,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 2,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 3,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 4,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 5,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 6,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 7,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 8,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 9,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
-                },new Seat
-                {
-                    PlaceId = 1,
-                    SectorNumber = "A1",
-                    RowNumber = 1,
-                    SeatNumber = 10,
-                    SeatType = "VIP",
-                    RefSeatStatusId = 1
+                    return;
                 }
-                );
-            context.SaveChanges();
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 1,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 2,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 3,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 4,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 5,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 6,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 7,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 8,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 9,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }, new Seat
+                    {
+                        PlaceId = 1,
+                        SectorNumber = "A1",
+                        RowNumber = 1,
+                        SeatNumber = 10,
+                        SeatType = 1,
+                        RefSeatStatusId = 1
+                    }
+                    );
+                context.SaveChanges();
+            }
         }
 
         public static void InitializeSeatStatus(IServiceProvider serviceProvider)
         {
-            using var context = Context(serviceProvider);
-            if (context.EventTypes.Any())
+            using (var context = Context(serviceProvider))
             {
-                return;
-            }
-            context.RefSeatStatus.AddRange(
-                new RefSeatStatus
+                if (context.RefSeatStatus.Any())
                 {
-                    StatusId = 1,
-                    StatusDescription = "Available"
-                },
-
-                new RefSeatStatus
-                {
-                    StatusId = 2,
-                    StatusDescription = "Booked"
+                    return;
                 }
-                );
+                context.RefSeatStatus.AddRange(
+                    new RefSeatStatus
+                    {
+                        StatusId = 1,
+                        StatusDescription = "Available"
+                    },
+
+                    new RefSeatStatus
+                    {
+                        StatusId = 2,
+                        StatusDescription = "Booked"
+                    }
+                    );
+                context.SaveChanges();
+            }
         }
 
         static BookingAppContext Context(IServiceProvider serviceProvider)
