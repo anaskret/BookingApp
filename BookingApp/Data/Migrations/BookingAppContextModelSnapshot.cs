@@ -38,8 +38,8 @@ namespace Booking.App.Migrations
                     b.Property<int>("PlaceId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("TypeNavigationTypeId")
                         .HasColumnType("int");
@@ -154,7 +154,7 @@ namespace Booking.App.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("SeatType")
                         .HasColumnType("nvarchar(max)");

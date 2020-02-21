@@ -18,6 +18,8 @@ namespace BookingApp.Services
             _dataContext = dataContext;
         }
 
+        
+
         public List<Event> GetAllEvents()
         {
             return _dataContext.Events.ToList();
@@ -26,6 +28,15 @@ namespace BookingApp.Services
         public Event GetEventById(int eventId)
         {
             return _dataContext.Events.SingleOrDefault(x => x.EventId == eventId);
+        }
+
+        public bool CreateEvent(Event eventCreate)
+        {
+            _dataContext.Events.Add(eventCreate);
+
+            var created = _dataContext.SaveChanges();
+
+            return created > 0;
         }
     }
 }

@@ -128,7 +128,7 @@ namespace Booking.App.Models
                         Date = new DateTime(2020, 04, 25),
                         Description = "Tottenham will travel to Emirates Stadium to try and defeat the better club",
                         PlaceId = 1,
-                        Type = "Football Match"
+                        TypeId = 1
                     }
                     );
                 context.SaveChanges();

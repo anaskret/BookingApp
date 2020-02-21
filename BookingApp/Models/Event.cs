@@ -17,7 +17,7 @@ namespace BookingApp.Models
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public int PlaceId { get; set; }
-        public string Type { get; set; }
+        public int TypeId { get; set; }
 
         public virtual EventType TypeNavigation { get; set; }
         public virtual Place Place { get; set; }
