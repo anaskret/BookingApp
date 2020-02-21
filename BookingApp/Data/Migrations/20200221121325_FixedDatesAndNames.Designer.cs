@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.App.Migrations
 {
     [DbContext(typeof(BookingAppContext))]
-    [Migration("20200221113310_TypeToTypeId")]
-    partial class TypeToTypeId
+    [Migration("20200221121325_FixedDatesAndNames")]
+    partial class FixedDatesAndNames
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace Booking.App.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -88,21 +88,6 @@ namespace Booking.App.Migrations
                     b.ToTable("Places");
                 });
 
-            modelBuilder.Entity("BookingApp.Models.RefSeatStatus", b =>
-                {
-                    b.Property<int>("StatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("StatusDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StatusId");
-
-                    b.ToTable("RefSeatStatus");
-                });
-
             modelBuilder.Entity("BookingApp.Models.Seat", b =>
                 {
                     b.Property<int>("SeatId")
@@ -111,12 +96,9 @@ namespace Booking.App.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("EventDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("PlaceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RefSeatStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("RowNumber")
@@ -126,6 +108,9 @@ namespace Booking.App.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SeatPricesSeatTypeNavigationSeatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatStatusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SeatType")
@@ -138,9 +123,9 @@ namespace Booking.App.Migrations
 
                     b.HasIndex("PlaceId");
 
-                    b.HasIndex("RefSeatStatusId");
-
                     b.HasIndex("SeatPricesSeatTypeNavigationSeatId");
+
+                    b.HasIndex("SeatStatusId");
 
                     b.ToTable("Seats");
                 });
@@ -168,6 +153,21 @@ namespace Booking.App.Migrations
                     b.ToTable("SeatPrices");
                 });
 
+            modelBuilder.Entity("BookingApp.Models.SeatStatus", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("StatusDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("SeatStatuses");
+                });
+
             modelBuilder.Entity("BookingApp.Models.Event", b =>
                 {
                     b.HasOne("BookingApp.Models.Place", "Place")
@@ -189,15 +189,15 @@ namespace Booking.App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookingApp.Models.RefSeatStatus", "RefSeatStatus")
-                        .WithMany("Seats")
-                        .HasForeignKey("RefSeatStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BookingApp.Models.SeatPrice", "SeatPricesSeatTypeNavigation")
                         .WithMany("Seats")
                         .HasForeignKey("SeatPricesSeatTypeNavigationSeatId");
+
+                    b.HasOne("BookingApp.Models.SeatStatus", "SeatStatus")
+                        .WithMany("Seats")
+                        .HasForeignKey("SeatStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookingApp.Models.SeatPrice", b =>

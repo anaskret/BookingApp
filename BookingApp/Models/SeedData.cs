@@ -311,7 +311,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 1,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -319,7 +319,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 2,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -327,7 +327,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 3,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -335,7 +335,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 4,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -343,7 +343,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 5,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -351,7 +351,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 6,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -359,7 +359,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 7,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -367,7 +367,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 8,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -375,7 +375,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 9,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
@@ -383,7 +383,7 @@ namespace Booking.App.Models
                         RowNumber = 1,
                         SeatNumber = 10,
                         SeatType = 1,
-                        RefSeatStatusId = 1
+                        SeatStatusId = 1
                     }
                     );
                 context.SaveChanges();
@@ -394,18 +394,18 @@ namespace Booking.App.Models
         {
             using (var context = Context(serviceProvider))
             {
-                if (context.RefSeatStatus.Any())
+                if (context.SeatStatus.Any())
                 {
                     return;
                 }
-                context.RefSeatStatus.AddRange(
-                    new RefSeatStatus
+                context.SeatStatus.AddRange(
+                    new SeatStatus
                     {
                         StatusId = 1,
                         StatusDescription = "Available"
                     },
 
-                    new RefSeatStatus
+                    new SeatStatus
                     {
                         StatusId = 2,
                         StatusDescription = "Booked"

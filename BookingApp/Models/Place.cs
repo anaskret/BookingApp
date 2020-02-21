@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
-    public partial class Place
+    [Table("Places")]
+    public class Place
     {
         public Place()
         {

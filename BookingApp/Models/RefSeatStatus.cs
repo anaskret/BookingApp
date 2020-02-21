@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
-    public partial class RefSeatStatus
+    [Table("SeatStatuses")]
+    public class SeatStatus
     {
-        public RefSeatStatus()
+        public SeatStatus()
         {
             Seats = new HashSet<Seat>();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Booking.App.Contracts.Requests
 {
-    public class CreateEventRequest: EventRequest
+    public class UpdateEventRequest : EventRequest
     {
     }
 }

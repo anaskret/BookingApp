@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
-    public partial class EventType
+    [Table("EventTypes")]
+    public class EventType
     {
         public EventType()
         {

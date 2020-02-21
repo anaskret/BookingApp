@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Booking.App.Migrations
 {
-    public partial class InitialCreate2 : Migration
+    public partial class FixedDatesAndNames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,7 +35,7 @@ namespace Booking.App.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RefSeatStatus",
+                name: "SeatStatuses",
                 columns: table => new
                 {
                     StatusId = table.Column<int>(nullable: false)
@@ -44,7 +44,7 @@ namespace Booking.App.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RefSeatStatus", x => x.StatusId);
+                    table.PrimaryKey("PK_SeatStatuses", x => x.StatusId);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,10 +54,10 @@ namespace Booking.App.Migrations
                     EventId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
                     Description = table.Column<string>(nullable: true),
                     PlaceId = table.Column<int>(nullable: false),
-                    Type = table.Column<string>(nullable: true),
+                    TypeId = table.Column<int>(nullable: false),
                     TypeNavigationTypeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -84,7 +84,7 @@ namespace Booking.App.Migrations
                     SeatId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SeatType = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     EventId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -104,13 +104,13 @@ namespace Booking.App.Migrations
                 {
                     SeatId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventDate = table.Column<DateTime>(nullable: true),
+                    EventDate = table.Column<DateTime>(type: "date", nullable: true),
                     SeatType = table.Column<int>(nullable: true),
                     SeatNumber = table.Column<int>(nullable: false),
                     RowNumber = table.Column<int>(nullable: false),
                     SectorNumber = table.Column<string>(nullable: true),
                     PlaceId = table.Column<int>(nullable: false),
-                    RefSeatStatusId = table.Column<int>(nullable: false),
+                    SeatStatusId = table.Column<int>(nullable: false),
                     SeatPricesSeatTypeNavigationSeatId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -123,17 +123,17 @@ namespace Booking.App.Migrations
                         principalColumn: "PlaceId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Seats_RefSeatStatus_RefSeatStatusId",
-                        column: x => x.RefSeatStatusId,
-                        principalTable: "RefSeatStatus",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Seats_SeatPrices_SeatPricesSeatTypeNavigationSeatId",
                         column: x => x.SeatPricesSeatTypeNavigationSeatId,
                         principalTable: "SeatPrices",
                         principalColumn: "SeatId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Seats_SeatStatuses_SeatStatusId",
+                        column: x => x.SeatStatusId,
+                        principalTable: "SeatStatuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -157,14 +157,14 @@ namespace Booking.App.Migrations
                 column: "PlaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seats_RefSeatStatusId",
-                table: "Seats",
-                column: "RefSeatStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Seats_SeatPricesSeatTypeNavigationSeatId",
                 table: "Seats",
                 column: "SeatPricesSeatTypeNavigationSeatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_SeatStatusId",
+                table: "Seats",
+                column: "SeatStatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -173,10 +173,10 @@ namespace Booking.App.Migrations
                 name: "Seats");
 
             migrationBuilder.DropTable(
-                name: "RefSeatStatus");
+                name: "SeatPrices");
 
             migrationBuilder.DropTable(
-                name: "SeatPrices");
+                name: "SeatStatuses");
 
             migrationBuilder.DropTable(
                 name: "Events");

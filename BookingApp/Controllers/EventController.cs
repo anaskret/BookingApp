@@ -57,5 +57,24 @@ namespace BookingApp.Controllers
 
             return Created(locationUri, createEvent);
         }
+        [HttpPut(ApiRoutes.Events.Update)]
+        public IActionResult Update([FromRoute] int eventId, [FromBody] UpdateEventRequest request)
+        {
+            var updateEvent = _eventService.GetEventById(eventId);
+            updateEvent.Name = request.Name;
+            updateEvent.Date = request.Date;
+            updateEvent.Description = request.Description;
+            updateEvent.PlaceId = request.PlaceId;
+            updateEvent.TypeId = request.TypeId;
+
+            var updated = _eventService.UpdateEvent(updateEvent);
+
+            if (updated)
+                return Ok(updateEvent);
+
+            return NotFound();
+        }
+
     }
+
 }

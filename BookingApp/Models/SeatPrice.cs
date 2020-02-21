@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
-    public partial class SeatPrice
+    [Table("SeatPrices")]
+    public class SeatPrice
     {
         public SeatPrice()
         {

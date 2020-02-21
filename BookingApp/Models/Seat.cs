@@ -5,11 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
-    public partial class Seat
+    [Table("Seats")]
+    public class Seat
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SeatId { get; set; }
-#nullable enable       
+#nullable enable      
+        [Column(TypeName = "date")]
         public DateTime? EventDate { get; set; }
         public int? SeatType { get; set; }
 #nullable disable
@@ -17,9 +19,9 @@ namespace BookingApp.Models
         public int RowNumber { get; set; }
         public string SectorNumber { get; set; }
         public int PlaceId { get; set; }
-        public int RefSeatStatusId { get; set; }
+        public int SeatStatusId { get; set; }
 
-        public virtual RefSeatStatus RefSeatStatus { get; set; }
+        public virtual SeatStatus SeatStatus { get; set; }
         public virtual Place Places{ get; set; }
         public virtual SeatPrice SeatPricesSeatTypeNavigation { get; set; }
     }

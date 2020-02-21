@@ -16,7 +16,7 @@ namespace BookingApp.Data
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventType> EventTypes { get; set; }
         public virtual DbSet<Place> Places { get; set; }
-        public virtual DbSet<RefSeatStatus> RefSeatStatus { get; set; }
+        public virtual DbSet<SeatStatus> SeatStatus { get; set; }
         //public virtual DbSet<Row> Rows { get; set; }
         public virtual DbSet<SeatPrice> SeatPrices { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }

@@ -107,4 +107,3 @@ C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.csproj.CopyComplete
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.dll
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.pdb
-C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.csprojAssemblyReference.cache

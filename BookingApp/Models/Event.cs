@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
-    public partial class Event
+    [Table("Events")]
+    public class Event
     {
         public Event()
         {
@@ -14,6 +15,8 @@ namespace BookingApp.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventId { get; set; }
         public string Name { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public int PlaceId { get; set; }
