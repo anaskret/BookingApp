@@ -45,5 +45,19 @@ namespace BookingApp.Services
 
             return updated > 0;
         }
+
+        public bool DeleteEvent(int eventId)
+        {
+            var deleteEvent = GetEventById(eventId);
+
+            if (deleteEvent == null)
+                return false;
+
+            _dataContext.Events.Remove(deleteEvent);
+
+            var deleted = _dataContext.SaveChanges();
+
+            return deleted > 0;
+        }
     }
 }

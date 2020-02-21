@@ -12,5 +12,6 @@ namespace BookingApp.Services.Interfaces
         Event GetEventById(int eventId);
         bool CreateEvent(Event eventCreate);
         bool UpdateEvent(Event eventUpdate);
+        bool DeleteEvent(int eventId);
     }
 }

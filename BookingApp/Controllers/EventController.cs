@@ -57,6 +57,7 @@ namespace BookingApp.Controllers
 
             return Created(locationUri, createEvent);
         }
+
         [HttpPut(ApiRoutes.Events.Update)]
         public IActionResult Update([FromRoute] int eventId, [FromBody] UpdateEventRequest request)
         {
@@ -75,6 +76,16 @@ namespace BookingApp.Controllers
             return NotFound();
         }
 
+        [HttpDelete(ApiRoutes.Events.Update)]
+        public IActionResult Delete([FromRoute] int eventId)
+        {
+            var deleted = _eventService.DeleteEvent(eventId);
+
+            if (deleted)
+                return NoContent();
+
+            return NotFound();
+        }
     }
 
 }
