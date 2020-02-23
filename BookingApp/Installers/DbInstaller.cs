@@ -21,7 +21,7 @@ namespace BookingApp.Installers
                     configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
 
-            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventRepository, EventRepository>();
         }
     }
 }

@@ -1,35 +1,33 @@
 ﻿using Booking.App.Contracts.Requests;
-using Booking.App.Contracts.Responses;
 using BookingApp.Contracts;
-using BookingApp.Models;
 using BookingApp.Services.Interfaces;
+using Booking.Models.Converters.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Booking.App.Contracts.Responses;
 
 namespace BookingApp.Controllers
 {
     public class EventController: Controller
     {
-        private readonly IEventService _eventService;
+        private readonly IEventRepository _eventRepository;
+        private readonly IEventConverter _eventConverter;
 
-        public EventController(IEventService eventService)
+        public EventController(IEventRepository eventRepository, IEventConverter eventConverter)
         {
-            _eventService = eventService;
+            _eventRepository = eventRepository;
+            _eventConverter = eventConverter;
         }
 
         [HttpGet(ApiRoutes.Events.GetAll)]
         public IActionResult GetAll()
         {
-            return Ok(_eventService.GetAllEvents());
+            return Ok(_eventRepository.GetAllEvents());
         }
 
         [HttpGet(ApiRoutes.Events.Get)]
         public IActionResult Get([FromRoute] int eventId)
         {
-            var eventById = _eventService.GetEventById(eventId);
+            var eventById = _eventConverter.FromEventToGetEventRequest(_eventRepository.GetEventById(eventId));
                 
             if(eventById == null)
                 return NotFound();
@@ -40,16 +38,9 @@ namespace BookingApp.Controllers
         [HttpPost(ApiRoutes.Events.Create)]
         public IActionResult Create([FromBody] CreateEventRequest eventRequest)
         {
-            var createEvent = new Event
-            {
-                Name = eventRequest.Name,
-                Date = eventRequest.Date,
-                Description = eventRequest.Description,
-                PlaceId = eventRequest.PlaceId,
-                TypeId = eventRequest.TypeId
-            };
+            var createEvent = _eventConverter.FromCreateEventRequestToEvent(eventRequest);
 
-            _eventService.CreateEvent(createEvent);
+            _eventRepository.CreateEvent(createEvent);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Events.Get.Replace("{postId}", createEvent.EventId.ToString());
@@ -61,14 +52,9 @@ namespace BookingApp.Controllers
         [HttpPut(ApiRoutes.Events.Update)]
         public IActionResult Update([FromRoute] int eventId, [FromBody] UpdateEventRequest request)
         {
-            var updateEvent = _eventService.GetEventById(eventId);
-            updateEvent.Name = request.Name;
-            updateEvent.Date = request.Date;
-            updateEvent.Description = request.Description;
-            updateEvent.PlaceId = request.PlaceId;
-            updateEvent.TypeId = request.TypeId;
+            var updateEvent = _eventConverter.FromUpdateEventRequestToEvent(request);
 
-            var updated = _eventService.UpdateEvent(updateEvent);
+            var updated = _eventRepository.UpdateEvent(updateEvent);
 
             if (updated)
                 return Ok(updateEvent);
@@ -76,10 +62,10 @@ namespace BookingApp.Controllers
             return NotFound();
         }
 
-        [HttpDelete(ApiRoutes.Events.Update)]
+        [HttpDelete(ApiRoutes.Events.Delete)]
         public IActionResult Delete([FromRoute] int eventId)
         {
-            var deleted = _eventService.DeleteEvent(eventId);
+            var deleted = _eventRepository.DeleteEvent(eventId);
 
             if (deleted)
                 return NoContent();

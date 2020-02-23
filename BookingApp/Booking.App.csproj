@@ -5,19 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20200221120234_DatesAndNames.cs" />
-    <Compile Remove="Data\Migrations\20200221120234_DatesAndNames.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200221120758_FixedDates.cs" />
-    <Compile Remove="Data\Migrations\20200221120758_FixedDates.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200221121010_FixedDatesAndNames.cs" />
-    <Compile Remove="Data\Migrations\20200221121010_FixedDatesAndNames.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200221121105_FixedDatesAndNames.cs" />
-    <Compile Remove="Data\Migrations\20200221121105_FixedDatesAndNames.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200221121202_FixedDatesAndNames.cs" />
-    <Compile Remove="Data\Migrations\20200221121202_FixedDatesAndNames.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
@@ -27,6 +14,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Booking.Models\Booking.Models.csproj" />
+    <ProjectReference Include="..\Booking.Repositories\Booking.Repositories.csproj" />
   </ItemGroup>
 
 

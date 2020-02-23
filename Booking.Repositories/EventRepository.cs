@@ -1,4 +1,5 @@
-﻿using BookingApp.Data;
+﻿using Booking.Models.Contracts.Requests.GetRequests;
+using BookingApp.Data;
 using BookingApp.Models;
 using BookingApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class EventService : IEventService
+    public class EventRepository : IEventRepository
     {
         private readonly BookingAppContext _dataContext;
 
-        public EventService(BookingAppContext dataContext)
+        public EventRepository(BookingAppContext dataContext)
         {
             _dataContext = dataContext;
         }
