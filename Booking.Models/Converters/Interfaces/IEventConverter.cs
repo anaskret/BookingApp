@@ -11,6 +11,6 @@ namespace Booking.Models.Converters.Interfaces
     {
         Event FromCreateEventRequestToEvent(CreateEventRequest createEventRequest);
         GetEventRequest FromEventToGetEventRequest(Event events);
-        Event FromUpdateEventRequestToEvent(UpdateEventRequest updateEventRequest);
+        Event FromUpdateEventRequestToEvent(int eventId, UpdateEventRequest updateEventRequest);
     }
 }

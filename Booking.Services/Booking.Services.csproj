@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Booking.Models\Booking.Models.csproj" />
+    <ProjectReference Include="..\Booking.Repositories\Booking.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

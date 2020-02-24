@@ -1393,6 +1393,20 @@
         "runtime": {
           "bin/placeholder/Booking.Repositories.dll": {}
         }
+      },
+      "Booking.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Booking.Models": "1.0.0",
+          "Booking.Repositories": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Booking.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Booking.Services.dll": {}
+        }
       }
     }
   },
@@ -5215,12 +5229,18 @@
       "type": "project",
       "path": "../Booking.Repositories/Booking.Repositories.csproj",
       "msbuildProject": "../Booking.Repositories/Booking.Repositories.csproj"
+    },
+    "Booking.Services/1.0.0": {
+      "type": "project",
+      "path": "../Booking.Services/Booking.Services.csproj",
+      "msbuildProject": "../Booking.Services/Booking.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Booking.Models >= 1.0.0",
       "Booking.Repositories >= 1.0.0",
+      "Booking.Services >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 3.1.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.1",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.1",
@@ -5260,6 +5280,9 @@
             },
             "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Repositories\\Booking.Repositories.csproj": {
               "projectPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Repositories\\Booking.Repositories.csproj"
+            },
+            "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Services\\Booking.Services.csproj": {
+              "projectPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Services\\Booking.Services.csproj"
             }
           }
         }

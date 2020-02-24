@@ -25,6 +25,8 @@ namespace Booking.Models.Converters
 
         public GetEventRequest FromEventToGetEventRequest(Event events)
         {
+            if (events == null)
+                return null;
             return new GetEventRequest
             {
                 EventId = events.EventId,
@@ -36,11 +38,11 @@ namespace Booking.Models.Converters
             };
         }
 
-        public Event FromUpdateEventRequestToEvent(UpdateEventRequest updateEventRequest)
+        public Event FromUpdateEventRequestToEvent(int eventId, UpdateEventRequest updateEventRequest)
         {
             return new Event
             {
-                EventId = updateEventRequest.EventId,
+                EventId = eventId,
                 Name = updateEventRequest.Name,
                 Date = updateEventRequest.Date,
                 Description = updateEventRequest.Description,

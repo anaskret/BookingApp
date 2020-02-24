@@ -26,6 +26,7 @@
         "dependencies": {
           "Booking.Models": "1.0.0",
           "Booking.Repositories": "1.0.0",
+          "Booking.Services": "1.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.1",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.1",
@@ -1298,6 +1299,18 @@
         },
         "compile": {
           "Booking.Repositories.dll": {}
+        }
+      },
+      "Booking.Services/1.0.0": {
+        "dependencies": {
+          "Booking.Models": "1.0.0",
+          "Booking.Repositories": "1.0.0"
+        },
+        "runtime": {
+          "Booking.Services.dll": {}
+        },
+        "compile": {
+          "Booking.Services.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -3603,6 +3616,11 @@
       "sha512": ""
     },
     "Booking.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Booking.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

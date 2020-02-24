@@ -1,4 +1,8 @@
-﻿using BookingApp.Data;
+﻿using Booking.Models.Converters;
+using Booking.Models.Converters.Interfaces;
+using Booking.Services;
+using Booking.Services.Interfaces;
+using BookingApp.Data;
 using BookingApp.Installers.Interfaces;
 using BookingApp.Services;
 using BookingApp.Services.Interfaces;
@@ -21,7 +25,10 @@ namespace BookingApp.Installers
                     configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
 
+            services.AddTransient<IEventService, EventService>();
+
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddSingleton<IEventConverter, EventConverter>();
         }
     }
 }

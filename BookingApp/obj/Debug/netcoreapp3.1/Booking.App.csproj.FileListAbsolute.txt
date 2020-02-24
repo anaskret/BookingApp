@@ -114,3 +114,5 @@ C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Booking.Models.pdb
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Booking.Repositories.pdb
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Booking.DataAccess.pdb
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Booking.Services.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Booking.Services.pdb
