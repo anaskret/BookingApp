@@ -21,8 +21,11 @@ namespace BookingApp.Contracts
 
         public static class Places
         {
+            public const string Create = Base + "/places";
             public const string GetAll = Base + "/places";
-            public const string Get= Base + "/places/{placeId}";
+            public const string Get = Base + "/places/{placeId}";
+            public const string Update = Base + "/places/{placeId}";
+            public const string Delete= Base + "/places/{placeId}";
         }
     }
 }
