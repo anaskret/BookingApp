@@ -1,5 +1,7 @@
 ﻿using Booking.Models.Converters;
 using Booking.Models.Converters.Interfaces;
+using Booking.Repositories;
+using Booking.Repositories.Interfaces;
 using Booking.Services;
 using Booking.Services.Interfaces;
 using BookingApp.Data;
@@ -29,6 +31,11 @@ namespace BookingApp.Installers
 
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddSingleton<IEventConverter, EventConverter>();
+            
+            services.AddTransient<IPlaceService, PlaceService>();
+
+            services.AddScoped<IPlaceRepository, PlaceRepository>();
+            services.AddSingleton<IPlaceConverter, PlaceConverter>();
         }
     }
 }

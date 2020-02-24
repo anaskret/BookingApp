@@ -10,7 +10,7 @@ namespace Booking.Models.Converters
 {
     public class EventConverter : IEventConverter
     {
-        public Event FromCreateEventRequestToEvent(CreateEventRequest createEventRequest)
+        public Event CreateEventRequestToEvent(CreateEventRequest createEventRequest)
         {
             return new Event
             {
@@ -23,7 +23,7 @@ namespace Booking.Models.Converters
 
         }
 
-        public GetEventRequest FromEventToGetEventRequest(Event events)
+        public GetEventRequest EventToGetEventRequest(Event events)
         {
             if (events == null)
                 return null;
@@ -38,7 +38,7 @@ namespace Booking.Models.Converters
             };
         }
 
-        public Event FromUpdateEventRequestToEvent(int eventId, UpdateEventRequest updateEventRequest)
+        public Event UpdateEventRequestToEvent(int eventId, UpdateEventRequest updateEventRequest)
         {
             return new Event
             {

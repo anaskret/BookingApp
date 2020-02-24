@@ -23,19 +23,19 @@ namespace Booking.Services
         }
         public IEnumerable<GetEventRequest> GetAllEvents()
         {
-            return _eventRepository.GetAllEvents().Select(c => _eventConverter.FromEventToGetEventRequest(c));
+            return _eventRepository.GetAllEvents().Select(c => _eventConverter.EventToGetEventRequest(c));
         }
 
         public GetEventRequest GetEventById(int eventId)
         {
-            var eventById = _eventConverter.FromEventToGetEventRequest(_eventRepository.GetEventById(eventId));
+            var eventById = _eventConverter.EventToGetEventRequest(_eventRepository.GetEventById(eventId));
 
             return eventById;
         }
 
         public Event CreateEvent(CreateEventRequest eventRequest)
         {
-            var createEvent = _eventConverter.FromCreateEventRequestToEvent(eventRequest);
+            var createEvent = _eventConverter.CreateEventRequestToEvent(eventRequest);
 
             _eventRepository.CreateEvent(createEvent);
 
@@ -44,7 +44,7 @@ namespace Booking.Services
 
         public bool UpdateEvent(int eventId,UpdateEventRequest request)
         {
-            var updateEvent = _eventConverter.FromUpdateEventRequestToEvent(eventId, request);
+            var updateEvent = _eventConverter.UpdateEventRequestToEvent(eventId, request);
 
             var updated = _eventRepository.UpdateEvent(updateEvent);
 

@@ -8,8 +8,7 @@ namespace BookingApp.Contracts
     public class ApiRoutes
     {
         public const string Root = "api";
-        public const string Version = "v1";
-        public const string Base = Root + "/" + Version;
+        public const string Base = Root;
 
         public static class Events
         {
@@ -18,6 +17,12 @@ namespace BookingApp.Contracts
             public const string Get = Base + "/events/{eventId}";
             public const string Update = Base + "/events/{eventId}";
             public const string Delete = Base + "/events/{eventId}";
+        }
+
+        public static class Places
+        {
+            public const string GetAll = Base + "/places";
+            public const string Get= Base + "/places/{placeId}";
         }
     }
 }
