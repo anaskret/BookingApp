@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Booking.App.Migrations
+namespace Booking.DataAccess.Migrations
 {
     [DbContext(typeof(BookingAppContext))]
-    [Migration("20200221121325_FixedDatesAndNames")]
-    partial class FixedDatesAndNames
+    [Migration("20200228152935_SeatStatusNullable")]
+    partial class SeatStatusNullable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace Booking.App.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Booking.Models.Models.SeatType", b =>
+                {
+                    b.Property<int>("SeatTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SeatTypeId");
+
+                    b.ToTable("SeatTypes");
+                });
 
             modelBuilder.Entity("BookingApp.Models.Event", b =>
                 {
@@ -43,14 +58,11 @@ namespace Booking.App.Migrations
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeNavigationTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("EventId");
 
                     b.HasIndex("PlaceId");
 
-                    b.HasIndex("TypeNavigationTypeId");
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Events");
                 });
@@ -107,10 +119,10 @@ namespace Booking.App.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SeatPricesSeatTypeNavigationSeatId")
+                    b.Property<int?>("SeatPricesSeatTypeNavigationSeatPriceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SeatStatusId")
+                    b.Property<int?>("SeatStatusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SeatType")
@@ -123,7 +135,7 @@ namespace Booking.App.Migrations
 
                     b.HasIndex("PlaceId");
 
-                    b.HasIndex("SeatPricesSeatTypeNavigationSeatId");
+                    b.HasIndex("SeatPricesSeatTypeNavigationSeatPriceId");
 
                     b.HasIndex("SeatStatusId");
 
@@ -132,7 +144,7 @@ namespace Booking.App.Migrations
 
             modelBuilder.Entity("BookingApp.Models.SeatPrice", b =>
                 {
-                    b.Property<int>("SeatId")
+                    b.Property<int>("SeatPriceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -143,12 +155,17 @@ namespace Booking.App.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<string>("SeatType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SeatType")
+                        .HasColumnType("int");
 
-                    b.HasKey("SeatId");
+                    b.Property<int?>("SeatTypesSeatTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SeatPriceId");
 
                     b.HasIndex("EventId");
+
+                    b.HasIndex("SeatTypesSeatTypeId");
 
                     b.ToTable("SeatPrices");
                 });
@@ -176,9 +193,11 @@ namespace Booking.App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookingApp.Models.EventType", "TypeNavigation")
+                    b.HasOne("BookingApp.Models.EventType", "Type")
                         .WithMany("Event")
-                        .HasForeignKey("TypeNavigationTypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookingApp.Models.Seat", b =>
@@ -191,13 +210,11 @@ namespace Booking.App.Migrations
 
                     b.HasOne("BookingApp.Models.SeatPrice", "SeatPricesSeatTypeNavigation")
                         .WithMany("Seats")
-                        .HasForeignKey("SeatPricesSeatTypeNavigationSeatId");
+                        .HasForeignKey("SeatPricesSeatTypeNavigationSeatPriceId");
 
                     b.HasOne("BookingApp.Models.SeatStatus", "SeatStatus")
                         .WithMany("Seats")
-                        .HasForeignKey("SeatStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SeatStatusId");
                 });
 
             modelBuilder.Entity("BookingApp.Models.SeatPrice", b =>
@@ -207,6 +224,10 @@ namespace Booking.App.Migrations
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Booking.Models.Models.SeatType", "SeatTypes")
+                        .WithMany()
+                        .HasForeignKey("SeatTypesSeatTypeId");
                 });
 #pragma warning restore 612, 618
         }

@@ -27,5 +27,14 @@ namespace BookingApp.Contracts
             public const string Update = Base + "/places/{placeId}";
             public const string Delete= Base + "/places/{placeId}";
         }
+
+        public static class Seats
+        {
+            public const string Create = Base + "/seats";
+            public const string GetAll = Base + "/seats";
+            public const string Get = Base + "/seats/{seatId}";
+            public const string Update = Base + "/seats/{seatId}";
+            public const string Delete = Base + "/seats/{seatId}";
+        }
     }
 }

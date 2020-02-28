@@ -14,12 +14,12 @@ namespace BookingApp.Models
         [Column(TypeName = "date")]
         public DateTime? EventDate { get; set; }
         public int? SeatType { get; set; }
+        public int? SeatStatusId { get; set; }
 #nullable disable
         public int SeatNumber { get; set; }
         public int RowNumber { get; set; }
         public string SectorNumber { get; set; }
         public int PlaceId { get; set; }
-        public int SeatStatusId { get; set; }
 
         public virtual SeatStatus SeatStatus { get; set; }
         public virtual Place Places{ get; set; }

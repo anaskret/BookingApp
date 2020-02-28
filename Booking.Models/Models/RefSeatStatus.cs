@@ -18,5 +18,6 @@ namespace BookingApp.Models
         public string StatusDescription { get; set; }
 
         public virtual ICollection<Seat> Seats { get; set; }
+
     }
 }

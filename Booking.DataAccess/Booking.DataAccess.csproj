@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200221121325_FixedDatesAndNames.cs" />
+    <Compile Remove="Migrations\20200221121325_FixedDatesAndNames.Designer.cs" />
+    <Compile Remove="Migrations\20200228143733_FixSeatPrice.cs" />
+    <Compile Remove="Migrations\20200228143733_FixSeatPrice.Designer.cs" />
+    <Compile Remove="Migrations\20200228144856_SeatTypes.cs" />
+    <Compile Remove="Migrations\20200228144856_SeatTypes.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
   </ItemGroup>

@@ -57,9 +57,7 @@ namespace Booking.Services.Interfaces
 
         public async Task<bool> DeletePlace(int placeId)
         {
-            var deleted = await _placeRepository.DeletePlace(placeId);
-
-            return deleted;
+            return await _placeRepository.DeletePlace(placeId);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace BookingApp.Models
         {
             SeatPrices = new HashSet<SeatPrice>();
         }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventId { get; set; }
         public string Name { get; set; }
@@ -22,7 +23,7 @@ namespace BookingApp.Models
         public int PlaceId { get; set; }
         public int TypeId { get; set; }
 
-        public virtual EventType TypeNavigation { get; set; }
+        public virtual EventType Type { get; set; }
         public virtual Place Place { get; set; }
         public virtual ICollection<SeatPrice> SeatPrices { get; set; }
     }

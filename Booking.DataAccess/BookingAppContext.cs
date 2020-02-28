@@ -1,4 +1,5 @@
 ﻿using System;
+using Booking.Models.Models;
 using BookingApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -18,6 +19,7 @@ namespace BookingApp.Data
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<SeatStatus> SeatStatus { get; set; }
         //public virtual DbSet<Row> Rows { get; set; }
+        public virtual DbSet<SeatType> SeatTypes { get; set; }
         public virtual DbSet<SeatPrice> SeatPrices { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
         //public virtual DbSet<Sector> Sectors { get; set; }

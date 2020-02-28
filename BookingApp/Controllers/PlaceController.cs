@@ -42,7 +42,7 @@ namespace Booking.App.Controllers
             var place = await _placeService.CreatePlace(createPlaceRequest);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var locationUri = baseUrl + "/" + ApiRoutes.Events.Get.Replace("{postId}", place.PlaceId.ToString());
+            var locationUri = baseUrl + "/" + ApiRoutes.Places.Get.Replace("{postId}", place.PlaceId.ToString());
 
             return Created(locationUri, place);
         }
