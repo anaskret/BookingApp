@@ -9,10 +9,10 @@ namespace BookingApp.Services.Interfaces
 {
     public interface IEventRepository
     {
-        List<Event> GetAllEvents();
-        Event GetEventById(int eventId);
-        bool CreateEvent(Event eventCreate);
-        bool UpdateEvent(Event eventUpdate);
-        bool DeleteEvent(int eventId);
+        Task<List<Event>> GetAllEvents();
+        Task<Event> GetEventById(int eventId);
+        Task<bool> CreateEvent(Event eventCreate);
+        Task<bool> UpdateEvent(Event eventUpdate);
+        Task<bool> DeleteEvent(int eventId);
     }
 }

@@ -5,6 +5,7 @@ using Booking.Models.Converters.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Booking.App.Contracts.Responses;
 using Booking.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace BookingApp.Controllers
 {
@@ -18,26 +19,26 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet(ApiRoutes.Events.GetAll)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_eventService.GetAllEvents());
+            return Ok(await _eventService.GetAllEvents());
         }
 
         [HttpGet(ApiRoutes.Events.Get)]
-        public IActionResult Get([FromRoute] int eventId)
+        public async Task<IActionResult> Get([FromRoute] int eventId)
         {
             var events = _eventService.GetEventById(eventId);
 
             if (events == null)
                 return NotFound();
 
-            return Ok(events);
+            return Ok(await events);
         }
 
         [HttpPost(ApiRoutes.Events.Create)]
-        public IActionResult Create([FromBody] CreateEventRequest eventRequest)
+        public async Task<IActionResult> Create([FromBody] CreateEventRequest eventRequest)
         {
-            var createEvent = _eventService.CreateEvent(eventRequest);
+            var createEvent = await _eventService.CreateEvent(eventRequest);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Events.Get.Replace("{postId}", createEvent.EventId.ToString());
@@ -47,18 +48,18 @@ namespace BookingApp.Controllers
         }
 
         [HttpPut(ApiRoutes.Events.Update)]
-        public IActionResult Update([FromRoute] int eventId, [FromBody] UpdateEventRequest request)
+        public async Task<IActionResult> Update([FromRoute] int eventId, [FromBody] UpdateEventRequest request)
         {
-            if (_eventService.UpdateEvent(eventId, request))
+            if (await _eventService.UpdateEvent(eventId, request))
                 return Ok();
 
             return NotFound();
         }
 
         [HttpDelete(ApiRoutes.Events.Delete)]
-        public IActionResult Delete([FromRoute] int eventId)
+        public async Task<IActionResult> Delete([FromRoute] int eventId)
         {
-            if (_eventService.DeleteEvent(eventId))
+            if (await _eventService.DeleteEvent(eventId))
                 return NoContent();
 
             return NotFound();

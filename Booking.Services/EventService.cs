@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
@@ -21,45 +22,43 @@ namespace Booking.Services
             _eventConverter = eventConverter;
             _eventRepository = eventRepository;
         }
-        public IEnumerable<GetEventRequest> GetAllEvents()
+        public async Task<IEnumerable<GetEventRequest>> GetAllEvents()
         {
-            return _eventRepository.GetAllEvents().Select(c => _eventConverter.EventToGetEventRequest(c));
+            var events = await _eventRepository.GetAllEvents();
+
+            return events.Select(c => _eventConverter.EventToGetEventRequest(c));
         }
 
-        public GetEventRequest GetEventById(int eventId)
+        public async Task<GetEventRequest> GetEventById(int eventId)
         {
-            var eventById = _eventConverter.EventToGetEventRequest(_eventRepository.GetEventById(eventId));
+            var eventById = _eventConverter.EventToGetEventRequest(await _eventRepository.GetEventById(eventId));
 
             return eventById;
         }
 
-        public Event CreateEvent(CreateEventRequest eventRequest)
+        public async Task<Event> CreateEvent(CreateEventRequest eventRequest)
         {
             var createEvent = _eventConverter.CreateEventRequestToEvent(eventRequest);
 
-            _eventRepository.CreateEvent(createEvent);
+            await _eventRepository.CreateEvent(createEvent);
 
             return createEvent;
         }
 
-        public bool UpdateEvent(int eventId,UpdateEventRequest request)
+        public async Task<bool> UpdateEvent(int eventId,UpdateEventRequest request)
         {
             var updateEvent = _eventConverter.UpdateEventRequestToEvent(eventId, request);
 
-            var updated = _eventRepository.UpdateEvent(updateEvent);
+            var updated = await _eventRepository.UpdateEvent(updateEvent);
 
             return updated;
         }
 
-        public bool DeleteEvent(int eventId)
+        public async Task<bool> DeleteEvent(int eventId)
         {
-            var deleted = _eventRepository.DeleteEvent(eventId);
+            var deleted = await _eventRepository.DeleteEvent(eventId);
 
             return deleted;
         }
-
-        
-
-        
     }
 }

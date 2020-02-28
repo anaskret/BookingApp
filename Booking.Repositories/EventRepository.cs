@@ -19,44 +19,44 @@ namespace BookingApp.Services
             _dataContext = dataContext;
         }
 
-        public List<Event> GetAllEvents()
+        public async Task<List<Event>> GetAllEvents()
         {
-            return _dataContext.Events.ToList();
+            return await _dataContext.Events.ToListAsync();
         }
 
-        public Event GetEventById(int eventId)
+        public async Task<Event> GetEventById(int eventId)
         {
-            return _dataContext.Events.SingleOrDefault(x => x.EventId == eventId);
+            return await _dataContext.Events.SingleOrDefaultAsync(x => x.EventId == eventId);
         }
 
-        public bool CreateEvent(Event eventCreate)
+        public async Task<bool> CreateEvent(Event eventCreate)
         {
-            _dataContext.Events.Add(eventCreate);
+            await _dataContext.Events.AddAsync(eventCreate);
 
-            var created = _dataContext.SaveChanges();
+            var created = await _dataContext.SaveChangesAsync();
 
             return created > 0;
         }
 
-        public bool UpdateEvent(Event eventUpdate)
+        public async Task<bool> UpdateEvent(Event eventUpdate)
         {
             _dataContext.Events.Update(eventUpdate);
 
-            var updated = _dataContext.SaveChanges();
+            var updated = await _dataContext.SaveChangesAsync();
 
             return updated > 0;
         }
 
-        public bool DeleteEvent(int eventId)
+        public async Task<bool> DeleteEvent(int eventId)
         {
-            var deleteEvent = GetEventById(eventId);
+            var deleteEvent = await GetEventById(eventId);
 
             if (deleteEvent == null)
                 return false;
 
             _dataContext.Events.Remove(deleteEvent);
 
-            var deleted = _dataContext.SaveChanges();
+            var deleted = await _dataContext.SaveChangesAsync();
 
             return deleted > 0;
         }
