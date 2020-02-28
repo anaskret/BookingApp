@@ -1,10 +1,12 @@
 ﻿using Booking.Repositories.Interfaces;
 using BookingApp.Data;
 using BookingApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Repositories
 {
@@ -17,43 +19,43 @@ namespace Booking.Repositories
         }
 
 
-        public List<Place> GetAllPlaces()
+        public async Task<List<Place>> GetAllPlaces()
         {
-            return _dataContext.Places.ToList();
+            return await _dataContext.Places.ToListAsync();
         }
 
-        public Place GetPlaceById(int placeId)
+        public async Task<Place> GetPlaceById(int placeId)
         {
-            return _dataContext.Places.SingleOrDefault(x => x.PlaceId == placeId);
+            return await _dataContext.Places.SingleOrDefaultAsync(x => x.PlaceId == placeId);
         }
-        public bool CreatePlace(Place place)
+        public async Task<bool> CreatePlace(Place place)
         {
-            _dataContext.Places.Add(place);
+            await _dataContext.Places.AddAsync(place);
 
-            var created = _dataContext.SaveChanges();
+            var created = await _dataContext.SaveChangesAsync();
 
             return created > 0;
         }
 
-        public bool UpdatePlace(Place place)
+        public async Task<bool> UpdatePlace(Place place)
         {
             _dataContext.Places.Update(place);
 
-            var updated = _dataContext.SaveChanges();
+            var updated = await _dataContext.SaveChangesAsync();
 
             return updated > 0;
         }
 
-        public bool DeletePlace(int placeId)
+        public async Task<bool> DeletePlace(int placeId)
         {
-            var place = GetPlaceById(placeId);
+            var place = await GetPlaceById(placeId);
 
             if (place == null)
                 return false;
 
             _dataContext.Places.Remove(place);
 
-            var deleted = _dataContext.SaveChanges();
+            var deleted = await _dataContext.SaveChangesAsync();
 
             return deleted > 0;
         }

@@ -20,15 +20,15 @@ namespace Booking.App.Controllers
         }
 
         [HttpGet(ApiRoutes.Places.GetAll)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_placeService.GetAllPlaces());
+            return Ok(await _placeService.GetAllPlaces());
         }
 
         [HttpGet(ApiRoutes.Places.Get)]
-        public IActionResult Get([FromRoute] int placeId)
+        public async Task<IActionResult> Get([FromRoute] int placeId)
         {
-            var place = _placeService.GetPlaceById(placeId);
+            var place = await _placeService.GetPlaceById(placeId);
 
             if (place == null)
                 return NotFound();
@@ -37,9 +37,9 @@ namespace Booking.App.Controllers
         }
 
         [HttpPost(ApiRoutes.Places.Create)]
-        public IActionResult Create([FromBody] CreatePlaceRequest createPlaceRequest)
+        public async Task<IActionResult> Create([FromBody] CreatePlaceRequest createPlaceRequest)
         {
-            var place = _placeService.CreatePlace(createPlaceRequest);
+            var place = await _placeService.CreatePlace(createPlaceRequest);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Events.Get.Replace("{postId}", place.PlaceId.ToString());
@@ -48,9 +48,9 @@ namespace Booking.App.Controllers
         }
 
         [HttpPut(ApiRoutes.Places.Update)]
-        public IActionResult Update([FromRoute] int placeId, [FromBody] UpdatePlaceRequest updatePlaceRequest)
+        public async Task<IActionResult> Update([FromRoute] int placeId, [FromBody] UpdatePlaceRequest updatePlaceRequest)
         {
-            var place = _placeService.UpdatePlace(placeId, updatePlaceRequest);
+            var place = await _placeService.UpdatePlace(placeId, updatePlaceRequest);
 
             if (!place)
                 return NotFound();
@@ -59,9 +59,9 @@ namespace Booking.App.Controllers
         }
 
         [HttpDelete(ApiRoutes.Places.Delete)]
-        public IActionResult Delete([FromRoute] int placeId)
+        public async Task<IActionResult> Delete([FromRoute] int placeId)
         {
-            var place = _placeService.DeletePlace(placeId);
+            var place = await _placeService.DeletePlace(placeId);
 
             if (!place)
                 return NotFound();

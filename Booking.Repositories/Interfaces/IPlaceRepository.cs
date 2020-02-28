@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Repositories.Interfaces
 {
     public interface IPlaceRepository
     {
-        List<Place> GetAllPlaces();
-        Place GetPlaceById(int placeId);
-        bool CreatePlace(Place place);
-        bool UpdatePlace(Place place);
-        bool DeletePlace(int placeId);
+        Task<List<Place>> GetAllPlaces();
+        Task<Place> GetPlaceById(int placeId);
+        Task<bool> CreatePlace(Place place);
+        Task<bool> UpdatePlace(Place place);
+        Task<bool> DeletePlace(int placeId);
     }
 }

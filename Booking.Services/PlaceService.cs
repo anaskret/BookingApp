@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services.Interfaces
 {
@@ -24,37 +25,39 @@ namespace Booking.Services.Interfaces
 
         
 
-        public IEnumerable<GetPlaceRequest> GetAllPlaces()
+        public async Task<IEnumerable<GetPlaceRequest>> GetAllPlaces()
         {
-            return _placeRepository.GetAllPlaces().Select(c => _placeConverter.PlaceToGetPlaceRequest(c));
+            var places = await _placeRepository.GetAllPlaces();
+
+            return places.Select(c => _placeConverter.PlaceToGetPlaceRequest(c));
         }
 
-        public GetPlaceRequest GetPlaceById(int placeId)
+        public async Task<GetPlaceRequest> GetPlaceById(int placeId)
         {
-            var place = _placeConverter.PlaceToGetPlaceRequest(_placeRepository.GetPlaceById(placeId));
+            var place = _placeConverter.PlaceToGetPlaceRequest(await _placeRepository.GetPlaceById(placeId));
 
             return place;
         }
         
-        public Place CreatePlace(CreatePlaceRequest createPlaceRequest)
+        public async Task<Place> CreatePlace(CreatePlaceRequest createPlaceRequest)
         {
             var create = _placeConverter.CreatePlaceRequestToPlace(createPlaceRequest);
 
-            _placeRepository.CreatePlace(create);
+            await _placeRepository.CreatePlace(create);
 
             return create;
         }
 
-        public bool UpdatePlace(int placeId, UpdatePlaceRequest updatePlaceRequest)
+        public async Task<bool> UpdatePlace(int placeId, UpdatePlaceRequest updatePlaceRequest)
         {
-            var updated = _placeRepository.UpdatePlace(_placeConverter.UpdatePlaceRequestToPlace(placeId, updatePlaceRequest));
+            var updated = await _placeRepository.UpdatePlace(_placeConverter.UpdatePlaceRequestToPlace(placeId, updatePlaceRequest));
 
             return updated;
         }
 
-        public bool DeletePlace(int placeId)
+        public async Task<bool> DeletePlace(int placeId)
         {
-            var deleted = _placeRepository.DeletePlace(placeId);
+            var deleted = await _placeRepository.DeletePlace(placeId);
 
             return deleted;
         }

@@ -5,15 +5,16 @@ using BookingApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services.Interfaces
 {
     public interface IPlaceService
     {
-        IEnumerable<GetPlaceRequest> GetAllPlaces();
-        GetPlaceRequest GetPlaceById(int placeId);
-        Place CreatePlace(CreatePlaceRequest createPlaceRequest);
-        bool UpdatePlace(int placeId, UpdatePlaceRequest updatePlaceRequest);
-        bool DeletePlace(int placeId);
+        Task<IEnumerable<GetPlaceRequest>> GetAllPlaces();
+        Task<GetPlaceRequest> GetPlaceById(int placeId);
+        Task<Place> CreatePlace(CreatePlaceRequest createPlaceRequest);
+        Task<bool> UpdatePlace(int placeId, UpdatePlaceRequest updatePlaceRequest);
+        Task<bool> DeletePlace(int placeId);
     }
 }
