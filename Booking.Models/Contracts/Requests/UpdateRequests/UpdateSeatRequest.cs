@@ -7,6 +7,5 @@ namespace Booking.Models.Contracts.Requests.UpdateRequests
 {
     public class UpdateSeatRequest: SeatRequest
     {
-        public DateTime EventDate { get; set; }
     }
 }

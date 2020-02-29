@@ -19,7 +19,6 @@ namespace Booking.Models.Converters
                 RowNumber = createSeatRequest.RowNumber,
                 SectorNumber = createSeatRequest.SectorNumber,
                 PlaceId = createSeatRequest.PlaceId,
-                SeatType = createSeatRequest.SeatType
             };
         }
 
@@ -28,7 +27,6 @@ namespace Booking.Models.Converters
             return new GetSeatRequest
             {
                 SeatId = seat.SeatId,
-                EventDate = seat.EventDate,
                 SeatNumber = seat.SeatNumber,
                 RowNumber = seat.RowNumber,
                 SectorNumber = seat.SectorNumber,
@@ -42,12 +40,10 @@ namespace Booking.Models.Converters
             return new Seat
             {
                 SeatId = seatId,
-                EventDate = updateSeatRequest.EventDate,
                 SeatNumber = updateSeatRequest.SeatNumber,
                 RowNumber = updateSeatRequest.RowNumber,
                 SectorNumber = updateSeatRequest.SectorNumber,
                 PlaceId = updateSeatRequest.PlaceId,
-                SeatType = updateSeatRequest.SeatType
             };
         }
     }

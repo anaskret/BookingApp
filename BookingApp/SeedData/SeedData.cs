@@ -166,11 +166,11 @@ namespace Booking.App.Models
                     return;
                 }
                 context.SeatPrices.AddRange(
-                    new SeatPrice
+                    new SectorPrice
                     {
-                        SeatType = 1,
                         Price = 50,
-                        EventId = 1
+                        EventId = 1,
+                        SectorNumber = 1
                     }
                     );
                 context.SaveChanges();
@@ -193,80 +193,70 @@ namespace Booking.App.Models
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 1,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 2,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 3,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 4,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 5,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 6,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 7,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 8,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 9,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }, new Seat
                     {
                         PlaceId = 1,
                         SectorNumber = "A1",
                         RowNumber = 1,
                         SeatNumber = 10,
-                        SeatType = 1,
-                        SeatStatusId = 1
+                        SeatType = 1
                     }
                     );
                 context.SaveChanges();

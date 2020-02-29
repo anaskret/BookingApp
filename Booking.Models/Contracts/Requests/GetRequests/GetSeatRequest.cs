@@ -7,7 +7,6 @@ namespace Booking.Models.Contracts.Requests.GetRequests
 {
     public class GetSeatRequest: SeatRequest
     {
-        public int SeatId{ get; set; }
-        public DateTime? EventDate { get; set; }
+        public int SeatId { get; set; }
     }
 }

@@ -11,6 +11,16 @@
     <Compile Remove="Migrations\20200228143733_FixSeatPrice.Designer.cs" />
     <Compile Remove="Migrations\20200228144856_SeatTypes.cs" />
     <Compile Remove="Migrations\20200228144856_SeatTypes.Designer.cs" />
+    <Compile Remove="Migrations\20200228152935_SeatStatusNullable.cs" />
+    <Compile Remove="Migrations\20200228152935_SeatStatusNullable.Designer.cs" />
+    <Compile Remove="Migrations\20200229173648_SeatUpdate.cs" />
+    <Compile Remove="Migrations\20200229173648_SeatUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20200229174544_SeatIdChange.cs" />
+    <Compile Remove="Migrations\20200229174544_SeatIdChange.Designer.cs" />
+    <Compile Remove="Migrations\20200229181130_SeatIdGenerated.cs" />
+    <Compile Remove="Migrations\20200229181130_SeatIdGenerated.Designer.cs" />
+    <Compile Remove="Migrations\20200229181437_SeatIdGenerated.cs" />
+    <Compile Remove="Migrations\20200229181437_SeatIdGenerated.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -105,9 +105,6 @@ namespace Booking.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("EventDate")
-                        .HasColumnType("date");
-
                     b.Property<int>("PlaceId")
                         .HasColumnType("int");
 
@@ -117,55 +114,27 @@ namespace Booking.DataAccess.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SeatPricesSeatTypeNavigationSeatPriceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SeatStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SeatType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SectorNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SeatId");
-
-                    b.HasIndex("PlaceId");
-
-                    b.HasIndex("SeatPricesSeatTypeNavigationSeatPriceId");
-
-                    b.HasIndex("SeatStatusId");
-
-                    b.ToTable("Seats");
-                });
-
-            modelBuilder.Entity("BookingApp.Models.SeatPrice", b =>
-                {
-                    b.Property<int>("SeatPriceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<int>("SeatType")
                         .HasColumnType("int");
 
                     b.Property<int?>("SeatTypesSeatTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("SeatPriceId");
+                    b.Property<string>("SectorNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("EventId");
+                    b.Property<int?>("SectorPricePriceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SeatId");
+
+                    b.HasIndex("PlaceId");
 
                     b.HasIndex("SeatTypesSeatTypeId");
 
-                    b.ToTable("SeatPrices");
+                    b.HasIndex("SectorPricePriceId");
+
+                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("BookingApp.Models.SeatStatus", b =>
@@ -181,6 +150,29 @@ namespace Booking.DataAccess.Migrations
                     b.HasKey("StatusId");
 
                     b.ToTable("SeatStatuses");
+                });
+
+            modelBuilder.Entity("BookingApp.Models.SectorPrice", b =>
+                {
+                    b.Property<int>("PriceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("SectorNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("PriceId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("SectorPrices");
                 });
 
             modelBuilder.Entity("BookingApp.Models.Event", b =>
@@ -206,26 +198,22 @@ namespace Booking.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookingApp.Models.SeatPrice", "SeatPricesSeatTypeNavigation")
+                    b.HasOne("Booking.Models.Models.SeatType", "SeatTypes")
                         .WithMany("Seats")
-                        .HasForeignKey("SeatPricesSeatTypeNavigationSeatPriceId");
+                        .HasForeignKey("SeatTypesSeatTypeId");
 
-                    b.HasOne("BookingApp.Models.SeatStatus", "SeatStatus")
+                    b.HasOne("BookingApp.Models.SectorPrice", null)
                         .WithMany("Seats")
-                        .HasForeignKey("SeatStatusId");
+                        .HasForeignKey("SectorPricePriceId");
                 });
 
-            modelBuilder.Entity("BookingApp.Models.SeatPrice", b =>
+            modelBuilder.Entity("BookingApp.Models.SectorPrice", b =>
                 {
                     b.HasOne("BookingApp.Models.Event", "Event")
                         .WithMany("SeatPrices")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Booking.Models.Models.SeatType", "SeatTypes")
-                        .WithMany()
-                        .HasForeignKey("SeatTypesSeatTypeId");
                 });
 #pragma warning restore 612, 618
         }

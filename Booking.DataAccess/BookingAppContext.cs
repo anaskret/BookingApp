@@ -20,7 +20,7 @@ namespace BookingApp.Data
         public virtual DbSet<SeatStatus> SeatStatus { get; set; }
         //public virtual DbSet<Row> Rows { get; set; }
         public virtual DbSet<SeatType> SeatTypes { get; set; }
-        public virtual DbSet<SeatPrice> SeatPrices { get; set; }
+        public virtual DbSet<SectorPrice> SeatPrices { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
         //public virtual DbSet<Sector> Sectors { get; set; }
 
@@ -31,6 +31,5 @@ namespace BookingApp.Data
                 optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = BookingApp; Trusted_Connection=True;");
             }
         }
-
     }
 }
