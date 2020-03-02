@@ -3,9 +3,10 @@ using BookingApp.Contracts;
 using BookingApp.Services.Interfaces;
 using Booking.Models.Converters.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Booking.App.Contracts.Responses;
 using Booking.Services.Interfaces;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Booking.Models.Contracts.Requests.FilterRequests;
 
 namespace BookingApp.Controllers
 {
@@ -42,7 +43,6 @@ namespace BookingApp.Controllers
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Events.Get.Replace("{postId}", createEvent.EventId.ToString());
-            _ = new EventResponse { EventId = createEvent.EventId };
 
             return Created(locationUri, createEvent);
         }
@@ -63,6 +63,32 @@ namespace BookingApp.Controllers
                 return NoContent();
 
             return NotFound();
+        }
+
+        [HttpGet(ApiRoutes.Events.Filter)]
+        public IActionResult Filter([FromQuery] FilterEventsRequest filterEvents)
+        {
+            var stringDictionary = new Dictionary<string, string>();
+
+            if (filterEvents.Name != null)
+                stringDictionary.Add("Name", filterEvents.Name);
+            if (filterEvents.Description != null)
+                stringDictionary.Add("Description", filterEvents.Description);
+
+
+            var intDictionary = new Dictionary<string, int>();
+
+            if (filterEvents.EventId > 1)
+                intDictionary.Add("EventId", filterEvents.EventId);
+            if (filterEvents.PlaceId > 1)
+                intDictionary.Add("Name", filterEvents.PlaceId);
+
+            var filterdEvents = _eventService.FilterEvents(stringDictionary, intDictionary);
+
+            if (filterdEvents == null)
+                return NotFound();
+
+            return Ok(filterdEvents);
         }
     }
 

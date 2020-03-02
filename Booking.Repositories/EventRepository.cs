@@ -60,5 +60,30 @@ namespace BookingApp.Services
 
             return deleted > 0;
         }
+
+        public List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int> intDictionary)
+        {
+            var events = new List<Event>();
+            foreach(var item in stringDictionary)
+            {
+                switch(item.Key)
+                {
+                    case "Name":
+                        var eventName = _dataContext.Events.Where(c =>  c.Name == item.Value);
+                        foreach (var name in eventName) 
+                            if(!events.Contains(name))
+                                events.Add(name);
+                        break;
+                    case "Description":
+                        var eventDescription = _dataContext.Events.Where(c => c.Description == item.Value);
+                        foreach (var description in eventDescription)
+                            if (!events.Contains(description))
+                                events.Add(description);
+                        break;
+                }
+            }
+
+            return events;
+        }
     }
 }

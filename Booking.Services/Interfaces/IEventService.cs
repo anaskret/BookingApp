@@ -10,10 +10,11 @@ namespace Booking.Services.Interfaces
 {
     public interface IEventService
     {
-        public Task<IEnumerable<GetEventRequest>> GetAllEvents();
-        public Task<GetEventRequest> GetEventById(int eventId);
-        public Task<Event> CreateEvent(CreateEventRequest createEventRequest);
-        public Task<bool> UpdateEvent(int eventId, UpdateEventRequest request);
-        public Task<bool> DeleteEvent(int eventId);
+        Task<IEnumerable<GetEventRequest>> GetAllEvents();
+        Task<GetEventRequest> GetEventById(int eventId);
+        Task<Event> CreateEvent(CreateEventRequest createEventRequest);
+        Task<bool> UpdateEvent(int eventId, UpdateEventRequest request);
+        Task<bool> DeleteEvent(int eventId);
+        IEnumerable<GetEventRequest> FilterEvents(Dictionary<string, string> stringDictionary, Dictionary<string, int> intDictionary);
     }
 }
