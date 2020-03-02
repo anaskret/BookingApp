@@ -61,9 +61,29 @@ namespace BookingApp.Services
             return deleted > 0;
         }
 
-        public List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int> intDictionary)
+        public List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int> intDictionary, DateTime date)
         {
             var events = new List<Event>();
+
+            foreach(var item in intDictionary)
+            {
+                switch(item.Key)
+                {
+                    case "EventId":
+                        var eventId = _dataContext.Events.Where(c => c.EventId == item.Value);
+                        foreach (var id in eventId)
+                            if (!events.Contains(id))
+                                events.Add(id);
+                        break;
+                    case "PlaceId":
+                        var placeId = _dataContext.Events.Where(c => c.PlaceId == item.Value);
+                        foreach (var id in placeId)
+                            if (!events.Contains(id))
+                                events.Add(id);
+                        break;
+                }
+            }
+
             foreach(var item in stringDictionary)
             {
                 switch(item.Key)
@@ -82,6 +102,13 @@ namespace BookingApp.Services
                         break;
                 }
             }
+
+            
+            var eventDate = _dataContext.Events.Where(c => c.Date == date);
+            foreach (var item in eventDate)
+                if (!events.Contains(item))
+                    events.Add(item);
+            
 
             return events;
         }

@@ -14,6 +14,6 @@ namespace BookingApp.Services.Interfaces
         Task<bool> CreateEvent(Event eventCreate);
         Task<bool> UpdateEvent(Event eventUpdate);
         Task<bool> DeleteEvent(int eventId);
-        List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int> intDictionary);
+        List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int> intDictionary, DateTime date);
     }
 }

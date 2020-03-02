@@ -78,12 +78,14 @@ namespace BookingApp.Controllers
 
             var intDictionary = new Dictionary<string, int>();
 
-            if (filterEvents.EventId > 1)
+            if (filterEvents.EventId > 0)
                 intDictionary.Add("EventId", filterEvents.EventId);
-            if (filterEvents.PlaceId > 1)
+            if (filterEvents.PlaceId > 0)
                 intDictionary.Add("Name", filterEvents.PlaceId);
 
-            var filterdEvents = _eventService.FilterEvents(stringDictionary, intDictionary);
+            var date = filterEvents.Date;
+
+            var filterdEvents = _eventService.FilterEvents(stringDictionary, intDictionary, date);
 
             if (filterdEvents == null)
                 return NotFound();
