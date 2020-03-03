@@ -76,12 +76,15 @@ namespace BookingApp.Controllers
                 stringDictionary.Add("Description", filterEvents.Description);
 
 
-            var intDictionary = new Dictionary<string, int>();
+            var intDictionary = new Dictionary<string, int[]>();
 
-            if (filterEvents.EventId > 0)
-                intDictionary.Add("EventId", filterEvents.EventId);
-            if (filterEvents.PlaceId > 0)
-                intDictionary.Add("Name", filterEvents.PlaceId);
+            int[] eventIdArray= { filterEvents.MinEventId, filterEvents.MaxEventId };
+            if (filterEvents.MinEventId > 0 && filterEvents.MaxEventId > filterEvents.MinEventId)
+                intDictionary.Add("EventId", eventIdArray);
+
+            int[] placeIdArray = { filterEvents.MinPlaceId, filterEvents.MaxPlaceId};
+            if (filterEvents.MinPlaceId > 0 && filterEvents.MaxPlaceId > filterEvents.MinPlaceId)
+                intDictionary.Add("Name", placeIdArray);
 
             var date = filterEvents.Date;
 

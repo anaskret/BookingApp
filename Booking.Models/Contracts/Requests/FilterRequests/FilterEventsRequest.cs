@@ -7,6 +7,9 @@ namespace Booking.Models.Contracts.Requests.FilterRequests
 {
     public class FilterEventsRequest: EventRequest
     {
-        public int EventId { get; set; }
+        public int MinEventId { get; set; }
+        public int MaxEventId { get; set; }
+        public int MinPlaceId { get; set; }
+        public int MaxPlaceId { get; set; }
     }
 }
