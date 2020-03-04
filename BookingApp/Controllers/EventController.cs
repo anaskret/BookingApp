@@ -7,6 +7,7 @@ using Booking.Services.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Booking.Models.Contracts.Requests.FilterRequests;
+using System;
 
 namespace BookingApp.Controllers
 {
@@ -86,9 +87,15 @@ namespace BookingApp.Controllers
             if (filterEvents.MinPlaceId > 0 && filterEvents.MaxPlaceId > filterEvents.MinPlaceId)
                 intDictionary.Add("Name", placeIdArray);
 
-            var date = filterEvents.Date;
+            DateTime[] dateArray = null;
+            if (filterEvents.MinDate > DateTime.Today && filterEvents.MaxDate > DateTime.Today)
+            {
+                dateArray[0] = filterEvents.MinDate; 
+                dateArray[1] = filterEvents.MaxDate;
+            }
+            
 
-            var filterdEvents = _eventService.FilterEvents(stringDictionary, intDictionary, date);
+            var filterdEvents = _eventService.FilterEvents(stringDictionary, intDictionary, dateArray);
 
             if (filterdEvents == null)
                 return NotFound();

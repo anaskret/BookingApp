@@ -61,58 +61,82 @@ namespace BookingApp.Services
             return deleted > 0;
         }
 
-        public List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime date)
+        public List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime[] date)
         {
             var events = new List<Event>();
-
-            foreach(var item in intDictionary)
+            foreach (var item in intDictionary)
             {
-                switch(item.Key)
+                switch (item.Key)
                 {
                     case "EventId":
-                        var eventId = _dataContext.Events.Where(c => c.EventId >= item.Value[0] 
+                        var eventId = _dataContext.Events.Where(c => c.EventId >= item.Value[0]
                         && c.EventId <= item.Value[1]);
                         foreach (var id in eventId)
-                            if (!events.Contains(id))
                                 events.Add(id);
                         break;
                     case "PlaceId":
                         var placeId = _dataContext.Events.Where(c => c.PlaceId >= item.Value[0]
                         && c.PlaceId <= item.Value[1]);
                         foreach (var id in placeId)
-                            if (!events.Contains(id))
+                                events.Add(id);
+                        break;
+                    case "TypeId":
+                        var typeId = _dataContext.Events.Where(c => c.PlaceId >= item.Value[0]
+                        && c.PlaceId <= item.Value[1]);
+                        foreach (var id in typeId)
                                 events.Add(id);
                         break;
                 }
             }
 
-            foreach(var item in stringDictionary)
+            foreach (var item in stringDictionary)
             {
-                switch(item.Key)
+                switch (item.Key)
                 {
                     case "Name":
-                        var eventName = _dataContext.Events.Where(c =>  c.Name == item.Value);
-                        foreach (var name in eventName) 
-                            if(!events.Contains(name))
+                        var eventName = _dataContext.Events.Where(c => c.Name == item.Value);
+                        foreach (var name in eventName)
                                 events.Add(name);
                         break;
                     case "Description":
                         var eventDescription = _dataContext.Events.Where(c => c.Description == item.Value);
                         foreach (var description in eventDescription)
-                            if (!events.Contains(description))
                                 events.Add(description);
                         break;
                 }
             }
 
-            
-            var eventDate = _dataContext.Events.Where(c => c.Date == date);
-            foreach (var item in eventDate)
-                if (!events.Contains(item))
-                    events.Add(item);
-            
+            if (date != null)
+            {
+                var eventDate = _dataContext.Events.Where(c => c.Date >= date[0]
+              && c.Date <= date[1]);
+                foreach (var item in eventDate)
+                    if (!events.Contains(item))
+                        events.Add(item);
+            }
 
-            return events;
+            int keywordsCount = 0;
+
+            if (intDictionary.Count > 0)
+                keywordsCount += intDictionary.Count;
+
+            if (stringDictionary.Count > 0)
+                keywordsCount += stringDictionary.Count;
+
+            if (date != null)
+                keywordsCount++;
+
+            var result = new List<Event>();
+            var group = events.GroupBy(i => i);
+
+            foreach(var item in group)
+            {
+                var cos = item.Count();
+                if (item.Count() == keywordsCount)
+                    result.Add(item.Key);
+            }
+
+            return result;
         }
     }
 }

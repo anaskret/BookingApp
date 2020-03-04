@@ -61,7 +61,7 @@ namespace Booking.Services
             return deleted;
         }
 
-        public IEnumerable<GetEventRequest> FilterEvents(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime date)
+        public IEnumerable<GetEventRequest> FilterEvents(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime[] date)
         {
             var events = _eventRepository.FilterEvent(stringDictionary, intDictionary, date);
 

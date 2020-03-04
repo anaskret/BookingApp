@@ -65,34 +65,33 @@ namespace Booking.Repositories
         {
             var places = new List<Place>();
 
-            var filterNames = places.Where(c => c.Name == placeName);
+            var filterNames = _dataContext.Places.Where(c => c.Name == placeName);
 
-            foreach (var name in filterNames)
-                if (!places.Contains(name))
-                    places.Add(name);
 
-            foreach(var item in intDictionary)
+            foreach (var item in intDictionary)
             {
-                switch(item.Key)
+                switch (item.Key)
                 {
                     case "PlaceId":
-                        var filterIds = places.Where(c => c.PlaceId > item.Value[0]
-                        && c.PlaceId < item.Value[1]);
-
+                        var filterIds = _dataContext.Places.Where(c => c.PlaceId >= item.Value[0]
+                        && c.PlaceId <= item.Value[1]);
                         foreach (var id in filterIds)
                             if (!places.Contains(id))
                                 places.Add(id);
                         break;
                     case "MaximumCapacity":
-                        var filterCapacity = places.Where(c => c.MaximumCapacity > item.Value[0]
-                        && c.MaximumCapacity < item.Value[1]);
-
+                        var filterCapacity = _dataContext.Places.Where(c => c.MaximumCapacity >= item.Value[0]
+                        && c.MaximumCapacity <= item.Value[1]);
                         foreach (var capacity in filterCapacity)
                             if (!places.Contains(capacity))
                                 places.Add(capacity);
                         break;
                 }
             }
+
+            foreach (var name in filterNames)
+                if (!places.Contains(name))
+                    places.Add(name);
 
             return places;
         }
