@@ -59,5 +59,12 @@ namespace Booking.Services.Interfaces
         {
             return await _placeRepository.DeletePlace(placeId);
         }
+
+        public IEnumerable<GetPlaceRequest> FilterPlaces(string name, Dictionary<string, int[]> intDictionary)
+        {
+            var filteredPlaces = _placeRepository.FilterPlace(name, intDictionary);
+
+            return filteredPlaces.Select(c => _placeConverter.PlaceToGetPlaceRequest(c));
+        }
     }
 }

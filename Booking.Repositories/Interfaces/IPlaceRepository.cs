@@ -13,5 +13,6 @@ namespace Booking.Repositories.Interfaces
         Task<bool> CreatePlace(Place place);
         Task<bool> UpdatePlace(Place place);
         Task<bool> DeletePlace(int placeId);
+        List<Place> FilterPlace(string placeName, Dictionary<string, int[]> intDictionary);
     }
 }

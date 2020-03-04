@@ -24,6 +24,7 @@ namespace BookingApp.Contracts
         {
             public const string Create = Base + "/places";
             public const string GetAll = Base + "/places";
+            public const string Filter = Base + "/places/filter";
             public const string Get = Base + "/places/{placeId}";
             public const string Update = Base + "/places/{placeId}";
             public const string Delete= Base + "/places/{placeId}";

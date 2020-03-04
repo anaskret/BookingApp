@@ -1,4 +1,5 @@
-﻿using Booking.Repositories.Interfaces;
+﻿using Booking.Models.Contracts.Requests.GetRequests;
+using Booking.Repositories.Interfaces;
 using BookingApp.Data;
 using BookingApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,42 @@ namespace Booking.Repositories
             var deleted = await _dataContext.SaveChangesAsync();
 
             return deleted > 0;
+        }
+
+        public List<Place> FilterPlace(string placeName, Dictionary<string, int[]> intDictionary)
+        {
+            var places = new List<Place>();
+
+            var filterNames = places.Where(c => c.Name == placeName);
+
+            foreach (var name in filterNames)
+                if (!places.Contains(name))
+                    places.Add(name);
+
+            foreach(var item in intDictionary)
+            {
+                switch(item.Key)
+                {
+                    case "PlaceId":
+                        var filterIds = places.Where(c => c.PlaceId > item.Value[0]
+                        && c.PlaceId < item.Value[1]);
+
+                        foreach (var id in filterIds)
+                            if (!places.Contains(id))
+                                places.Add(id);
+                        break;
+                    case "MaximumCapacity":
+                        var filterCapacity = places.Where(c => c.MaximumCapacity > item.Value[0]
+                        && c.MaximumCapacity < item.Value[1]);
+
+                        foreach (var capacity in filterCapacity)
+                            if (!places.Contains(capacity))
+                                places.Add(capacity);
+                        break;
+                }
+            }
+
+            return places;
         }
     }
 }

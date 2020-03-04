@@ -16,5 +16,6 @@ namespace Booking.Services.Interfaces
         Task<Place> CreatePlace(CreatePlaceRequest createPlaceRequest);
         Task<bool> UpdatePlace(int placeId, UpdatePlaceRequest updatePlaceRequest);
         Task<bool> DeletePlace(int placeId);
+        IEnumerable<GetPlaceRequest> FilterPlaces(string name, Dictionary<string, int[]> inDictionary);
     }
 }
