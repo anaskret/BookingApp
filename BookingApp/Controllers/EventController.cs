@@ -88,7 +88,7 @@ namespace BookingApp.Controllers
                 intDictionary.Add("Name", placeIdArray);
 
             DateTime[] dateArray = null;
-            if (filterEvents.MinDate > DateTime.Today && filterEvents.MaxDate > DateTime.Today)
+            if (filterEvents.MinDate.Year > 1970 && filterEvents.MaxDate.Year > 1970)
             {
                 dateArray[0] = filterEvents.MinDate; 
                 dateArray[1] = filterEvents.MaxDate;
