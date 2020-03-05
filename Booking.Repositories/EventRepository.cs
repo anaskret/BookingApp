@@ -1,4 +1,6 @@
-﻿using Booking.Models.Contracts.Requests.GetRequests;
+﻿using Booking.Models.Contracts.Requests.FilterRequests;
+using Booking.Models.Contracts.Requests.GetRequests;
+using Booking.Repositories.Tools;
 using BookingApp.Data;
 using BookingApp.Models;
 using BookingApp.Services.Interfaces;
@@ -61,70 +63,59 @@ namespace BookingApp.Services
             return deleted > 0;
         }
 
-        public List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime[] date)
+        public List<Event> FilterEvent(FilterEventsRequest filterEvents)
         {
             var events = new List<Event>();
-            foreach (var item in intDictionary)
-            {
-                switch (item.Key)
-                {
-                    case "EventId":
-                        var eventId = _dataContext.Events.Where(c => c.EventId >= item.Value[0]
-                        && c.EventId <= item.Value[1]);
-                        foreach (var id in eventId)
-                                events.Add(id);
-                        break;
-                    case "PlaceId":
-                        var placeId = _dataContext.Events.Where(c => c.PlaceId >= item.Value[0]
-                        && c.PlaceId <= item.Value[1]);
-                        foreach (var id in placeId)
-                                events.Add(id);
-                        break;
-                    case "TypeId":
-                        var typeId = _dataContext.Events.Where(c => c.PlaceId >= item.Value[0]
-                        && c.PlaceId <= item.Value[1]);
-                        foreach (var id in typeId)
-                                events.Add(id);
-                        break;
-                }
+            int queryCount = 0;
+
+            if (EventTools.IsIntNotNull(filterEvents.MinEventId, filterEvents.MaxEventId))
+            { 
+                var eventId = _dataContext.Events.Where(c => c.EventId >= filterEvents.MinEventId
+                && c.EventId <= filterEvents.MaxEventId);
+                foreach (var id in eventId)
+                    events.Add(id);
+                queryCount++;
             }
 
-            foreach (var item in stringDictionary)
-            {
-                switch (item.Key)
-                {
-                    case "Name":
-                        var eventName = _dataContext.Events.Where(c => c.Name == item.Value);
-                        foreach (var name in eventName)
-                                events.Add(name);
-                        break;
-                    case "Description":
-                        var eventDescription = _dataContext.Events.Where(c => c.Description == item.Value);
-                        foreach (var description in eventDescription)
-                                events.Add(description);
-                        break;
-                }
+            if (EventTools.IsIntNotNull(filterEvents.MinPlaceId, filterEvents.MaxPlaceId))
+            { var placeId = _dataContext.Events.Where(c => c.PlaceId >= filterEvents.MinPlaceId
+                && c.PlaceId <= filterEvents.MaxPlaceId);
+                foreach (var id in placeId)
+                    events.Add(id);
+                queryCount++;
             }
 
-            if (date != null)
+            if (EventTools.IsIntNotNull(filterEvents.MinTypeId, filterEvents.MaxTypeId))
             {
-                var eventDate = _dataContext.Events.Where(c => c.Date >= date[0]
-              && c.Date <= date[1]);
+                var typeId = _dataContext.Events.Where(c => c.PlaceId >= filterEvents.MinTypeId
+                && c.PlaceId <= filterEvents.MaxTypeId);
+                foreach (var id in typeId)
+                    events.Add(id);
+                queryCount++;
+            }
+
+            if(filterEvents.Name != null)
+            { 
+                var eventName = _dataContext.Events.Where(c => c.Name == filterEvents.Name);
+                foreach (var name in eventName)
+                    events.Add(name);
+                queryCount++;
+            }
+            if (filterEvents.Description != null)
+            {
+                var eventDescription = _dataContext.Events.Where(c => c.Description == filterEvents.Description);
+                foreach (var description in eventDescription)
+                    events.Add(description);
+                queryCount++;
+            }        
+            if (EventTools.IsIntNotNull(filterEvents.MinDate.Year, filterEvents.MaxDate.Year))
+            {
+                var eventDate = _dataContext.Events.Where(c => c.Date >= filterEvents.MinDate
+                && c.Date <= filterEvents.MaxDate);
                 foreach (var item in eventDate)
-                    if (!events.Contains(item))
-                        events.Add(item);
+                    events.Add(item);
+                queryCount++;
             }
-
-            int keywordsCount = 0;
-
-            if (intDictionary.Count > 0)
-                keywordsCount += intDictionary.Count;
-
-            if (stringDictionary.Count > 0)
-                keywordsCount += stringDictionary.Count;
-
-            if (date != null)
-                keywordsCount++;
 
             var result = new List<Event>();
             var group = events.GroupBy(i => i);
@@ -132,7 +123,7 @@ namespace BookingApp.Services
             foreach(var item in group)
             {
                 var cos = item.Count();
-                if (item.Count() == keywordsCount)
+                if (item.Count() == queryCount)
                     result.Add(item.Key);
             }
 

@@ -1,4 +1,5 @@
 ﻿using Booking.App.Contracts.Requests;
+using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Models.Converters.Interfaces;
 using Booking.Services.Interfaces;
@@ -61,9 +62,9 @@ namespace Booking.Services
             return deleted;
         }
 
-        public IEnumerable<GetEventRequest> FilterEvents(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime[] date)
+        public IEnumerable<GetEventRequest> FilterEvents(FilterEventsRequest filterEvents)
         {
-            var events = _eventRepository.FilterEvent(stringDictionary, intDictionary, date);
+            var events = _eventRepository.FilterEvent(filterEvents);
 
             return events.Select(c => _eventConverter.EventToGetEventRequest(c));
         }

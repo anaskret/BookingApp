@@ -69,33 +69,7 @@ namespace BookingApp.Controllers
         [HttpGet(ApiRoutes.Events.Filter)]
         public IActionResult Filter([FromQuery] FilterEventsRequest filterEvents)
         {
-            var stringDictionary = new Dictionary<string, string>();
-
-            if (filterEvents.Name != null)
-                stringDictionary.Add("Name", filterEvents.Name);
-            if (filterEvents.Description != null)
-                stringDictionary.Add("Description", filterEvents.Description);
-
-
-            var intDictionary = new Dictionary<string, int[]>();
-
-            int[] eventIdArray= { filterEvents.MinEventId, filterEvents.MaxEventId };
-            if (filterEvents.MinEventId > 0 && filterEvents.MaxEventId > filterEvents.MinEventId)
-                intDictionary.Add("EventId", eventIdArray);
-
-            int[] placeIdArray = { filterEvents.MinPlaceId, filterEvents.MaxPlaceId};
-            if (filterEvents.MinPlaceId > 0 && filterEvents.MaxPlaceId > filterEvents.MinPlaceId)
-                intDictionary.Add("Name", placeIdArray);
-
-            DateTime[] dateArray = null;
-            if (filterEvents.MinDate.Year > 1970 && filterEvents.MaxDate.Year > 1970)
-            {
-                dateArray[0] = filterEvents.MinDate; 
-                dateArray[1] = filterEvents.MaxDate;
-            }
-            
-
-            var filterdEvents = _eventService.FilterEvents(stringDictionary, intDictionary, dateArray);
+            var filterdEvents = _eventService.FilterEvents(filterEvents);
 
             if (filterdEvents == null)
                 return NotFound();

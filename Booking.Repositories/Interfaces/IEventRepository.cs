@@ -1,4 +1,5 @@
-﻿using Booking.Models.Contracts.Requests.GetRequests;
+﻿using Booking.Models.Contracts.Requests.FilterRequests;
+using Booking.Models.Contracts.Requests.GetRequests;
 using BookingApp.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace BookingApp.Services.Interfaces
         Task<bool> CreateEvent(Event eventCreate);
         Task<bool> UpdateEvent(Event eventUpdate);
         Task<bool> DeleteEvent(int eventId);
-        List<Event> FilterEvent(Dictionary<string, string> stringDictionary, Dictionary<string, int[]> intDictionary, DateTime[] date);
+        List<Event> FilterEvent(FilterEventsRequest filterEvents);
     }
 }

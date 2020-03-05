@@ -89,10 +89,12 @@ namespace Booking.Repositories
                 }
             }
 
-            foreach (var name in filterNames)
-                if (!places.Contains(name))
-                    places.Add(name);
-
+            if (placeName != null)
+            {
+                foreach (var name in filterNames)
+                    if (!places.Contains(name))
+                        places.Add(name);
+            }
             return places;
         }
     }

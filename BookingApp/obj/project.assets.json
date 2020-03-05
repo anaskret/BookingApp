@@ -8488,19 +8488,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\i7\\.nuget\\packages\\": {}
+    "C:\\Users\\Olek\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\BookingApp\\Booking.App.csproj",
+      "projectUniqueName": "C:\\Users\\Olek\\source\\repos\\BookingApp\\BookingApp\\Booking.App.csproj",
       "projectName": "Booking.App",
-      "projectPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\BookingApp\\Booking.App.csproj",
-      "packagesPath": "C:\\Users\\i7\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\BookingApp\\obj\\",
+      "projectPath": "C:\\Users\\Olek\\source\\repos\\BookingApp\\BookingApp\\Booking.App.csproj",
+      "packagesPath": "C:\\Users\\Olek\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Olek\\source\\repos\\BookingApp\\BookingApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\i7\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Olek\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8513,14 +8513,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Models\\Booking.Models.csproj": {
-              "projectPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Models\\Booking.Models.csproj"
+            "C:\\Users\\Olek\\source\\repos\\BookingApp\\Booking.Models\\Booking.Models.csproj": {
+              "projectPath": "C:\\Users\\Olek\\source\\repos\\BookingApp\\Booking.Models\\Booking.Models.csproj"
             },
-            "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Repositories\\Booking.Repositories.csproj": {
-              "projectPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Repositories\\Booking.Repositories.csproj"
+            "C:\\Users\\Olek\\source\\repos\\BookingApp\\Booking.Repositories\\Booking.Repositories.csproj": {
+              "projectPath": "C:\\Users\\Olek\\source\\repos\\BookingApp\\Booking.Repositories\\Booking.Repositories.csproj"
             },
-            "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Services\\Booking.Services.csproj": {
-              "projectPath": "C:\\Users\\i7\\source\\repos\\BookingApp\\BookingApp\\Booking.Services\\Booking.Services.csproj"
+            "C:\\Users\\Olek\\source\\repos\\BookingApp\\Booking.Services\\Booking.Services.csproj": {
+              "projectPath": "C:\\Users\\Olek\\source\\repos\\BookingApp\\Booking.Services\\Booking.Services.csproj"
             }
           }
         }
@@ -8583,7 +8583,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
