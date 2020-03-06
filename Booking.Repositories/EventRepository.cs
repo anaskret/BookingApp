@@ -65,32 +65,32 @@ namespace BookingApp.Services
 
         public List<Event> FilterEvent(FilterEventsRequest filterEvents)
         {
-            var events = new List<Event>();
+            var duplicateEvents = new List<Event>();
             int queryCount = 0;
 
-            if (EventTools.IsIntNotNull(filterEvents.MinEventId, filterEvents.MaxEventId))
+            if (FilterTools.AreIntsCorrect(filterEvents.MinEventId, filterEvents.MaxEventId))
             { 
                 var eventId = _dataContext.Events.Where(c => c.EventId >= filterEvents.MinEventId
                 && c.EventId <= filterEvents.MaxEventId);
                 foreach (var id in eventId)
-                    events.Add(id);
+                    duplicateEvents.Add(id);
                 queryCount++;
             }
 
-            if (EventTools.IsIntNotNull(filterEvents.MinPlaceId, filterEvents.MaxPlaceId))
+            if (FilterTools.AreIntsCorrect(filterEvents.MinPlaceId, filterEvents.MaxPlaceId))
             { var placeId = _dataContext.Events.Where(c => c.PlaceId >= filterEvents.MinPlaceId
                 && c.PlaceId <= filterEvents.MaxPlaceId);
                 foreach (var id in placeId)
-                    events.Add(id);
+                    duplicateEvents.Add(id);
                 queryCount++;
             }
 
-            if (EventTools.IsIntNotNull(filterEvents.MinTypeId, filterEvents.MaxTypeId))
+            if (FilterTools.AreIntsCorrect(filterEvents.MinTypeId, filterEvents.MaxTypeId))
             {
                 var typeId = _dataContext.Events.Where(c => c.PlaceId >= filterEvents.MinTypeId
                 && c.PlaceId <= filterEvents.MaxTypeId);
                 foreach (var id in typeId)
-                    events.Add(id);
+                    duplicateEvents.Add(id);
                 queryCount++;
             }
 
@@ -98,36 +98,35 @@ namespace BookingApp.Services
             { 
                 var eventName = _dataContext.Events.Where(c => c.Name == filterEvents.Name);
                 foreach (var name in eventName)
-                    events.Add(name);
+                    duplicateEvents.Add(name);
                 queryCount++;
             }
             if (filterEvents.Description != null)
             {
                 var eventDescription = _dataContext.Events.Where(c => c.Description == filterEvents.Description);
                 foreach (var description in eventDescription)
-                    events.Add(description);
+                    duplicateEvents.Add(description);
                 queryCount++;
             }        
-            if (EventTools.IsIntNotNull(filterEvents.MinDate.Year, filterEvents.MaxDate.Year))
+            if (FilterTools.AreIntsCorrect(filterEvents.MinDate?.Year, filterEvents.MaxDate?.Year))
             {
                 var eventDate = _dataContext.Events.Where(c => c.Date >= filterEvents.MinDate
                 && c.Date <= filterEvents.MaxDate);
                 foreach (var item in eventDate)
-                    events.Add(item);
+                    duplicateEvents.Add(item);
                 queryCount++;
             }
 
             var result = new List<Event>();
-            var group = events.GroupBy(i => i);
+            var group = duplicateEvents.GroupBy(i => i);
 
             foreach(var item in group)
             {
-                var cos = item.Count();
                 if (item.Count() == queryCount)
                     result.Add(item.Key);
             }
 
-            return result;
+            return result.ToList();
         }
     }
 }

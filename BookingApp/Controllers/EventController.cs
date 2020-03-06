@@ -21,9 +21,9 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet(ApiRoutes.Events.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllOrFilter([FromQuery] FilterEventsRequest filterEvents)
         {
-            return Ok(await _eventService.GetAllEvents());
+            return Ok(await _eventService.GetEvents(filterEvents));
         }
 
         [HttpGet(ApiRoutes.Events.Get)]
@@ -66,16 +66,6 @@ namespace BookingApp.Controllers
             return NotFound();
         }
 
-        [HttpGet(ApiRoutes.Events.Filter)]
-        public IActionResult Filter([FromQuery] FilterEventsRequest filterEvents)
-        {
-            var filterdEvents = _eventService.FilterEvents(filterEvents);
-
-            if (filterdEvents == null)
-                return NotFound();
-
-            return Ok(filterdEvents);
-        }
     }
 
 }

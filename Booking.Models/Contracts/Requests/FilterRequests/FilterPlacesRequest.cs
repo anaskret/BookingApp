@@ -7,10 +7,12 @@ namespace Booking.Models.Contracts.Requests.FilterRequests
 {
     public class FilterPlacesRequest
     {
-        public int MinPlaceId { get; set; }
-        public int MaxPlaceId { get; set; }
-        public int MinMaxCapacity { get; set; }
-        public int MaxCapacity { get; set; }
-        public string Name { get; set; }
+#nullable enable
+        public int? MinPlaceId { get; set; }
+        public int? MaxPlaceId { get; set; }
+        public int? MinMaxCapacity { get; set; }
+        public int? MaxCapacity { get; set; }
+        public string? Name { get; set; }
+#nullable disable
     }
 }

@@ -1,4 +1,5 @@
-﻿using BookingApp.Models;
+﻿using Booking.Models.Contracts.Requests.FilterRequests;
+using BookingApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Booking.Repositories.Interfaces
         Task<bool> CreateSeat(Seat seat);
         Task<bool> UpdateSeat(Seat seat);
         Task<bool> DeleteSeat(int seatId);
+        List<Seat> FilterSeats(FilterSeatsRequest filterSeats);
     }
 }

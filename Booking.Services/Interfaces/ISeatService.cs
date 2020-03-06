@@ -1,4 +1,5 @@
 ﻿using Booking.Models.Contracts.Requests.CreateRequests;
+using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Models.Contracts.Requests.UpdateRequests;
 using BookingApp.Models;
@@ -11,7 +12,7 @@ namespace Booking.Services.Interfaces
 {
     public interface ISeatService
     {
-        Task<IEnumerable<GetSeatRequest>> GetAllSeats();
+        Task<IEnumerable<GetSeatRequest>> GetSeats(FilterSeatsRequest filterSeats);
         Task<GetSeatRequest> GetSeatById(int seatId);
         Task<Seat> CreateSeat(CreateSeatRequest createSeatRequest);
         Task<bool> UpdateSeat(UpdateSeatRequest updateSeatRequest, int seatId);

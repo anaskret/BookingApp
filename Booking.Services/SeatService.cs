@@ -1,4 +1,5 @@
 ﻿using Booking.Models.Contracts.Requests.CreateRequests;
+using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Models.Contracts.Requests.UpdateRequests;
 using Booking.Models.Converters.Interfaces;
@@ -23,9 +24,19 @@ namespace Booking.Services
             _seatRepository = seatRepository;
             _seatConverter = seatConverter;
         }
-        public async Task<IEnumerable<GetSeatRequest>> GetAllSeats()
+        public async Task<IEnumerable<GetSeatRequest>> GetSeats(FilterSeatsRequest filterSeats)
         {
-            var seats = await _seatRepository.GetAllSeats();
+            var seats = new List<Seat>();
+
+            if ((filterSeats.MinSeatId != null && filterSeats.MaxSeatId != null)
+                || (filterSeats.MinSeatNumber != null && filterSeats.MaxSeatNumber != null)
+                || (filterSeats.MinRowNumber != null && filterSeats.MaxRowNumber != null)
+                || (filterSeats.MinTypeId != null && filterSeats.MaxTypeId != null)
+                || (filterSeats.MinPlaceId != null && filterSeats.MaxPlaceId != null)
+                || filterSeats.SectorNumber != null)
+                seats = _seatRepository.FilterSeats(filterSeats);
+            else
+                seats = await _seatRepository.GetAllSeats();
 
             return seats.Select(c => _seatConverter.SeatToGetSeatRequest(c));
         }

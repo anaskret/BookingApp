@@ -1,4 +1,5 @@
 ﻿using Booking.Models.Contracts.Requests.CreateRequests;
+using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.UpdateRequests;
 using Booking.Services.Interfaces;
 using BookingApp.Contracts;
@@ -20,9 +21,9 @@ namespace Booking.App.Controllers
         }
 
         [HttpGet(ApiRoutes.Seats.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllOrFilter([FromQuery] FilterSeatsRequest filterSeats)
         {
-            return Ok(await _seatService.GetAllSeats());
+            return Ok(await _seatService.GetSeats(filterSeats));
         }
 
         [HttpGet(ApiRoutes.Seats.Get)]
@@ -63,5 +64,7 @@ namespace Booking.App.Controllers
 
             return NotFound();
         }
+
+       
     }
 }

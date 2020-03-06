@@ -1,5 +1,7 @@
-﻿using Booking.Models.Contracts.Requests.GetRequests;
+﻿using Booking.Models.Contracts.Requests.FilterRequests;
+using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Repositories.Interfaces;
+using Booking.Repositories.Tools;
 using BookingApp.Data;
 using BookingApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -61,41 +63,47 @@ namespace Booking.Repositories
             return deleted > 0;
         }
 
-        public List<Place> FilterPlace(string placeName, Dictionary<string, int[]> intDictionary)
+        public List<Place> FilterPlace(FilterPlacesRequest filterPlaces)
         {
-            var places = new List<Place>();
+            var duplicatePlaces = new List<Place>();
+            int queryCount = 0;
 
-            var filterNames = _dataContext.Places.Where(c => c.Name == placeName);
-
-
-            foreach (var item in intDictionary)
+            if (FilterTools.AreIntsCorrect(filterPlaces.MinPlaceId, filterPlaces.MaxPlaceId))
             {
-                switch (item.Key)
-                {
-                    case "PlaceId":
-                        var filterIds = _dataContext.Places.Where(c => c.PlaceId >= item.Value[0]
-                        && c.PlaceId <= item.Value[1]);
-                        foreach (var id in filterIds)
-                            if (!places.Contains(id))
-                                places.Add(id);
-                        break;
-                    case "MaximumCapacity":
-                        var filterCapacity = _dataContext.Places.Where(c => c.MaximumCapacity >= item.Value[0]
-                        && c.MaximumCapacity <= item.Value[1]);
-                        foreach (var capacity in filterCapacity)
-                            if (!places.Contains(capacity))
-                                places.Add(capacity);
-                        break;
-                }
+                var filterCapacity = _dataContext.Places.Where(c => c.MaximumCapacity >= filterPlaces.MinPlaceId
+                 && c.MaximumCapacity <= filterPlaces.MaxPlaceId);
+                foreach (var capacity in filterCapacity)
+                    duplicatePlaces.Add(capacity);
+                queryCount++;
             }
 
-            if (placeName != null)
+            if (filterPlaces.Name != null)
             {
+                var filterNames = _dataContext.Places.Where(c => c.Name == filterPlaces.Name);
                 foreach (var name in filterNames)
-                    if (!places.Contains(name))
-                        places.Add(name);
+                    duplicatePlaces.Add(name);
+                queryCount++;
             }
-            return places;
+
+            if (FilterTools.AreIntsCorrect(filterPlaces.MinMaxCapacity, filterPlaces.MaxCapacity))
+            { 
+                var filterIds = _dataContext.Places.Where(c => c.PlaceId >= filterPlaces.MinMaxCapacity
+                && c.PlaceId <= filterPlaces.MaxCapacity);
+                foreach (var id in filterIds)
+                    duplicatePlaces.Add(id);
+                queryCount++;
+            }
+
+            var group = duplicatePlaces.GroupBy(i => i);
+            var filtered = new List<Place>();
+
+            foreach(var item in group)
+            {
+                if (item.Count() == queryCount)
+                    filtered.Add(item.Key);
+            }
+
+            return filtered;
         }
     }
 }

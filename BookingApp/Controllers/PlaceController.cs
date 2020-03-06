@@ -21,9 +21,9 @@ namespace Booking.App.Controllers
         }
 
         [HttpGet(ApiRoutes.Places.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllOrFilter([FromQuery] FilterPlacesRequest filter)
         {
-            return Ok(await _placeService.GetAllPlaces());
+            return Ok(await _placeService.GetPlaces(filter));
         }
 
         [HttpGet(ApiRoutes.Places.Get)]
@@ -68,22 +68,6 @@ namespace Booking.App.Controllers
                 return NotFound();
 
             return Ok(place);
-        }
-
-        [HttpGet(ApiRoutes.Places.Filter)]
-        public IActionResult Filter([FromQuery] FilterPlacesRequest filter)
-        {
-            var intDictionary = new Dictionary<string, int[]>();
-
-            int[] placeIdArray = { filter.MinPlaceId, filter.MaxPlaceId };
-            if (placeIdArray[0] > 0 && placeIdArray[1] > filter.MinPlaceId)
-                intDictionary.Add("PlaceId", placeIdArray);
-
-            int[] capacityArray = { filter.MinMaxCapacity, filter.MaxCapacity };
-            if (capacityArray[0] > 0 && capacityArray[1] > capacityArray[0])
-                intDictionary.Add("MaximumCapacity", capacityArray);
-
-            return Ok(_placeService.FilterPlaces(filter.Name, intDictionary));
         }
     }
 }

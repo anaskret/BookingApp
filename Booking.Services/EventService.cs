@@ -23,10 +23,19 @@ namespace Booking.Services
             _eventConverter = eventConverter;
             _eventRepository = eventRepository;
         }
-        public async Task<IEnumerable<GetEventRequest>> GetAllEvents()
+        public async Task<IEnumerable<GetEventRequest>> GetEvents(FilterEventsRequest filterEvents = null)
         {
-            var events = await _eventRepository.GetAllEvents();
+            var events = new List<Event>();
 
+            if (filterEvents.Name != null || filterEvents.Description  != null 
+                || (filterEvents.MinDate != null &&  filterEvents.MaxDate != null)
+                || (filterEvents.MinEventId != null && filterEvents.MaxEventId != null)
+                || (filterEvents.MinPlaceId != null && filterEvents.MaxPlaceId != null)
+                || (filterEvents.MinTypeId != null && filterEvents.MaxTypeId != null))
+                events = _eventRepository.FilterEvent(filterEvents);
+            else
+                events = await _eventRepository.GetAllEvents();
+            
             return events.Select(c => _eventConverter.EventToGetEventRequest(c));
         }
 
@@ -62,11 +71,5 @@ namespace Booking.Services
             return deleted;
         }
 
-        public IEnumerable<GetEventRequest> FilterEvents(FilterEventsRequest filterEvents)
-        {
-            var events = _eventRepository.FilterEvent(filterEvents);
-
-            return events.Select(c => _eventConverter.EventToGetEventRequest(c));
-        }
     }
 }

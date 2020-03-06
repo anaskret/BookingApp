@@ -1,4 +1,5 @@
 ﻿using Booking.Models.Contracts.Requests.CreateRequests;
+using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Models.Contracts.Requests.UpdateRequests;
 using Booking.Models.Converters.Interfaces;
@@ -25,9 +26,16 @@ namespace Booking.Services.Interfaces
 
         
 
-        public async Task<IEnumerable<GetPlaceRequest>> GetAllPlaces()
+        public async Task<IEnumerable<GetPlaceRequest>> GetPlaces(FilterPlacesRequest filterPlaces = null)
         {
-            var places = await _placeRepository.GetAllPlaces();
+            var places = new List<Place>();
+
+            if (filterPlaces.Name != null
+                || (filterPlaces.MinPlaceId != null && filterPlaces.MaxPlaceId != null)
+                || (filterPlaces.MinMaxCapacity != null || filterPlaces.MaxCapacity != null))
+                places = _placeRepository.FilterPlace(filterPlaces);
+            else
+                places = await _placeRepository.GetAllPlaces();
 
             return places.Select(c => _placeConverter.PlaceToGetPlaceRequest(c));
         }
@@ -60,11 +68,11 @@ namespace Booking.Services.Interfaces
             return await _placeRepository.DeletePlace(placeId);
         }
 
-        public IEnumerable<GetPlaceRequest> FilterPlaces(string name, Dictionary<string, int[]> intDictionary)
+        /*public async Task<IEnumerable<GetPlaceRequest>> FilterPlaces(FilterPlacesRequest filterPlaces)
         {
-            var filteredPlaces = _placeRepository.FilterPlace(name, intDictionary);
+            var filteredPlaces = await _placeRepository.FilterPlace(filterPlaces);
 
             return filteredPlaces.Select(c => _placeConverter.PlaceToGetPlaceRequest(c));
-        }
+        }*/
     }
 }
