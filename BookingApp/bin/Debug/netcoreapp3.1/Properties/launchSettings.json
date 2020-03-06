@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Booking.App",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:56020",
       "sslPort": 44361
