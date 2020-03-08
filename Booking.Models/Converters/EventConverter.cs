@@ -34,7 +34,9 @@ namespace Booking.Models.Converters
                 Date = events.Date,
                 Description = events.Description,
                 PlaceId = events.PlaceId,
-                TypeId = events.TypeId
+                TypeId = events.TypeId,
+                AvailableSeats = events.AvailableSeats,
+                NumberOfSeats = events.NumberOfSeats
             };
         }
 

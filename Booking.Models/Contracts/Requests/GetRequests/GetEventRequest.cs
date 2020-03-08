@@ -8,5 +8,8 @@ namespace Booking.Models.Contracts.Requests.GetRequests
     public class GetEventRequest:EventRequest
     {
         public int EventId { get; set; }
+#nullable enable
+        public int? NumberOfSeats { get; set; }
+        public int? AvailableSeats { get; set; }
     }
 }

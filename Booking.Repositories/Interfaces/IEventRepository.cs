@@ -1,9 +1,6 @@
 ﻿using Booking.Models.Contracts.Requests.FilterRequests;
-using Booking.Models.Contracts.Requests.GetRequests;
 using BookingApp.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookingApp.Services.Interfaces

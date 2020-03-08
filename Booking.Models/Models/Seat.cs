@@ -11,13 +11,18 @@ namespace BookingApp.Models
     { 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SeatId { get; set; }
-        public int SeatType { get; set; }
+        public int TypeId { get; set; }
         public int SeatNumber { get; set; }
         public int RowNumber { get; set; }
-        public string SectorNumber { get; set; }
+        public int SectorNumber { get; set; }
         public int PlaceId { get; set; }
 
-        public virtual Place Places{ get; set; }
-        public virtual SeatType SeatTypes { get; set; }
+        [ForeignKey("PlaceId")]
+        public virtual Place Place { get; set; }
+        [ForeignKey("TypeId")]
+        public virtual SeatType SeatType { get; set; }
+#nullable enable
+        public virtual SeatStatus? SeatStatuses { get; set; }
+#nullable disable
     }
 }

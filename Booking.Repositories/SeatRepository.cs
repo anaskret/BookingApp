@@ -77,8 +77,8 @@ namespace Booking.Repositories
 
             if(FilterTools.AreIntsCorrect(filterSeats.MinTypeId, filterSeats.MaxSeatId))
             {
-                var filterTypes = _dataContext.Seats.Where(x => x.SeatType >= filterSeats.MinTypeId
-                && x.SeatType <= filterSeats.MaxSeatId);
+                var filterTypes = _dataContext.Seats.Where(x => x.TypeId >= filterSeats.MinTypeId
+                && x.TypeId <= filterSeats.MaxSeatId);
 
                 foreach (var type in filterTypes)
                     duplicateSeats.Add(type);
@@ -105,9 +105,10 @@ namespace Booking.Repositories
                 queryCount++;
             }
 
-            if(filterSeats.SectorNumber != null)
+            if(FilterTools.AreIntsCorrect(filterSeats.MinSectorNumber, filterSeats.MaxSectorNumber))
             {
-                var filterSectors = _dataContext.Seats.Where(x => x.SectorNumber == filterSeats.SectorNumber);
+                var filterSectors = _dataContext.Seats.Where(x => x.SectorNumber >= filterSeats.MinSectorNumber 
+                && x.SectorNumber <= filterSeats.MaxSectorNumber);
 
                 foreach (var sector in filterSectors)
                     duplicateSeats.Add(sector);

@@ -21,6 +21,42 @@
     <Compile Remove="Migrations\20200229181130_SeatIdGenerated.Designer.cs" />
     <Compile Remove="Migrations\20200229181437_SeatIdGenerated.cs" />
     <Compile Remove="Migrations\20200229181437_SeatIdGenerated.Designer.cs" />
+    <Compile Remove="Migrations\20200229182233_SeatChange.cs" />
+    <Compile Remove="Migrations\20200229182233_SeatChange.Designer.cs" />
+    <Compile Remove="Migrations\20200308151345_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308151345_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308151615_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308151615_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308152411_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308152411_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308165508_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308165508_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308170729_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308170729_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308170817_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308170817_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308171928_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308171928_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308172114_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308172114_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308172634_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308172634_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308172931_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308172931_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308174337_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308174337_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308174535_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308174535_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308175332_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308175332_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308180957_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308180957_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308183723_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308183723_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308184650_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308184650_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308191716_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308191716_NumberOfSeats.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

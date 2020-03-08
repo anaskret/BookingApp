@@ -9,10 +9,11 @@ namespace BookingApp.Models
     [Table("SectorPrices")]
     public class SectorPrice
     {
-        public SectorPrice()
+       /* public SectorPrice()
         {
             Seats = new HashSet<Seat>();
-        }
+        }*/
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PriceId { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
@@ -20,7 +21,11 @@ namespace BookingApp.Models
         public int EventId { get; set; }
         public int SectorNumber { get; set; }
 
+        [ForeignKey("EventId")]
         public virtual Event Event { get; set; }
-        public virtual ICollection<Seat> Seats { get; set; }
+       // public virtual ICollection<Seat> Seats { get; set; }
+#nullable enable
+        public virtual ICollection<SeatStatus>? SeatStatuses { get; set; }
+#nullable disable
     }
 }

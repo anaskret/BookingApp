@@ -15,7 +15,8 @@ namespace BookingApp.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TypeId { get; set; }
         public string Type { get; set; }
-
-        public virtual ICollection<Event> Event { get; set; }
+#nullable enable
+        public virtual ICollection<Event>? Event { get; set; }
+#nullable disable
     }
 }

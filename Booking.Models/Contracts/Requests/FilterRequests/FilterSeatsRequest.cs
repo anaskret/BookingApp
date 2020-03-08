@@ -15,7 +15,8 @@ namespace Booking.Models.Contracts.Requests.FilterRequests
         public int? MaxSeatNumber { get; set; }
         public int? MinRowNumber { get; set; }
         public int? MaxRowNumber { get; set; }
-        public string? SectorNumber { get; set; }
+        public int? MinSectorNumber { get; set; }
+        public int? MaxSectorNumber { get; set; }
         public int? MinPlaceId { get; set; }
         public int? MaxPlaceId { get; set; }
 #nullable disable

@@ -1,11 +1,9 @@
 ﻿using Booking.Models.Contracts.Requests.FilterRequests;
-using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Repositories.Tools;
 using BookingApp.Data;
 using BookingApp.Models;
 using BookingApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,16 +21,38 @@ namespace BookingApp.Services
 
         public async Task<List<Event>> GetAllEvents()
         {
-            return await _dataContext.Events.ToListAsync();
+            var events = await _dataContext.Events.ToListAsync();
+
+            foreach (var item in events)
+            { 
+                item.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.IsBooked == false && x.EventId == item.EventId).Count();
+                _dataContext.Events.Update(item);
+            }
+
+            _dataContext.SaveChanges();
+
+            return events;
         }
 
         public async Task<Event> GetEventById(int eventId)
         {
-            return await _dataContext.Events.SingleOrDefaultAsync(x => x.EventId == eventId);
+            var eventById = await _dataContext.Events.SingleOrDefaultAsync(x => x.EventId == eventId);
+            
+            eventById.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.IsBooked == false && x.EventId == eventId).Count();
+
+            _dataContext.Events.Update(eventById);
+
+            _dataContext.SaveChanges();
+
+            return eventById;
         }
 
         public async Task<bool> CreateEvent(Event eventCreate)
         {
+            var place = _dataContext.Places.SingleOrDefault(x => x.PlaceId == eventCreate.PlaceId);
+            eventCreate.NumberOfSeats = place.MaximumCapacity;
+            eventCreate.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.IsBooked == false && x.EventId == eventCreate.EventId).Count();
+
             await _dataContext.Events.AddAsync(eventCreate);
 
             var created = await _dataContext.SaveChangesAsync();
@@ -128,5 +148,15 @@ namespace BookingApp.Services
 
             return result.ToList();
         }
+
+        /*public SeatCountResponse SeatCount(int eventId)
+        {
+            var response = new SeatCountResponse
+            {
+                
+            };
+
+            return response;
+        }*/
     }
 }

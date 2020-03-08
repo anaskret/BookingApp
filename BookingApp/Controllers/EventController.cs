@@ -66,6 +66,11 @@ namespace BookingApp.Controllers
             return NotFound();
         }
 
+        /*[HttpGet(ApiRoutes.Events.SeatCount)]
+        public IActionResult SeatCount([FromRoute] int eventId)
+        {
+            return Ok(_eventService.SeatCount(eventId));
+        }*/
     }
 
 }

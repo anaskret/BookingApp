@@ -5,10 +5,8 @@ using Booking.Models.Converters.Interfaces;
 using Booking.Services.Interfaces;
 using BookingApp.Models;
 using BookingApp.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Booking.Services
@@ -71,5 +69,9 @@ namespace Booking.Services
             return deleted;
         }
 
+        /*public SeatCountResponse SeatCount(int eventId)
+        {
+            return _eventRepository.SeatCount(eventId);
+        }*/
     }
 }

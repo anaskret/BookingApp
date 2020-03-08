@@ -31,7 +31,7 @@ namespace Booking.Models.Converters
                 RowNumber = seat.RowNumber,
                 SectorNumber = seat.SectorNumber,
                 PlaceId = seat.PlaceId,
-                SeatType = seat.SeatType
+                TypeId = seat.TypeId
             };
         }
 

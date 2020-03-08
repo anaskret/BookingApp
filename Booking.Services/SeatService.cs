@@ -33,7 +33,7 @@ namespace Booking.Services
                 || (filterSeats.MinRowNumber != null && filterSeats.MaxRowNumber != null)
                 || (filterSeats.MinTypeId != null && filterSeats.MaxTypeId != null)
                 || (filterSeats.MinPlaceId != null && filterSeats.MaxPlaceId != null)
-                || filterSeats.SectorNumber != null)
+                || filterSeats.MinSectorNumber != null && filterSeats.MaxSectorNumber != null)
                 seats = _seatRepository.FilterSeats(filterSeats);
             else
                 seats = await _seatRepository.GetAllSeats();

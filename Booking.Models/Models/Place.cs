@@ -18,8 +18,9 @@ namespace BookingApp.Models
         public int PlaceId { get; set; }
         public string Name { get; set; }
         public int MaximumCapacity { get; set; }
-
-        public virtual ICollection<Event> Event { get; set; }
+#nullable enable
+        public virtual ICollection<Event>? Event { get; set; }
+#nullable disable
         public virtual ICollection<Seat> Seats { get; set; }
     }
 }

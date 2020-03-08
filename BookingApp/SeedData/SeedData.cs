@@ -17,10 +17,10 @@ namespace Booking.App.Models
             InitializeTypes(serviceProvider);
             InitializePlaces(serviceProvider);
             InitializeSeatTypes(serviceProvider);
+            InitializeSeats(serviceProvider);
             InitializeEvents(serviceProvider);
             InitializeSeatPrice(serviceProvider);
             InitializeSeatStatus(serviceProvider);
-            InitializeSeats(serviceProvider);
         }
         public static void InitializeTypes(IServiceProvider serviceProvider)
         {
@@ -128,6 +128,7 @@ namespace Booking.App.Models
                     {
                         Name = "Arsenal - Tottenham",
                         Date = new DateTime(2020, 04, 25),
+                        NumberOfSeats = 60000,
                         Description = "Tottenham will travel to Emirates Stadium to try and defeat the better club",
                         PlaceId = 1,
                         TypeId = 1
@@ -190,73 +191,73 @@ namespace Booking.App.Models
                     new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 1,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 2,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 3,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 4,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 5,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 6,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 7,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 8,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 9,
-                        SeatType = 1
+                        TypeId = 1
                     }, new Seat
                     {
                         PlaceId = 1,
-                        SectorNumber = "A1",
+                        SectorNumber = 1,
                         RowNumber = 1,
                         SeatNumber = 10,
-                        SeatType = 1
+                        TypeId = 1
                     }
                     );
                 context.SaveChanges();
@@ -267,22 +268,44 @@ namespace Booking.App.Models
         {
             using (var context = Context(serviceProvider))
             {
-                if (context.SeatStatus.Any())
+                if (context.SeatStatuses.Any())
                 {
                     return;
                 }
-                context.SeatStatus.AddRange(
+                context.SeatStatuses.AddRange(
                     new SeatStatus
                     {
-                        StatusDescription = "Available"
+                        IsBooked = true,
+                        SeatId = 1,
+                        EventId = 1,
+                        PriceId = 1
                     },
 
                     new SeatStatus
                     {
-                        StatusDescription = "Booked"
+                        IsBooked = false,
+                        SeatId = 1,
+                        EventId = 1,
+                        PriceId = 1
+                    },
+                    
+                    new SeatStatus
+                    {
+                        IsBooked = false,
+                        SeatId = 1,
+                        EventId = 1,
+                        PriceId = 1
+                    },
+                    
+                    new SeatStatus
+                    {
+                        IsBooked = false,
+                        SeatId = 1,
+                        EventId = 1,
+                        PriceId = 1
                     }
                     );
-                context.SaveChanges();
+                var saved = context.SaveChanges();
             }
         }
 

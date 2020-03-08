@@ -14,8 +14,9 @@ namespace Booking.Models.Models
         {
             Seats = new HashSet<Seat>();
         }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SeatTypeId { get; set; }
+        public int TypeId { get; set; }
         public string Type { get; set; }
 
         public virtual ICollection<Seat> Seats { get; set; }
