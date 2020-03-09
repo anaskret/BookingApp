@@ -57,6 +57,14 @@
     <Compile Remove="Migrations\20200308184650_NumberOfSeats.Designer.cs" />
     <Compile Remove="Migrations\20200308191716_NumberOfSeats.cs" />
     <Compile Remove="Migrations\20200308191716_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200308191809_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200308191809_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200309123325_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200309123325_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200309124647_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200309124647_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200309125456_NumberOfSeats.cs" />
+    <Compile Remove="Migrations\20200309125456_NumberOfSeats.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -142,11 +142,11 @@ namespace Booking.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool?>("Available")
+                        .HasColumnType("bit");
+
                     b.Property<int>("EventId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsBooked")
-                        .HasColumnType("bit");
 
                     b.Property<int>("PriceId")
                         .HasColumnType("int");

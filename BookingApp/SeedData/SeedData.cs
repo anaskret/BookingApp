@@ -158,27 +158,6 @@ namespace Booking.App.Models
             }
         }
 
-        public static void InitializeSeatPrice(IServiceProvider serviceProvider)
-        {
-            using (var context = Context(serviceProvider))
-            {
-                if (context.SeatPrices.Any())
-                {
-                    return;
-                }
-                context.SeatPrices.AddRange(
-                    new SectorPrice
-                    {
-                        Price = 50,
-                        EventId = 1,
-                        SectorNumber = 1
-                    }
-                    );
-                context.SaveChanges();
-            }
-        }
-
-      
         public static void InitializeSeats(IServiceProvider serviceProvider)
         {
             using (var context = Context(serviceProvider))
@@ -264,6 +243,26 @@ namespace Booking.App.Models
             }
         }
 
+        public static void InitializeSeatPrice(IServiceProvider serviceProvider)
+        {
+            using (var context = Context(serviceProvider))
+            {
+                if (context.SectorPrices.Any())
+                {
+                    return;
+                }
+                context.SectorPrices.AddRange(
+                    new SectorPrice
+                    {
+                        Price = 50,
+                        EventId = 1,
+                        SectorNumber = 1
+                    }
+                    );
+                context.SaveChanges();
+            }
+        }
+
         public static void InitializeSeatStatus(IServiceProvider serviceProvider)
         {
             using (var context = Context(serviceProvider))
@@ -275,7 +274,7 @@ namespace Booking.App.Models
                 context.SeatStatuses.AddRange(
                     new SeatStatus
                     {
-                        IsBooked = true,
+                        Available = false,
                         SeatId = 1,
                         EventId = 1,
                         PriceId = 1
@@ -283,23 +282,20 @@ namespace Booking.App.Models
 
                     new SeatStatus
                     {
-                        IsBooked = false,
                         SeatId = 1,
                         EventId = 1,
                         PriceId = 1
                     },
-                    
+
                     new SeatStatus
                     {
-                        IsBooked = false,
                         SeatId = 1,
                         EventId = 1,
                         PriceId = 1
                     },
-                    
+
                     new SeatStatus
                     {
-                        IsBooked = false,
                         SeatId = 1,
                         EventId = 1,
                         PriceId = 1

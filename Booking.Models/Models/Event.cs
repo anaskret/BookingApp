@@ -15,7 +15,7 @@ namespace BookingApp.Models
             SeatPrices = new HashSet<SectorPrice>();
             SeatStatuses = new HashSet<SeatStatus>();
             /*this.NumberOfSeats = Place.MaximumCapacity;
-            this.AvailableSeats = SeatStatuses.Select(x => x.IsBooked == false).Count();*/
+            this.AvailableSeats = SeatStatuses.Select(x => x.Available == false).Count();*/
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

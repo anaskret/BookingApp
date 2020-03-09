@@ -21,7 +21,7 @@ namespace BookingApp.Data
         public virtual DbSet<SeatStatus> SeatStatuses { get; set; }
         //public virtual DbSet<Row> Rows { get; set; }
         public virtual DbSet<SeatType> SeatTypes { get; set; }
-        public virtual DbSet<SectorPrice> SeatPrices { get; set; }
+        public virtual DbSet<SectorPrice> SectorPrices { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
         //public virtual DbSet<Sector> Sectors { get; set; }
 
@@ -41,8 +41,6 @@ namespace BookingApp.Data
             }
 
             base.OnModelCreating(modelBuilder);
-
-            
         }
     }
 }

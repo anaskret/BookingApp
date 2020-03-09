@@ -134,7 +134,7 @@ namespace Booking.DataAccess.Migrations
                 {
                     StatusId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IsBooked = table.Column<bool>(nullable: false),
+                    Available = table.Column<bool>(nullable: true),
                     SeatId = table.Column<int>(nullable: false),
                     EventId = table.Column<int>(nullable: false),
                     PriceId = table.Column<int>(nullable: false)

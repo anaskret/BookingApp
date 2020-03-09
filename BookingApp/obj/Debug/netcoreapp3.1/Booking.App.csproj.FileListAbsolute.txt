@@ -334,3 +334,12 @@ C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Connected Services\AzureStorage1\ConnectedService.json
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Azure.Core.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Azure.Identity.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Azure.Storage.Blobs.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Azure.Storage.Common.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Azure.Storage.Files.Shares.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Azure.Storage.Queues.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Azure.dll
+C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll

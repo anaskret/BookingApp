@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.DataAccess.Migrations
 {
     [DbContext(typeof(BookingAppContext))]
-    [Migration("20200308191809_NumberOfSeats")]
+    [Migration("20200309125838_NumberOfSeats")]
     partial class NumberOfSeats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,11 +144,11 @@ namespace Booking.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool?>("Available")
+                        .HasColumnType("bit");
+
                     b.Property<int>("EventId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsBooked")
-                        .HasColumnType("bit");
 
                     b.Property<int>("PriceId")
                         .HasColumnType("int");

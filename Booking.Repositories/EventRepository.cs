@@ -24,8 +24,8 @@ namespace BookingApp.Services
             var events = await _dataContext.Events.ToListAsync();
 
             foreach (var item in events)
-            { 
-                item.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.IsBooked == false && x.EventId == item.EventId).Count();
+            {
+                item.AvailableSeats = FilterTools.AvailableSeatCount(item.EventId, _dataContext);
                 _dataContext.Events.Update(item);
             }
 
@@ -38,7 +38,7 @@ namespace BookingApp.Services
         {
             var eventById = await _dataContext.Events.SingleOrDefaultAsync(x => x.EventId == eventId);
             
-            eventById.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.IsBooked == false && x.EventId == eventId).Count();
+            eventById.AvailableSeats = FilterTools.AvailableSeatCount(eventById.EventId, _dataContext);
 
             _dataContext.Events.Update(eventById);
 
@@ -51,7 +51,7 @@ namespace BookingApp.Services
         {
             var place = _dataContext.Places.SingleOrDefault(x => x.PlaceId == eventCreate.PlaceId);
             eventCreate.NumberOfSeats = place.MaximumCapacity;
-            eventCreate.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.IsBooked == false && x.EventId == eventCreate.EventId).Count();
+            eventCreate.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.Available == false && x.EventId == eventCreate.EventId).Count();
 
             await _dataContext.Events.AddAsync(eventCreate);
 
