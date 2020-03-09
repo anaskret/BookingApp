@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Booking.App.Models;
+using BookingApp.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,9 @@ namespace BookingApp
 
                 try
                 {
-                    SeedData.Initialize(services);
+                    var context = services.GetRequiredService<BookingAppContext>();
+                    var seed = new SeedData(context);
+                    seed.Initialize();
                 }
                 catch (Exception ex)
                 {

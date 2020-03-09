@@ -17,9 +17,7 @@ namespace BookingApp.Models
         public int SectorNumber { get; set; }
         public int PlaceId { get; set; }
 
-        [ForeignKey("PlaceId")]
         public virtual Place Place { get; set; }
-        [ForeignKey("TypeId")]
         public virtual SeatType SeatType { get; set; }
 #nullable enable
         public virtual SeatStatus? SeatStatuses { get; set; }

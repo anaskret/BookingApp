@@ -41,6 +41,46 @@ namespace BookingApp.Data
             }
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Event>()
+                .HasOne(e => e.Type)
+                .WithMany(t => t.Events)
+                .HasForeignKey(t => t.TypeId);
+
+            modelBuilder.Entity<Event>()
+                .HasOne(e => e.Place)
+                .WithMany(p => p.Events)
+                .HasForeignKey(p => p.PlaceId);
+
+            modelBuilder.Entity<Seat>()
+                .HasOne(p => p.Place)
+                .WithMany(s => s.Seats)
+                .HasForeignKey(p => p.PlaceId);
+
+            modelBuilder.Entity<Seat>()
+                .HasOne(t => t.SeatType)
+                .WithMany(s => s.Seats)
+                .HasForeignKey(t => t.TypeId);
+
+            modelBuilder.Entity<SectorPrice>()
+                .HasOne(e => e.Event)
+                .WithMany(sp => sp.SeatPrices)
+                .HasForeignKey(e => e.EventId);
+
+            modelBuilder.Entity<SeatStatus>()
+                .HasOne(s => s.Seat)
+                .WithOne(ss => ss.SeatStatuses)
+                .HasForeignKey<SeatStatus>(s => s.SeatId);
+
+            modelBuilder.Entity<SeatStatus>()
+                .HasOne(e => e.Event)
+                .WithMany(ss => ss.SeatStatuses)
+                .HasForeignKey(e => e.EventId);
+
+            modelBuilder.Entity<SeatStatus>()
+                .HasOne(sp => sp.SectorPrice)
+                .WithMany(ss => ss.SeatStatuses)
+                .HasForeignKey(sp => sp.PriceId);
         }
     }
 }

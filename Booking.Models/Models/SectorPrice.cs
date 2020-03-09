@@ -21,9 +21,7 @@ namespace BookingApp.Models
         public int EventId { get; set; }
         public int SectorNumber { get; set; }
 
-        [ForeignKey("EventId")]
         public virtual Event Event { get; set; }
-       // public virtual ICollection<Seat> Seats { get; set; }
 #nullable enable
         public virtual ICollection<SeatStatus>? SeatStatuses { get; set; }
 #nullable disable

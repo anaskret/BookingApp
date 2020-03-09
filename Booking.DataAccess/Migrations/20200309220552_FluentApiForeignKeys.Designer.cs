@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.DataAccess.Migrations
 {
     [DbContext(typeof(BookingAppContext))]
-    [Migration("20200309125838_NumberOfSeats")]
-    partial class NumberOfSeats
+    [Migration("20200309220552_FluentApiForeignKeys")]
+    partial class FluentApiForeignKeys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,7 +139,7 @@ namespace Booking.DataAccess.Migrations
 
             modelBuilder.Entity("BookingApp.Models.SeatStatus", b =>
                 {
-                    b.Property<int>("StatusId")
+                    b.Property<int?>("StatusId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -194,13 +194,13 @@ namespace Booking.DataAccess.Migrations
             modelBuilder.Entity("BookingApp.Models.Event", b =>
                 {
                     b.HasOne("BookingApp.Models.Place", "Place")
-                        .WithMany("Event")
+                        .WithMany("Events")
                         .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookingApp.Models.EventType", "Type")
-                        .WithMany("Event")
+                        .WithMany("Events")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

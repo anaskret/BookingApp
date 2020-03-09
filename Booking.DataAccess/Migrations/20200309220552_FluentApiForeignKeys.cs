@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Booking.DataAccess.Migrations
 {
-    public partial class NumberOfSeats : Migration
+    public partial class FluentApiForeignKeys : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,33 +1,25 @@
-﻿using Booking.App.Installers;
-using Booking.Models.Converters;
+﻿using Booking.Models.Converters;
 using Booking.Models.Converters.Interfaces;
 using Booking.Repositories;
 using Booking.Repositories.Interfaces;
 using Booking.Services;
 using Booking.Services.Interfaces;
-using BookingApp.Data;
-using BookingApp.Installers.Interfaces;
 using BookingApp.Services;
 using BookingApp.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookingApp.Installers
+namespace Booking.App.Installers
 {
-    public class DbInstaller : IInstaller
+    public class Dependencies
     {
-        public void InstallServices(IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<BookingAppContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnectionLocal")));
-            services.AddControllers();
+        private static IServiceCollection services = new ServiceCollection();
 
+        public static IServiceProvider Load()
+        {
             services.AddTransient<IEventService, EventService>();
 
             services.AddScoped<IEventRepository, EventRepository>();
@@ -42,6 +34,8 @@ namespace BookingApp.Installers
 
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddSingleton<ISeatConverter, SeatConverter>();
+
+            return services.BuildServiceProvider();
         }
     }
 }

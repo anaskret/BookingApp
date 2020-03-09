@@ -33,7 +33,6 @@ namespace BookingApp.Models
         public int PlaceId { get; set; }
         public int TypeId { get; set; }
 
-        [ForeignKey("TypeId")]
         public virtual EventType Type { get; set; }
         [ForeignKey("PlaceId")]
         public virtual Place Place { get; set; }

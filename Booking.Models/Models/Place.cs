@@ -10,7 +10,7 @@ namespace BookingApp.Models
     {
         public Place()
         {
-            Event = new HashSet<Event>();
+            Events = new HashSet<Event>();
             Seats = new HashSet<Seat>();
         }
 
@@ -19,7 +19,7 @@ namespace BookingApp.Models
         public string Name { get; set; }
         public int MaximumCapacity { get; set; }
 #nullable enable
-        public virtual ICollection<Event>? Event { get; set; }
+        public virtual ICollection<Event>? Events { get; set; }
 #nullable disable
         public virtual ICollection<Seat> Seats { get; set; }
     }

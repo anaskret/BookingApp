@@ -10,13 +10,13 @@ namespace BookingApp.Models
     {
         public EventType()
         {
-            Event = new HashSet<Event>();
+            Events = new HashSet<Event>();
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TypeId { get; set; }
         public string Type { get; set; }
 #nullable enable
-        public virtual ICollection<Event>? Event { get; set; }
+        public virtual ICollection<Event>? Events { get; set; }
 #nullable disable
     }
 }
