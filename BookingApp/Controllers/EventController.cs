@@ -29,12 +29,12 @@ namespace BookingApp.Controllers
         [HttpGet(ApiRoutes.Events.Get)]
         public async Task<IActionResult> Get([FromRoute] int eventId)
         {
-            var events = _eventService.GetEventById(eventId);
+            var eventById = _eventService.GetEventById(eventId);
 
-            if (events == null)
+            if (eventById == null)
                 return NotFound();
 
-            return Ok(await events);
+            return Ok(await eventById);
         }
 
         [HttpPost(ApiRoutes.Events.Create)]
@@ -65,12 +65,6 @@ namespace BookingApp.Controllers
 
             return NotFound();
         }
-
-        /*[HttpGet(ApiRoutes.Events.SeatCount)]
-        public IActionResult SeatCount([FromRoute] int eventId)
-        {
-            return Ok(_eventService.SeatCount(eventId));
-        }*/
     }
 
 }

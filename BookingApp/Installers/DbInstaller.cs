@@ -1,5 +1,4 @@
-﻿using Booking.App.Installers;
-using Booking.Models.Converters;
+﻿using Booking.Models.Converters;
 using Booking.Models.Converters.Interfaces;
 using Booking.Repositories;
 using Booking.Repositories.Interfaces;
@@ -12,10 +11,6 @@ using BookingApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookingApp.Installers
 {

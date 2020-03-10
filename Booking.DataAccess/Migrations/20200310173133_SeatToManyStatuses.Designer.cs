@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.DataAccess.Migrations
 {
     [DbContext(typeof(BookingAppContext))]
-    [Migration("20200309220819_SeatStatusAllNullable")]
-    partial class SeatStatusAllNullable
+    [Migration("20200310173133_SeatToManyStatuses")]
+    partial class SeatToManyStatuses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -162,9 +162,7 @@ namespace Booking.DataAccess.Migrations
 
                     b.HasIndex("PriceId");
 
-                    b.HasIndex("SeatId")
-                        .IsUnique()
-                        .HasFilter("[SeatId] IS NOT NULL");
+                    b.HasIndex("SeatId");
 
                     b.ToTable("SeatStatuses");
                 });
@@ -235,8 +233,8 @@ namespace Booking.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BookingApp.Models.Seat", "Seat")
-                        .WithOne("SeatStatuses")
-                        .HasForeignKey("BookingApp.Models.SeatStatus", "SeatId")
+                        .WithMany("SeatStatuses")
+                        .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

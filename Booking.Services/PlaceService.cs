@@ -28,14 +28,7 @@ namespace Booking.Services.Interfaces
 
         public async Task<IEnumerable<GetPlaceRequest>> GetPlaces(FilterPlacesRequest filterPlaces = null)
         {
-            var places = new List<Place>();
-
-            if (filterPlaces.Name != null
-                || (filterPlaces.MinPlaceId != null && filterPlaces.MaxPlaceId != null)
-                || (filterPlaces.MinMaxCapacity != null || filterPlaces.MaxCapacity != null))
-                places = _placeRepository.FilterPlace(filterPlaces);
-            else
-                places = await _placeRepository.GetAllPlaces();
+            var places = await _placeRepository.GetAllOrFilterPlace(filterPlaces);
 
             return places.Select(c => _placeConverter.PlaceToGetPlaceRequest(c));
         }

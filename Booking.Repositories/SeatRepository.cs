@@ -19,10 +19,6 @@ namespace Booking.Repositories
         {
             _dataContext = dataContext;
         }
-        public async Task<List<Seat>> GetAllSeats()
-        {
-            return await _dataContext.Seats.ToListAsync();
-        }
 
         public async Task<Seat> GetSeatById(int seatId)
         {
@@ -60,7 +56,7 @@ namespace Booking.Repositories
             return deleted > 0;
         }
 
-        public List<Seat> FilterSeats(FilterSeatsRequest filterSeats)
+        public async Task<List<Seat>> GetAllOrFilterSeats(FilterSeatsRequest filterSeats)
         {
             var duplicateSeats = new List<Seat>();
             int queryCount = 0;
@@ -127,6 +123,9 @@ namespace Booking.Repositories
 
             var group = duplicateSeats.GroupBy(i => i);
             var finalSeats = new List<Seat>();
+
+            if(queryCount == 0)
+                return await _dataContext.Seats.ToListAsync();
 
             foreach (var item in group)
                 if (item.Count() == queryCount)

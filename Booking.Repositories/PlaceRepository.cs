@@ -21,12 +21,6 @@ namespace Booking.Repositories
             _dataContext = context;
         }
 
-
-        public async Task<List<Place>> GetAllPlaces()
-        {
-            return await _dataContext.Places.ToListAsync();
-        }
-
         public async Task<Place> GetPlaceById(int placeId)
         {
             return await _dataContext.Places.SingleOrDefaultAsync(x => x.PlaceId == placeId);
@@ -63,7 +57,7 @@ namespace Booking.Repositories
             return deleted > 0;
         }
 
-        public List<Place> FilterPlace(FilterPlacesRequest filterPlaces)
+        public async Task<List<Place>> GetAllOrFilterPlace(FilterPlacesRequest filterPlaces)
         {
             var duplicatePlaces = new List<Place>();
             int queryCount = 0;
@@ -97,7 +91,10 @@ namespace Booking.Repositories
             var group = duplicatePlaces.GroupBy(i => i);
             var filtered = new List<Place>();
 
-            foreach(var item in group)
+            if(queryCount == 0)
+                return await _dataContext.Places.ToListAsync();
+
+            foreach (var item in group)
             {
                 if (item.Count() == queryCount)
                     filtered.Add(item.Key);

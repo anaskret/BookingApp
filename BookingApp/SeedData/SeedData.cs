@@ -146,11 +146,11 @@ namespace Booking.App.Models
             _context.SeatTypes.AddRange(
                 new SeatType
                 {
-                    Type = "VIP"
+                    Type = "Economic"
                 },
                 new SeatType
                 {
-                    Type = "Economic"
+                    Type = "VIP"
                 });
             _context.SaveChanges();
         }
@@ -204,35 +204,35 @@ namespace Booking.App.Models
                     SectorNumber = 1,
                     RowNumber = 1,
                     SeatNumber = 6,
-                    TypeId = 1
+                    TypeId = 2
                 }, new Seat
                 {
                     PlaceId = 1,
                     SectorNumber = 1,
                     RowNumber = 1,
                     SeatNumber = 7,
-                    TypeId = 1
+                    TypeId = 2
                 }, new Seat
                 {
                     PlaceId = 1,
                     SectorNumber = 1,
                     RowNumber = 1,
                     SeatNumber = 8,
-                    TypeId = 1
+                    TypeId = 2
                 }, new Seat
                 {
                     PlaceId = 1,
                     SectorNumber = 1,
                     RowNumber = 1,
                     SeatNumber = 9,
-                    TypeId = 1
+                    TypeId = 2
                 }, new Seat
                 {
                     PlaceId = 1,
                     SectorNumber = 1,
                     RowNumber = 1,
                     SeatNumber = 10,
-                    TypeId = 1
+                    TypeId = 2
                 }
                 );
             _context.SaveChanges();

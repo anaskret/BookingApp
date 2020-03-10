@@ -1,5 +1,6 @@
 ﻿using Booking.App.Contracts.Requests;
 using Booking.Models.Contracts.Requests.GetRequests;
+using Booking.Models.Contracts.Responses;
 using Booking.Models.Converters.Interfaces;
 using BookingApp.Models;
 using System;
@@ -37,6 +38,24 @@ namespace Booking.Models.Converters
                 TypeId = events.TypeId,
                 AvailableSeats = events.AvailableSeats,
                 NumberOfSeats = events.NumberOfSeats
+            };
+        }
+        
+        public GetEventByIdRequest EventToGetEventByIdRequest(Event events, List<GetSeatTypesCountResponse> getSeatTypes)
+        {
+            if (events == null)
+                return null;
+            return new GetEventByIdRequest
+            {
+                EventId = events.EventId,
+                Name = events.Name,
+                Date = events.Date,
+                Description = events.Description,
+                PlaceId = events.PlaceId,
+                TypeId = events.TypeId,
+                AvailableSeats = events.AvailableSeats,
+                NumberOfSeats = events.NumberOfSeats,
+                SeatTypesCount = getSeatTypes
             };
         }
 

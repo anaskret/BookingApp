@@ -9,11 +9,10 @@ namespace Booking.Repositories.Interfaces
 {
     public interface ISeatRepository
     {
-        Task<List<Seat>> GetAllSeats();
         Task<Seat> GetSeatById(int seatId);
+        Task<List<Seat>> GetAllOrFilterSeats(FilterSeatsRequest filterSeats);
         Task<bool> CreateSeat(Seat seat);
         Task<bool> UpdateSeat(Seat seat);
         Task<bool> DeleteSeat(int seatId);
-        List<Seat> FilterSeats(FilterSeatsRequest filterSeats);
     }
 }

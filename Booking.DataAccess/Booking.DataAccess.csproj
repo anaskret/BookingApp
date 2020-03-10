@@ -67,6 +67,8 @@
     <Compile Remove="Migrations\20200309125456_NumberOfSeats.Designer.cs" />
     <Compile Remove="Migrations\20200309125838_NumberOfSeats.cs" />
     <Compile Remove="Migrations\20200309125838_NumberOfSeats.Designer.cs" />
+    <Compile Remove="Migrations\20200309220819_SeatStatusAllNullable.cs" />
+    <Compile Remove="Migrations\20200309220819_SeatStatusAllNullable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

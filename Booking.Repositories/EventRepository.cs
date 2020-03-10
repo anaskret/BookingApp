@@ -1,4 +1,5 @@
 ﻿using Booking.Models.Contracts.Requests.FilterRequests;
+using Booking.Models.Contracts.Responses;
 using Booking.Repositories.Tools;
 using BookingApp.Data;
 using BookingApp.Models;
@@ -38,10 +39,8 @@ namespace BookingApp.Services
         {
             var eventById = await _dataContext.Events.SingleOrDefaultAsync(x => x.EventId == eventId);
             
-            eventById.AvailableSeats = FilterTools.AvailableSeatCount(eventById.EventId, _dataContext);
-
+            eventById.AvailableSeats = FilterTools.AvailableSeatCount(eventById.EventId, _dataContext);         //Update available seats
             _dataContext.Events.Update(eventById);
-
             _dataContext.SaveChanges();
 
             return eventById;
@@ -77,13 +76,13 @@ namespace BookingApp.Services
                 return false;
 
             _dataContext.Events.Remove(deleteEvent);
-
+            
             var deleted = await _dataContext.SaveChangesAsync();
 
             return deleted > 0;
         }
 
-        public List<Event> FilterEvent(FilterEventsRequest filterEvents)
+        public async Task<List<Event>> GetAllOrFilterEvent(FilterEventsRequest filterEvents)
         {
             var duplicateEvents = new List<Event>();
             int queryCount = 0;
@@ -140,6 +139,21 @@ namespace BookingApp.Services
             var result = new List<Event>();
             var group = duplicateEvents.GroupBy(i => i);
 
+            if(queryCount == 0)
+            {
+                var events = await _dataContext.Events.ToListAsync();
+
+                foreach (var item in events)
+                {
+                    item.AvailableSeats = FilterTools.AvailableSeatCount(item.EventId, _dataContext);
+                    _dataContext.Events.Update(item);
+                }
+
+                _dataContext.SaveChanges();
+
+                return events;
+            } 
+
             foreach(var item in group)
             {
                 if (item.Count() == queryCount)
@@ -149,14 +163,26 @@ namespace BookingApp.Services
             return result.ToList();
         }
 
-        /*public SeatCountResponse SeatCount(int eventId)
+        public async Task<List<GetSeatTypesCountResponse>> GetNumberOfSeatsByType(int placeId)
         {
-            var response = new SeatCountResponse
-            {
-                
-            };
+            var getTypes = await _dataContext.Seats.Where(x => x.PlaceId == placeId).ToListAsync();
+            var groupTypes = getTypes.GroupBy(i => i.TypeId);
 
-            return response;
-        }*/
+            var typesList = new List<GetSeatTypesCountResponse>();
+
+            foreach (var item in groupTypes)
+            {
+                var type = _dataContext.SeatTypes.SingleOrDefault(x => x.TypeId == item.ElementAt(item.Key).TypeId);
+
+                var seatType = new GetSeatTypesCountResponse { 
+                    SeatType = type.Type,
+                    NumberOfSeatsByType = item.Count()
+                };
+
+                typesList.Add(seatType);
+            }
+
+            return typesList;
+        }
     }
 }

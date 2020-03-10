@@ -69,8 +69,8 @@ namespace BookingApp.Data
 
             modelBuilder.Entity<SeatStatus>()
                 .HasOne(s => s.Seat)
-                .WithOne(ss => ss.SeatStatuses)
-                .HasForeignKey<SeatStatus>(s => s.SeatId);
+                .WithMany(ss => ss.SeatStatuses)
+                .HasForeignKey(s => s.SeatId);
 
             modelBuilder.Entity<SeatStatus>()
                 .HasOne(e => e.Event)

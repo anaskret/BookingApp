@@ -26,17 +26,7 @@ namespace Booking.Services
         }
         public async Task<IEnumerable<GetSeatRequest>> GetSeats(FilterSeatsRequest filterSeats)
         {
-            var seats = new List<Seat>();
-
-            if ((filterSeats.MinSeatId != null && filterSeats.MaxSeatId != null)
-                || (filterSeats.MinSeatNumber != null && filterSeats.MaxSeatNumber != null)
-                || (filterSeats.MinRowNumber != null && filterSeats.MaxRowNumber != null)
-                || (filterSeats.MinTypeId != null && filterSeats.MaxTypeId != null)
-                || (filterSeats.MinPlaceId != null && filterSeats.MaxPlaceId != null)
-                || filterSeats.MinSectorNumber != null && filterSeats.MaxSectorNumber != null)
-                seats = _seatRepository.FilterSeats(filterSeats);
-            else
-                seats = await _seatRepository.GetAllSeats();
+            var seats = await _seatRepository.GetAllOrFilterSeats(filterSeats);
 
             return seats.Select(c => _seatConverter.SeatToGetSeatRequest(c));
         }

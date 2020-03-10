@@ -1,6 +1,7 @@
 ﻿using Booking.App.Contracts.Requests;
 using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.GetRequests;
+using Booking.Models.Contracts.Responses;
 using Booking.Models.Converters.Interfaces;
 using Booking.Services.Interfaces;
 using BookingApp.Models;
@@ -23,25 +24,18 @@ namespace Booking.Services
         }
         public async Task<IEnumerable<GetEventRequest>> GetEvents(FilterEventsRequest filterEvents = null)
         {
-            var events = new List<Event>();
-
-            if (filterEvents.Name != null || filterEvents.Description  != null 
-                || (filterEvents.MinDate != null &&  filterEvents.MaxDate != null)
-                || (filterEvents.MinEventId != null && filterEvents.MaxEventId != null)
-                || (filterEvents.MinPlaceId != null && filterEvents.MaxPlaceId != null)
-                || (filterEvents.MinTypeId != null && filterEvents.MaxTypeId != null))
-                events = _eventRepository.FilterEvent(filterEvents);
-            else
-                events = await _eventRepository.GetAllEvents();
+            var events = await _eventRepository.GetAllOrFilterEvent(filterEvents);
             
             return events.Select(c => _eventConverter.EventToGetEventRequest(c));
         }
 
-        public async Task<GetEventRequest> GetEventById(int eventId)
+        public async Task<GetEventByIdRequest> GetEventById(int eventId)
         {
-            var eventById = _eventConverter.EventToGetEventRequest(await _eventRepository.GetEventById(eventId));
+            var eventById = await _eventRepository.GetEventById(eventId);
+            var types = await _eventRepository.GetNumberOfSeatsByType(eventById.PlaceId);
+            var convertedEvent = _eventConverter.EventToGetEventByIdRequest(eventById, types);
 
-            return eventById;
+            return convertedEvent;
         }
 
         public async Task<Event> CreateEvent(CreateEventRequest eventRequest)
@@ -69,9 +63,9 @@ namespace Booking.Services
             return deleted;
         }
 
-        /*public SeatCountResponse SeatCount(int eventId)
+        public async Task<List<GetSeatTypesCountResponse>> GetNumberOfSeatsByType(int eventId)
         {
-            return _eventRepository.SeatCount(eventId);
-        }*/
+            return await _eventRepository.GetNumberOfSeatsByType(eventId);
+        }
     }
 }

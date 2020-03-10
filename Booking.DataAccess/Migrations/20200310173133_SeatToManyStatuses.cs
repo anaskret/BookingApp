@@ -2,7 +2,7 @@
 
 namespace Booking.DataAccess.Migrations
 {
-    public partial class SeatStatusAllNullable : Migration
+    public partial class SeatToManyStatuses : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,9 +34,7 @@ namespace Booking.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SeatStatuses_SeatId",
                 table: "SeatStatuses",
-                column: "SeatId",
-                unique: true,
-                filter: "[SeatId] IS NOT NULL");
+                column: "SeatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

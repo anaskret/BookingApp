@@ -8,7 +8,11 @@ namespace BookingApp.Models
 {
     [Table("Seats")]
     public class Seat
-    { 
+    {
+        public Seat()
+        {
+            SeatStatuses = new HashSet<SeatStatus>();
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SeatId { get; set; }
         public int TypeId { get; set; }
@@ -19,8 +23,6 @@ namespace BookingApp.Models
 
         public virtual Place Place { get; set; }
         public virtual SeatType SeatType { get; set; }
-#nullable enable
-        public virtual SeatStatus? SeatStatuses { get; set; }
-#nullable disable
+        public virtual ICollection<SeatStatus> SeatStatuses { get; set; }
     }
 }
