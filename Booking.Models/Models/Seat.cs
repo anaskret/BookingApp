@@ -15,10 +15,10 @@ namespace BookingApp.Models
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SeatId { get; set; }
-        public int TypeId { get; set; }
         public int SeatNumber { get; set; }
         public int RowNumber { get; set; }
         public int SectorNumber { get; set; }
+        public int TypeId { get; set; }
         public int PlaceId { get; set; }
 
         public virtual Place Place { get; set; }

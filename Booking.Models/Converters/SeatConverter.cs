@@ -19,6 +19,7 @@ namespace Booking.Models.Converters
                 RowNumber = createSeatRequest.RowNumber,
                 SectorNumber = createSeatRequest.SectorNumber,
                 PlaceId = createSeatRequest.PlaceId,
+                TypeId = createSeatRequest.TypeId
             };
         }
 
@@ -44,6 +45,7 @@ namespace Booking.Models.Converters
                 RowNumber = updateSeatRequest.RowNumber,
                 SectorNumber = updateSeatRequest.SectorNumber,
                 PlaceId = updateSeatRequest.PlaceId,
+                TypeId = updateSeatRequest.TypeId
             };
         }
     }
