@@ -21,21 +21,6 @@ namespace BookingApp.Services
             _dataContext = dataContext;
         }
 
-        public async Task<List<Event>> GetAllEvents()
-        {
-            var events = await _dataContext.Events.ToListAsync();
-
-            foreach (var item in events)
-            {
-                item.AvailableSeats = FilterTools.AvailableSeatCount(item.EventId, _dataContext);
-                _dataContext.Events.Update(item);
-            }
-
-            _dataContext.SaveChanges();
-
-            return events;
-        }
-
         public async Task<Event> GetEventById(int eventId)
         {
             var eventById = await _dataContext.Events.FirstOrDefaultAsync(x => x.EventId == eventId);

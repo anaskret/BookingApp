@@ -86,7 +86,7 @@ namespace BookingApp.Controllers
             if (await _eventService.DeleteEvent(eventId))
                 return NoContent();
 
-            return NotFound();
+            return NotFound("Selected event doesn't exist");
         }
     }
 

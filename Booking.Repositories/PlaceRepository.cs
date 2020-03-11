@@ -23,6 +23,10 @@ namespace Booking.Repositories
 
         public async Task<Place> GetPlaceById(int placeId)
         {
+            var checkPlaceId = _dataContext.Places.Where(p => p.PlaceId == placeId).FirstOrDefault();
+            if (checkPlaceId == null)
+                throw new NullReferenceException("Selected place doesn't exist");
+
             return await _dataContext.Places.SingleOrDefaultAsync(x => x.PlaceId == placeId);
         }
         public async Task<bool> CreatePlace(Place place)
@@ -36,6 +40,10 @@ namespace Booking.Repositories
 
         public async Task<bool> UpdatePlace(Place place)
         {
+            var checkPlaceId = _dataContext.Places.Where(p => p.PlaceId == place.PlaceId).FirstOrDefault();
+            if (checkPlaceId == null)
+                throw new NullReferenceException("Selected place doesn't exist");
+
             _dataContext.Places.Update(place);
 
             var updated = await _dataContext.SaveChangesAsync();

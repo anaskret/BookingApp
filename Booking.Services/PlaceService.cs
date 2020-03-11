@@ -35,7 +35,15 @@ namespace Booking.Services.Interfaces
 
         public async Task<GetPlaceRequest> GetPlaceById(int placeId)
         {
-            var place = _placeConverter.PlaceToGetPlaceRequest(await _placeRepository.GetPlaceById(placeId));
+            GetPlaceRequest place;
+            try
+            {
+                place = _placeConverter.PlaceToGetPlaceRequest(await _placeRepository.GetPlaceById(placeId));
+            }
+            catch
+            {
+                throw;
+            }
 
             return place;
         }
@@ -51,7 +59,15 @@ namespace Booking.Services.Interfaces
 
         public async Task<bool> UpdatePlace(int placeId, UpdatePlaceRequest updatePlaceRequest)
         {
-            var updated = await _placeRepository.UpdatePlace(_placeConverter.UpdatePlaceRequestToPlace(placeId, updatePlaceRequest));
+            bool updated;
+            try
+            {
+                updated = await _placeRepository.UpdatePlace(_placeConverter.UpdatePlaceRequestToPlace(placeId, updatePlaceRequest));
+            }
+            catch
+            {
+                throw;
+            }
 
             return updated;
         }

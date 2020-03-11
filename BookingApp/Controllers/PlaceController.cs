@@ -1,5 +1,6 @@
 ﻿using Booking.Models.Contracts.Requests.CreateRequests;
 using Booking.Models.Contracts.Requests.FilterRequests;
+using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Models.Contracts.Requests.UpdateRequests;
 using Booking.Services.Interfaces;
 using BookingApp.Contracts;
@@ -29,10 +30,15 @@ namespace Booking.App.Controllers
         [HttpGet(ApiRoutes.Places.Get)]
         public async Task<IActionResult> Get([FromRoute] int placeId)
         {
-            var place = await _placeService.GetPlaceById(placeId);
-
-            if (place == null)
-                return NotFound();
+            GetPlaceRequest place;
+            try
+            {
+                place = await _placeService.GetPlaceById(placeId);
+            }
+            catch(Exception ex)
+            {
+                return NotFound(ex);
+            }
 
             return Ok(place);
         }
@@ -51,12 +57,20 @@ namespace Booking.App.Controllers
         [HttpPut(ApiRoutes.Places.Update)]
         public async Task<IActionResult> Update([FromRoute] int placeId, [FromBody] UpdatePlaceRequest updatePlaceRequest)
         {
-            var place = await _placeService.UpdatePlace(placeId, updatePlaceRequest);
+            bool place;
+            try
+            {
+                place = await _placeService.UpdatePlace(placeId, updatePlaceRequest);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
 
-            if (!place)
-                return NotFound();
+            if (place)
+                return Ok();
 
-            return Ok(place);
+            return NotFound();
         }
 
         [HttpDelete(ApiRoutes.Places.Delete)]
