@@ -1,17 +1,17 @@
 ﻿using Booking.App.Contracts.Requests;
-using Booking.Models.Contracts.Responses;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace Booking.Models.Contracts.Requests.GetRequests
 {
-    public class GetEventByIdRequest: EventRequest
+    public class GetEventByIdRequest : EventRequest
     {
         public int EventId { get; set; }
-        public List<GetSeatTypesCountResponse> SeatTypesCount { get; set; }
+        public List<GetSeatTypesCountRequest> SeatTypesCount { get; set; }
+        public List<GetSectorPricesRequest> SectorPrices { get; set; }
 #nullable enable
         public int? NumberOfSeats { get; set; }
         public int? AvailableSeats { get; set; }
+#nullable disable
     }
 }

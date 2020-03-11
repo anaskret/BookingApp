@@ -1,5 +1,5 @@
 ﻿using Booking.Models.Contracts.Requests.FilterRequests;
-using Booking.Models.Contracts.Responses;
+using Booking.Models.Contracts.Requests.GetRequests;
 using BookingApp.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +13,7 @@ namespace BookingApp.Services.Interfaces
         Task<bool> CreateEvent(Event eventCreate);
         Task<bool> UpdateEvent(Event eventUpdate);
         Task<bool> DeleteEvent(int eventId);
-        Task<List<GetSeatTypesCountResponse>> GetNumberOfSeatsByType(int placeId);
+        Task<List<GetSeatTypesCountRequest>> GetNumberOfSeatsByType(int placeId);
+        Task<List<SectorPrice>> GetSectorPrices(int eventId);
     }
 }

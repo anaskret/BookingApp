@@ -1,10 +1,11 @@
 ﻿using Booking.Models.Contracts.Requests.FilterRequests;
-using Booking.Models.Contracts.Responses;
+using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Repositories.Tools;
 using BookingApp.Data;
 using BookingApp.Models;
 using BookingApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,20 +38,31 @@ namespace BookingApp.Services
 
         public async Task<Event> GetEventById(int eventId)
         {
-            var eventById = await _dataContext.Events.SingleOrDefaultAsync(x => x.EventId == eventId);
+            var eventById = await _dataContext.Events.FirstOrDefaultAsync(x => x.EventId == eventId);
+            
+            if (eventById == null)
+                throw new NullReferenceException("Selected event doesn't exist");
             
             eventById.AvailableSeats = FilterTools.AvailableSeatCount(eventById.EventId, _dataContext);         //Update available seats
             _dataContext.Events.Update(eventById);
             _dataContext.SaveChanges();
+
 
             return eventById;
         }
 
         public async Task<bool> CreateEvent(Event eventCreate)
         {
-            var place = _dataContext.Places.SingleOrDefault(x => x.PlaceId == eventCreate.PlaceId);
-            eventCreate.NumberOfSeats = place.MaximumCapacity;
-            eventCreate.AvailableSeats = _dataContext.SeatStatuses.Select(x => x.Available == false && x.EventId == eventCreate.EventId).Count();
+            var places = _dataContext.Places.Where(t => t.PlaceId == eventCreate.PlaceId).FirstOrDefault();
+            if (eventCreate.PlaceId < 1 || places == null)
+                throw new NullReferenceException("Selected Place doesn't exist");
+
+            var types = _dataContext.EventTypes.Where(et => et.TypeId == eventCreate.TypeId).FirstOrDefault();
+            if (eventCreate.TypeId < 1 || types == null)
+                throw new NullReferenceException("Selected Type doesn't exist");
+
+            eventCreate.NumberOfSeats = eventCreate.Place.MaximumCapacity;
+            eventCreate.AvailableSeats = eventCreate.SeatStatuses.Where(x => x.Available == true).Count();
 
             await _dataContext.Events.AddAsync(eventCreate);
 
@@ -61,6 +73,18 @@ namespace BookingApp.Services
 
         public async Task<bool> UpdateEvent(Event eventUpdate)
         {
+            var events = _dataContext.Events.Where(e => e.EventId == eventUpdate.EventId).FirstOrDefault();
+            if (events == null)
+                throw new NullReferenceException("Selected event doesn't exist");
+
+            var places = _dataContext.Places.Where(p => p.PlaceId == eventUpdate.PlaceId).FirstOrDefault();
+            if (places == null)
+                throw new NullReferenceException("Selected place doesn't exist");
+
+            var types = _dataContext.EventTypes.Where(et => et.TypeId == eventUpdate.TypeId).FirstOrDefault();
+            if (types == null)
+                throw new NullReferenceException("Selected type doesn't exist");
+
             _dataContext.Events.Update(eventUpdate);
 
             var updated = await _dataContext.SaveChangesAsync();
@@ -70,10 +94,12 @@ namespace BookingApp.Services
 
         public async Task<bool> DeleteEvent(int eventId)
         {
-            var deleteEvent = await GetEventById(eventId);
+            var events = _dataContext.Events.Where(e => e.EventId == eventId).FirstOrDefault();
 
-            if (deleteEvent == null)
+            if (events == null)
                 return false;
+
+            var deleteEvent = await GetEventById(eventId);
 
             _dataContext.Events.Remove(deleteEvent);
             
@@ -163,18 +189,19 @@ namespace BookingApp.Services
             return result.ToList();
         }
 
-        public async Task<List<GetSeatTypesCountResponse>> GetNumberOfSeatsByType(int placeId)
+        public async Task<List<GetSeatTypesCountRequest>> GetNumberOfSeatsByType(int placeId)
         {
             var getTypes = await _dataContext.Seats.Where(x => x.PlaceId == placeId).ToListAsync();
             var groupTypes = getTypes.GroupBy(i => i.TypeId);
 
-            var typesList = new List<GetSeatTypesCountResponse>();
+            var typesList = new List<GetSeatTypesCountRequest>();
 
             foreach (var item in groupTypes)
             {
                 var type = _dataContext.SeatTypes.SingleOrDefault(x => x.TypeId == item.ElementAt(item.Key).TypeId);
+                var price = _dataContext.SectorPrices.SingleOrDefault(x => x.SectorNumber == item.ElementAt(item.Key).SectorNumber);
 
-                var seatType = new GetSeatTypesCountResponse { 
+                var seatType = new GetSeatTypesCountRequest { 
                     SeatType = type.Type,
                     NumberOfSeatsByType = item.Count()
                 };
@@ -183,6 +210,11 @@ namespace BookingApp.Services
             }
 
             return typesList;
+        }
+
+        public async Task<List<SectorPrice>> GetSectorPrices(int eventId)
+        {
+            return await _dataContext.SectorPrices.Where(sp => sp.EventId == eventId).ToListAsync();
         }
     }
 }

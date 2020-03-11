@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Booking.Models.Contracts.Requests.FilterRequests;
 using System;
+using Booking.Models.Contracts.Requests.GetRequests;
+using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
@@ -29,19 +31,30 @@ namespace BookingApp.Controllers
         [HttpGet(ApiRoutes.Events.Get)]
         public async Task<IActionResult> Get([FromRoute] int eventId)
         {
-            var eventById = _eventService.GetEventById(eventId);
-
-            if (eventById == null)
-                return NotFound();
-
-            return Ok(await eventById);
+            GetEventByIdRequest eventById;
+            try
+            {
+                eventById = await _eventService.GetEventById(eventId);
+            }
+            catch(Exception ex)
+            {
+                return NotFound(ex);
+            }
+            return Ok(eventById);
         }
 
         [HttpPost(ApiRoutes.Events.Create)]
         public async Task<IActionResult> Create([FromBody] CreateEventRequest eventRequest)
         {
-            var createEvent = await _eventService.CreateEvent(eventRequest);
-
+            Event createEvent;
+            try
+            {
+                createEvent = await _eventService.CreateEvent(eventRequest);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Events.Get.Replace("{postId}", createEvent.EventId.ToString());
 
@@ -51,7 +64,17 @@ namespace BookingApp.Controllers
         [HttpPut(ApiRoutes.Events.Update)]
         public async Task<IActionResult> Update([FromRoute] int eventId, [FromBody] UpdateEventRequest request)
         {
-            if (await _eventService.UpdateEvent(eventId, request))
+            bool updateEvent;
+            try
+            {
+                updateEvent = await _eventService.UpdateEvent(eventId, request);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+            if(updateEvent)
                 return Ok();
 
             return NotFound();

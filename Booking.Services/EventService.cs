@@ -1,11 +1,11 @@
 ﻿using Booking.App.Contracts.Requests;
 using Booking.Models.Contracts.Requests.FilterRequests;
 using Booking.Models.Contracts.Requests.GetRequests;
-using Booking.Models.Contracts.Responses;
 using Booking.Models.Converters.Interfaces;
 using Booking.Services.Interfaces;
 using BookingApp.Models;
 using BookingApp.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,31 +16,54 @@ namespace Booking.Services
     {
         private readonly IEventRepository _eventRepository;
         private readonly IEventConverter _eventConverter;
+        private readonly ISectorPriceConverter _sectorConverter;
 
-        public EventService(IEventConverter eventConverter, IEventRepository eventRepository)
+        public EventService(IEventConverter eventConverter, IEventRepository eventRepository, ISectorPriceConverter sectorConverter)
         {
             _eventConverter = eventConverter;
             _eventRepository = eventRepository;
+            _sectorConverter = sectorConverter;
         }
-        public async Task<IEnumerable<GetEventRequest>> GetEvents(FilterEventsRequest filterEvents = null)
+        public async Task<ICollection<GetEventRequest>> GetEvents(FilterEventsRequest filterEvents)
         {
             var events = await _eventRepository.GetAllOrFilterEvent(filterEvents);
             
-            return events.Select(c => _eventConverter.EventToGetEventRequest(c));
+            return events.Select(c => _eventConverter.EventToGetEventRequest(c)).ToList();
         }
 
         public async Task<GetEventByIdRequest> GetEventById(int eventId)
         {
-            var eventById = await _eventRepository.GetEventById(eventId);
+            Event eventById;
+            try
+            { 
+                eventById = await _eventRepository.GetEventById(eventId); 
+            }
+            catch
+            {
+                throw;
+            }
+
             var types = await _eventRepository.GetNumberOfSeatsByType(eventById.PlaceId);
-            var convertedEvent = _eventConverter.EventToGetEventByIdRequest(eventById, types);
+
+            var sectorPrices = await _eventRepository.GetSectorPrices(eventById.EventId);
+            var convertedPrices = sectorPrices.Select(sp => _sectorConverter.SectorPriceToGetSectorPricesResponse(sp)).ToList();
+
+            var convertedEvent = _eventConverter.EventToGetEventByIdRequest(eventById, types, convertedPrices);
 
             return convertedEvent;
         }
 
         public async Task<Event> CreateEvent(CreateEventRequest eventRequest)
         {
-            var createEvent = _eventConverter.CreateEventRequestToEvent(eventRequest);
+            Event createEvent;
+            try
+            {
+                createEvent = _eventConverter.CreateEventRequestToEvent(eventRequest);
+            }
+            catch
+            {
+                throw;
+            }
 
             await _eventRepository.CreateEvent(createEvent);
 
@@ -51,8 +74,15 @@ namespace Booking.Services
         {
             var updateEvent = _eventConverter.UpdateEventRequestToEvent(eventId, request);
 
-            var updated = await _eventRepository.UpdateEvent(updateEvent);
-
+            bool updated;
+            try
+            {
+                updated = await _eventRepository.UpdateEvent(updateEvent);
+            }
+            catch
+            {
+                throw;
+            }
             return updated;
         }
 
@@ -63,7 +93,7 @@ namespace Booking.Services
             return deleted;
         }
 
-        public async Task<List<GetSeatTypesCountResponse>> GetNumberOfSeatsByType(int eventId)
+        public async Task<List<GetSeatTypesCountRequest>> GetNumberOfSeatsByType(int eventId)
         {
             return await _eventRepository.GetNumberOfSeatsByType(eventId);
         }
