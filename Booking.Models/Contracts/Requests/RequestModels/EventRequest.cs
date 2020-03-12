@@ -5,15 +5,12 @@ namespace Booking.App.Contracts.Requests
 {
     public class EventRequest
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public DateTime Date { get; set; }
-        [Required]
         public string Description { get; set; }
-        [Required]
+        [Display(Name = "Place Id")]
         public int PlaceId { get; set; }
-        [Required]
+        [Display(Name = "Type Id")]
         public int TypeId { get; set; }
     }
 }

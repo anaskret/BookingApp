@@ -22,11 +22,23 @@ namespace Booking.Repositories
 
         public async Task<Seat> GetSeatById(int seatId)
         {
+            var seats = _dataContext.Seats.Where(s => s.SeatId == seatId).FirstOrDefault();
+            if (seats == null)
+                throw new NullReferenceException("Selected seat doesn't exist");
+
             return await _dataContext.Seats.SingleOrDefaultAsync(x => x.SeatId == seatId);
         }
 
         public async Task<bool> CreateSeat(Seat seat)
         {
+            var types = _dataContext.SeatTypes.Where(st => st.TypeId == seat.TypeId).FirstOrDefault();
+            if (types == null)
+                throw new NullReferenceException("Selected type doesn't exist");
+
+            var places = _dataContext.Places.Where(p => p.PlaceId == seat.PlaceId).FirstOrDefault();
+            if (places == null)
+                throw new NullReferenceException("Selected place doesn't exist");
+
             await _dataContext.AddAsync(seat);
 
             var created = await _dataContext.SaveChangesAsync();
@@ -35,6 +47,18 @@ namespace Booking.Repositories
         }
         public async Task<bool> UpdateSeat(Seat seat)
         {
+            var seats = _dataContext.Seats.Where(s => s.SeatId == seat.SeatId).FirstOrDefault();
+            if (seats == null)
+                throw new NullReferenceException("Selected seat doesn't exist");
+
+            var types = _dataContext.SeatTypes.Where(st => st.TypeId == seat.TypeId).FirstOrDefault();
+            if (types == null)
+                throw new NullReferenceException("Selected type doesn't exist");
+
+            var places = _dataContext.Places.Where(p => p.PlaceId == seat.PlaceId).FirstOrDefault();
+            if (places == null)
+                throw new NullReferenceException("Selected place doesn't exist");
+
             _dataContext.Update(seat);
 
             var updated = await _dataContext.SaveChangesAsync();
@@ -44,10 +68,15 @@ namespace Booking.Repositories
 
         public async Task<bool> DeleteSeat(int seatId)
         {
-            var deleteSeat = await GetSeatById(seatId);
-
-            if (deleteSeat == null)
+            Seat deleteSeat;
+            try
+            {
+                deleteSeat = await GetSeatById(seatId);
+            }
+            catch
+            {
                 return false;
+            }
 
             _dataContext.Remove(deleteSeat);
 

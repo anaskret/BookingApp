@@ -1,8 +1,10 @@
 ﻿using Booking.Models.Contracts.Requests.CreateRequests;
 using Booking.Models.Contracts.Requests.FilterRequests;
+using Booking.Models.Contracts.Requests.GetRequests;
 using Booking.Models.Contracts.Requests.UpdateRequests;
 using Booking.Services.Interfaces;
 using BookingApp.Contracts;
+using BookingApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,13 +31,31 @@ namespace Booking.App.Controllers
         [HttpGet(ApiRoutes.Seats.Get)]
         public async Task<IActionResult> Get([FromRoute] int seatId)
         {
-            return Ok(await _seatService.GetSeatById(seatId));
+            GetSeatRequest seat;
+            try
+            {
+                seat = await _seatService.GetSeatById(seatId);
+            }
+            catch(Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+            return Ok(seat);
         }
 
         [HttpPost(ApiRoutes.Seats.Create)]
         public async Task<IActionResult> Create([FromBody] CreateSeatRequest createSeat)
         {
-            var seat = await _seatService.CreateSeat(createSeat);
+            Seat seat;
+            try
+            {
+                seat = await _seatService.CreateSeat(createSeat);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Seats.Get.Replace("{postId}", seat.SeatId.ToString());

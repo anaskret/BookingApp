@@ -33,14 +33,31 @@ namespace Booking.Services
 
         public async Task<GetSeatRequest> GetSeatById(int seatId)
         {
-            return _seatConverter.SeatToGetSeatRequest(await _seatRepository.GetSeatById(seatId));
+            Seat seat;
+            try
+            {
+                seat = await _seatRepository.GetSeatById(seatId);
+            }
+            catch
+            {
+                throw;
+            }
+
+            return _seatConverter.SeatToGetSeatRequest(seat);
         }
 
         public async Task<Seat> CreateSeat(CreateSeatRequest createSeatRequest)
         {
             var create = _seatConverter.CreateSeatRequestToSeat(createSeatRequest);
 
-            await _seatRepository.CreateSeat(create);
+            try
+            {
+                await _seatRepository.CreateSeat(create);
+            }
+            catch
+            {
+                throw;
+            }
 
             return create;
         }
@@ -48,8 +65,16 @@ namespace Booking.Services
         public async Task<bool> UpdateSeat(UpdateSeatRequest updateSeatRequest, int seatId)
         {
             var update = _seatConverter.UpdateSeatRequestToSeat(updateSeatRequest, seatId);
-
-            return await _seatRepository.UpdateSeat(update);
+            bool updated;
+            try
+            {
+                updated = await _seatRepository.UpdateSeat(update);
+            }
+            catch
+            {
+                return false;
+            }
+            return updated;
         }
 
         public async Task<bool> DeleteSeat(int seatId)
