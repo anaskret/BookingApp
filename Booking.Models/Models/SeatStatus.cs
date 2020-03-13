@@ -13,18 +13,21 @@ namespace BookingApp.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Status Id")]
         public int StatusId { get; set; }
-        [DefaultValue(true)]
-        public bool Available { get; set; }
+
+        public bool Available { get; set; } = true;
+
         [Display(Name = "Seat Id")]
         public int SeatId { get; set; }
+
         [Display(Name = "Event Id")]
         public int EventId { get; set; }
+
         [Display(Name = "Place Id")]
         public int PriceId { get; set; }
 
         public virtual Seat Seat { get; set; }
         public virtual Event Event { get; set; }
         public virtual SectorPrice SectorPrice { get; set; }
-        public virtual BookTicket BookTicket { get; set; }
+        public virtual Ticket BookTicket { get; set; }
     }
 }

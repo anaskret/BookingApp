@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Booking.Models.Models
 {
-    public class BookTicket
+    public class Ticket
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Ticket Id")]
