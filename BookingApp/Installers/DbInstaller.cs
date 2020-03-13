@@ -20,7 +20,7 @@ namespace BookingApp.Installers
         {
             services.AddDbContext<BookingAppContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")));
+                    configuration.GetConnectionString("DefaultConnectionLocal")));
             services.AddControllers();
 
             services.AddTransient<IEventService, EventService>();

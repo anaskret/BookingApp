@@ -15,8 +15,11 @@ namespace BookingApp.Models
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Place Id")]
         public int PlaceId { get; set; }
+        [MinLength(3)]
         public string Name { get; set; }
+        [Display(Name = "Maximum Capacity")]
         public int MaximumCapacity { get; set; }
 #nullable enable
         public virtual ICollection<Event>? Events { get; set; }

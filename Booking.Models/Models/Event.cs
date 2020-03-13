@@ -17,18 +17,23 @@ namespace BookingApp.Models
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Event Id")]
         public int EventId { get; set; }
+        [MinLength(3)]
         public string Name { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
+        [MinLength(15)]
         public string Description { get; set; }
 #nullable enable
         public int? NumberOfSeats { get; set; }
         public int? AvailableSeats { get; set; }
 #nullable disable
+        [Display(Name = "Place Id")]
         public int PlaceId { get; set; }
+        [Display(Name = "Type Id")]
         public int TypeId { get; set; }
 
         public virtual EventType Type { get; set; }

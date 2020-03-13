@@ -15,15 +15,14 @@ namespace BookingApp.Data
         {
         }
 
+        public virtual DbSet<BookTicket> BookTickets { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventType> EventTypes { get; set; }
         public virtual DbSet<Place> Places { get; set; }
+        public virtual DbSet<Seat> Seats { get; set; }
         public virtual DbSet<SeatStatus> SeatStatuses { get; set; }
-        //public virtual DbSet<Row> Rows { get; set; }
         public virtual DbSet<SeatType> SeatTypes { get; set; }
         public virtual DbSet<SectorPrice> SectorPrices { get; set; }
-        public virtual DbSet<Seat> Seats { get; set; }
-        //public virtual DbSet<Sector> Sectors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,6 +40,11 @@ namespace BookingApp.Data
             }
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<BookTicket>()
+                .HasOne(bt => bt.SeatStatus)
+                .WithOne(ss => ss.BookTicket)
+                .HasForeignKey<BookTicket>(bt => bt.StatusId);
 
             modelBuilder.Entity<Event>()
                 .HasOne(e => e.Type)

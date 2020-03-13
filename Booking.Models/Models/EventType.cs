@@ -13,7 +13,9 @@ namespace BookingApp.Models
             Events = new HashSet<Event>();
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "TypeId")]
         public int TypeId { get; set; }
+        [MinLength(2)]
         public string Type { get; set; }
 #nullable enable
         public virtual ICollection<Event>? Events { get; set; }

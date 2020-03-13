@@ -13,12 +13,24 @@ namespace BookingApp.Models
         {
             SeatStatuses = new HashSet<SeatStatus>();
         }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Seat Id")]
         public int SeatId { get; set; }
+
+        [Display(Name = "Seat Number")]
         public int SeatNumber { get; set; }
+
+        [Display(Name = "Row Number")]
         public int RowNumber { get; set; }
+
+        [Display(Name = "Sector Number")]
         public int SectorNumber { get; set; }
+
+        [Display(Name = "Type Id")]
         public int TypeId { get; set; }
+
+        [Display(Name = "Place Id")]
         public int PlaceId { get; set; }
 
         public virtual Place Place { get; set; }

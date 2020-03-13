@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Booking.Models.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,17 +11,20 @@ namespace BookingApp.Models
     public class SeatStatus
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Status Id")]
         public int StatusId { get; set; }
         [DefaultValue(true)]
-        public bool? Available { get; set; }
-#nullable enable
-        public int? SeatId { get; set; }
-        public int? EventId { get; set; }
-        public int? PriceId { get; set; }
+        public bool Available { get; set; }
+        [Display(Name = "Seat Id")]
+        public int SeatId { get; set; }
+        [Display(Name = "Event Id")]
+        public int EventId { get; set; }
+        [Display(Name = "Place Id")]
+        public int PriceId { get; set; }
 
-        public virtual Seat? Seat { get; set; }
-        public virtual Event? Event { get; set; }
-        public virtual SectorPrice? SectorPrice { get; set; }
-#nullable disable
+        public virtual Seat Seat { get; set; }
+        public virtual Event Event { get; set; }
+        public virtual SectorPrice SectorPrice { get; set; }
+        public virtual BookTicket BookTicket { get; set; }
     }
 }

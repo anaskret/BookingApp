@@ -16,7 +16,9 @@ namespace Booking.Models.Models
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Type Id")]
         public int TypeId { get; set; }
+        [MinLength(2)]
         public string Type { get; set; }
 
         public virtual ICollection<Seat> Seats { get; set; }
