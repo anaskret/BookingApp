@@ -33,6 +33,11 @@ namespace Booking.Models.Models
             return SeatStatus.Event.Date;
         }
 
+        public decimal Price()
+        {
+            return SeatStatus.SectorPrice.Price;
+        }
+
         public virtual SeatStatus SeatStatus { get; set; } 
     }
 }

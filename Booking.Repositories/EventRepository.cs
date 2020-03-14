@@ -24,14 +24,12 @@ namespace BookingApp.Services
         public async Task<Event> GetEventById(int eventId)
         {
             var eventById = await _dataContext.Events.FirstOrDefaultAsync(x => x.EventId == eventId);
-            
+
             if (eventById == null)
                 throw new NullReferenceException("Selected event doesn't exist");
-            
-            eventById.AvailableSeats = FilterTools.AvailableSeatCount(eventById.EventId, _dataContext);         //Update available seats
-            _dataContext.Events.Update(eventById);
-            _dataContext.SaveChanges();
 
+            _dataContext.Entry(eventById).Reference(e => e.Place).Load();
+            _dataContext.Entry(eventById).Collection(e => e.SeatStatuses).Load();
 
             return eventById;
         }
@@ -45,9 +43,6 @@ namespace BookingApp.Services
             var types = _dataContext.EventTypes.Where(et => et.TypeId == eventCreate.TypeId).FirstOrDefault();
             if (eventCreate.TypeId < 1 || types == null)
                 throw new NullReferenceException("Selected Type doesn't exist");
-
-            eventCreate.NumberOfSeats = eventCreate.Place.MaximumCapacity;
-            eventCreate.AvailableSeats = eventCreate.SeatStatuses.Where(x => x.Available == true).Count();
 
             await _dataContext.Events.AddAsync(eventCreate);
 
@@ -156,11 +151,9 @@ namespace BookingApp.Services
 
                 foreach (var item in events)
                 {
-                    item.AvailableSeats = FilterTools.AvailableSeatCount(item.EventId, _dataContext);
-                    _dataContext.Events.Update(item);
+                    _dataContext.Entry(item).Reference(e => e.Place).Load();
+                    _dataContext.Entry(item).Collection(e => e.SeatStatuses).Load();
                 }
-
-                _dataContext.SaveChanges();
 
                 return events;
             } 
@@ -174,19 +167,20 @@ namespace BookingApp.Services
             return result.ToList();
         }
 
-        public async Task<List<GetSeatTypesCountRequest>> GetNumberOfSeatsByType(int placeId)
+        public async Task<List<GetSeatsByType>> GetNumberOfSeatsByType(int placeId)
         {
             var getTypes = await _dataContext.Seats.Where(x => x.PlaceId == placeId).ToListAsync();
             var groupTypes = getTypes.GroupBy(i => i.TypeId);
 
-            var typesList = new List<GetSeatTypesCountRequest>();
+            var typesList = new List<GetSeatsByType>();
 
             foreach (var item in groupTypes)
             {
                 var type = _dataContext.SeatTypes.SingleOrDefault(x => x.TypeId == item.ElementAt(item.Key).TypeId);
                 var price = _dataContext.SectorPrices.SingleOrDefault(x => x.SectorNumber == item.ElementAt(item.Key).SectorNumber);
 
-                var seatType = new GetSeatTypesCountRequest { 
+                var seatType = new GetSeatsByType
+                { 
                     SeatType = type.Type,
                     NumberOfSeatsByType = item.Count()
                 };

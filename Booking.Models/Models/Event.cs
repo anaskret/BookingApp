@@ -25,19 +25,27 @@ namespace BookingApp.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
+
         [MinLength(15)]
         public string Description { get; set; }
-#nullable enable
-        public int? NumberOfSeats { get; set; }
-        public int? AvailableSeats { get; set; }
-#nullable disable
+
         [Display(Name = "Place Id")]
         public int PlaceId { get; set; }
+
         [Display(Name = "Type Id")]
         public int TypeId { get; set; }
 
+        public int NumberOfSeats()
+        {
+            return Place.MaximumCapacity;
+        }
+
+        public int AvailableSeats()
+        {
+            return SeatStatuses.Select(x => x.Available == true).Count();
+        }
+
         public virtual EventType Type { get; set; }
-        [ForeignKey("PlaceId")]
         public virtual Place Place { get; set; }
         public virtual ICollection<SectorPrice> SeatPrices { get; set; }
 #nullable enable

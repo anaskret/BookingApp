@@ -35,12 +35,12 @@ namespace Booking.Models.Converters
                 Description = events.Description,
                 PlaceId = events.PlaceId,
                 TypeId = events.TypeId,
-                AvailableSeats = events.AvailableSeats,
-                NumberOfSeats = events.NumberOfSeats
+                AvailableSeats = events.AvailableSeats(),
+                NumberOfSeats = events.NumberOfSeats()
             };
         }
         
-        public GetEventByIdRequest EventToGetEventByIdRequest(Event events, List<GetSeatTypesCountRequest> getSeatTypes, List<GetSectorPricesRequest> getSectorPrices)
+        public GetEventByIdRequest EventToGetEventByIdRequest(Event events, List<GetSeatsByType> getSeatTypes, List<GetSectorPricesRequest> getSectorPrices)
         {
             if (events == null)
                 return null;
@@ -52,8 +52,8 @@ namespace Booking.Models.Converters
                 Description = events.Description,
                 PlaceId = events.PlaceId,
                 TypeId = events.TypeId,
-                AvailableSeats = events.AvailableSeats,
-                NumberOfSeats = events.NumberOfSeats,
+                AvailableSeats = events.AvailableSeats(),
+                NumberOfSeats = events.NumberOfSeats(),
                 SeatTypesCount = getSeatTypes,
                 SectorPrices = getSectorPrices
             };

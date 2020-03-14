@@ -128,7 +128,6 @@ namespace Booking.App.Models
                 {
                     Name = "Arsenal - Tottenham",
                     Date = new DateTime(2020, 04, 25),
-                    NumberOfSeats = 60000,
                     Description = "Tottenham will travel to Emirates Stadium to try and defeat the better club",
                     PlaceId = 1,
                     TypeId = 1

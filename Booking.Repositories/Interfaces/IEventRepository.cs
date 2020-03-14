@@ -13,7 +13,7 @@ namespace BookingApp.Services.Interfaces
         Task<bool> CreateEvent(Event eventCreate);
         Task<bool> UpdateEvent(Event eventUpdate);
         Task<bool> DeleteEvent(int eventId);
-        Task<List<GetSeatTypesCountRequest>> GetNumberOfSeatsByType(int placeId);
+        Task<List<GetSeatsByType>> GetNumberOfSeatsByType(int placeId);
         Task<List<SectorPrice>> GetSectorPrices(int eventId);
     }
 }
