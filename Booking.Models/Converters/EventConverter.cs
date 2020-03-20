@@ -40,7 +40,7 @@ namespace Booking.Models.Converters
             };
         }
         
-        public GetEventByIdRequest EventToGetEventByIdRequest(Event events, List<GetSeatsByType> getSeatTypes, List<GetSectorPricesRequest> getSectorPrices)
+        public GetEventByIdRequest EventToGetEventByIdRequest(Event events, List<GetSeatsByTypeRequest> getSeatTypes, List<GetSectorPricesRequest> getSectorPrices)
         {
             if (events == null)
                 return null;

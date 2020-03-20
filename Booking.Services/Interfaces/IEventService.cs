@@ -14,6 +14,6 @@ namespace Booking.Services.Interfaces
         Task<Event> CreateEvent(CreateEventRequest createEventRequest);
         Task<bool> UpdateEvent(int eventId, UpdateEventRequest request);
         Task<bool> DeleteEvent(int eventId);
-        Task<List<GetSeatsByType>> GetNumberOfSeatsByType(int eventId);
+        Task<List<GetSeatsByTypeRequest>> GetNumberOfSeatsByType(int eventId);
     }
 }

@@ -76,15 +76,22 @@ namespace BookingApp.Data
                 .WithMany(ss => ss.SeatStatuses)
                 .HasForeignKey(e => e.EventId);
 
+            /*modelBuilder.Entity<SeatStatus>()
+                .HasOne(ss => ss.Ticket)
+                .WithOne(t => t.SeatStatus)
+                .HasForeignKey<SeatStatus>(ss => ss.TicketId);*/
+
             modelBuilder.Entity<SeatStatus>()
                 .HasOne(sp => sp.SectorPrice)
                 .WithMany(ss => ss.SeatStatuses)
                 .HasForeignKey(sp => sp.PriceId);
 
             modelBuilder.Entity<Ticket>()
-                .HasOne(bt => bt.SeatStatus)
-                .WithOne(ss => ss.BookTicket)
-                .HasForeignKey<Ticket>(bt => bt.StatusId);
+                .HasOne(t => t.SeatStatus)
+                .WithOne(ss => ss.Ticket)
+                .HasForeignKey<Ticket>(t => t.StatusId);
+            
+            
         }
     }
 }

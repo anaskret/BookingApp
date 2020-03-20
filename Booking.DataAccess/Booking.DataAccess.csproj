@@ -75,6 +75,10 @@
     <Compile Remove="Migrations\20200313122321_TicketsFix.Designer.cs" />
     <Compile Remove="Migrations\20200314194406_EventUpdate.cs" />
     <Compile Remove="Migrations\20200314194406_EventUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20200318181507_TestMigration.cs" />
+    <Compile Remove="Migrations\20200318181507_TestMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200318182249_SeatStatusToTicket.cs" />
+    <Compile Remove="Migrations\20200318182249_SeatStatusToTicket.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

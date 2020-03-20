@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Booking.DataAccess.Migrations
 {
-    public partial class Tickets : Migration
+    public partial class Bookings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,19 +40,19 @@ namespace Booking.DataAccess.Migrations
                 oldNullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
+                name: "Bookings",
                 columns: table => new
                 {
-                    TicketId = table.Column<Guid>(nullable: false),
+                    BookingId = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     BookingDate = table.Column<DateTime>(nullable: false),
                     StatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.TicketId);
+                    table.PrimaryKey("PK_Bookings", x => x.BookingId);
                     table.ForeignKey(
-                        name: "FK_Tickets_SeatStatuses_StatusId",
+                        name: "FK_Bookings_SeatStatuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "SeatStatuses",
                         principalColumn: "StatusId",
@@ -60,8 +60,8 @@ namespace Booking.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_StatusId",
-                table: "Tickets",
+                name: "IX_Bookings_StatusId",
+                table: "Bookings",
                 column: "StatusId",
                 unique: true);
         }
@@ -69,7 +69,7 @@ namespace Booking.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "Bookings");
 
             migrationBuilder.AlterColumn<int>(
                 name: "SeatId",

@@ -167,19 +167,19 @@ namespace BookingApp.Services
             return result.ToList();
         }
 
-        public async Task<List<GetSeatsByType>> GetNumberOfSeatsByType(int placeId)
+        public async Task<List<GetSeatsByTypeRequest>> GetNumberOfSeatsByType(int placeId)
         {
             var getTypes = await _dataContext.Seats.Where(x => x.PlaceId == placeId).ToListAsync();
             var groupTypes = getTypes.GroupBy(i => i.TypeId);
 
-            var typesList = new List<GetSeatsByType>();
+            var typesList = new List<GetSeatsByTypeRequest>();
 
             foreach (var item in groupTypes)
             {
                 var type = _dataContext.SeatTypes.SingleOrDefault(x => x.TypeId == item.ElementAt(item.Key).TypeId);
                 var price = _dataContext.SectorPrices.SingleOrDefault(x => x.SectorNumber == item.ElementAt(item.Key).SectorNumber);
 
-                var seatType = new GetSeatsByType
+                var seatType = new GetSeatsByTypeRequest
                 { 
                     SeatType = type.Type,
                     NumberOfSeatsByType = item.Count()

@@ -39,6 +39,11 @@ namespace BookingApp.Installers
             services.AddSingleton<ISeatConverter, SeatConverter>();
 
             services.AddSingleton<ISectorPriceConverter, SectorPriceConverter>();
+
+            services.AddTransient<IBookingService, BookingService>();
+
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddSingleton<IBookingConverter, BookingConverter>();
         }
     }
 }

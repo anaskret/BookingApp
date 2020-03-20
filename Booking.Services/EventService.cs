@@ -93,7 +93,7 @@ namespace Booking.Services
             return deleted;
         }
 
-        public async Task<List<GetSeatsByType>> GetNumberOfSeatsByType(int eventId)
+        public async Task<List<GetSeatsByTypeRequest>> GetNumberOfSeatsByType(int eventId)
         {
             return await _eventRepository.GetNumberOfSeatsByType(eventId);
         }

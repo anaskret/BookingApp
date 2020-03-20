@@ -36,9 +36,9 @@ namespace Booking.DataAccess.Migrations
                     b.ToTable("SeatTypes");
                 });
 
-            modelBuilder.Entity("Booking.Models.Models.Ticket", b =>
+            modelBuilder.Entity("Booking.Models.Models.Booking", b =>
                 {
-                    b.Property<Guid>("TicketId")
+                    b.Property<Guid>("BookingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -52,12 +52,12 @@ namespace Booking.DataAccess.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
-                    b.HasKey("TicketId");
+                    b.HasKey("BookingId");
 
                     b.HasIndex("StatusId")
                         .IsUnique();
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("BookingApp.Models.Event", b =>
@@ -208,11 +208,11 @@ namespace Booking.DataAccess.Migrations
                     b.ToTable("SectorPrices");
                 });
 
-            modelBuilder.Entity("Booking.Models.Models.Ticket", b =>
+            modelBuilder.Entity("Booking.Models.Models.Booking", b =>
                 {
                     b.HasOne("BookingApp.Models.SeatStatus", "SeatStatus")
-                        .WithOne("BookTicket")
-                        .HasForeignKey("Booking.Models.Models.Ticket", "StatusId")
+                        .WithOne("BookBooking")
+                        .HasForeignKey("Booking.Models.Models.Booking", "StatusId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
