@@ -6,16 +6,22 @@ using Booking.Services.Interfaces;
 using Booking.Models.Contracts.Requests.CreateRequests;
 using Booking.Models.Models;
 using Booking.Models.Contracts.Requests.GetRequests;
+using DinkToPdf.Contracts;
+using DinkToPdf;
+using Booking.App.Utility;
+using System.IO;
 
 namespace Booking.App.Controllers
 {
     public class TicketController: Controller
     {
         private readonly ITicketService _ticketService;
+        private IConverter _converter;
 
-        public TicketController(ITicketService ticketService)
+        public TicketController(ITicketService ticketService, IConverter converter)
         {
             _ticketService = ticketService;
+            _converter = converter;
         }
 
         [HttpGet(ApiRoutes.Tickets.Get)]
@@ -31,7 +37,33 @@ namespace Booking.App.Controllers
                 return NotFound(ex);
             }
 
-            return Ok(ticket);
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = "PDF Report"
+            };
+
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = PdfGenerator.GetHTMLString(ticket),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+            };
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+            var file = _converter.Convert(pdf);
+
+            return File(file, "api/pdf", "Ticket.pdf");
         }
 
         [HttpPost(ApiRoutes.Tickets.Create)]

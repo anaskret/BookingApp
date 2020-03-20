@@ -26,7 +26,10 @@ namespace Booking.Repositories
             if (ticket == null)
                 throw new NullReferenceException("Selected ticket doesn't exist");
 
-            _dataContext.Entry(ticket).Reference(ss => ss.SeatStatus).Load();
+            _dataContext.Entry(ticket).Reference(t => t.SeatStatus).Load();
+            _dataContext.Entry(ticket.SeatStatus).Reference(ss => ss.Seat).Load();
+            _dataContext.Entry(ticket.SeatStatus).Reference(ss => ss.Event).Load();
+            _dataContext.Entry(ticket.SeatStatus).Reference(ss => ss.SectorPrice).Load();
 
             return ticket;
         }

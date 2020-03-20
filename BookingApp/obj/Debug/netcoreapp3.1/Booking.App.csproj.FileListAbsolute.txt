@@ -344,3 +344,11 @@ C:\Users\Olek\source\repos\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Microso
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\PdfSharp.Charting.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\PdfSharp.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\de\PdfSharp.Charting.resources.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\de\PdfSharp.resources.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\libwkhtmltox.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\bin\Debug\netcoreapp3.1\DinkToPdf.dll
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\i7\source\repos\BookingApp\BookingApp\BookingApp\obj\Debug\netcoreapp3.1\Booking.App.MvcApplicationPartsAssemblyInfo.cache

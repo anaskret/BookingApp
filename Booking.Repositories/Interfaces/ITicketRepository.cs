@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Booking.Repositories.Interfaces
 {
-    public interface IBookingRepository
+    public interface ITicketRepository
     {
-        Task<Booking> GetBookingById(Guid BookingId);
-        Task<bool> CreateBooking(Booking Booking);
+        Task<Ticket> GetTicketById(Guid ticketId);
+        Task<bool> CreateTicket(Ticket ticket);
     }
 }

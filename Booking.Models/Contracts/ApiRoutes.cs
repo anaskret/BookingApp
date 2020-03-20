@@ -39,8 +39,8 @@ namespace BookingApp.Contracts
         
         public static class Tickets
         {
-            public const string Get = Base + "/Bookings/{BookingId}";
-            public const string Create = Base + "/Bookings/";
+            public const string Get = Base + "/Tickets/{ticketId}";
+            public const string Create = Base + "/Tickets/";
         }
     }
 }

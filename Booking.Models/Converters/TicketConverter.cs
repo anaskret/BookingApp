@@ -8,28 +8,28 @@ using System.Text;
 
 namespace Booking.Models.Converters
 {
-    public class BookingConverter : IBookingConverter
+    public class TicketConverter : ITicketConverter
     {
-        public Booking CreateBookingRequestToBooking(CreateBookingRequest Booking)
+        public Ticket CreateTicketRequestToTicket(CreateTicketRequest ticket)
         {
-            return new Booking
+            return new Ticket
             {
-                Email = Booking.Email,
-                StatusId = Booking.StatusId
+                Email = ticket.Email,
+                StatusId = ticket.StatusId
             };
         }
 
-        public GetBookingRequest BookingToGetBookingRequest(Booking Booking)
+        public GetTicketRequest TicketToGetTicketRequest(Ticket ticket)
         {
-            return new GetBookingRequest
+            return new GetTicketRequest
             {
-                BookingId = Booking.BookingId,
-                Email = Booking.Email,
-                BookingDate = Booking.BookingDate,
-                StatusId = Booking.StatusId,
-                SeatCoordinates = Booking.SeatCoordinates(),
-                EventDate = Booking.EventDate(),
-                Price = Booking.Price()
+                TicketId = ticket.TicketId,
+                Email = ticket.Email,
+                BookingDate = ticket.BookingDate,
+                StatusId = ticket.StatusId,
+                SeatCoordinates = ticket.SeatCoordinates(),
+                EventDate = ticket.EventDate(),
+                Price = ticket.Price()
             };
         }
     }

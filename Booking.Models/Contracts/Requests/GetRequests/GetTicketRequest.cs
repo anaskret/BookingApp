@@ -7,7 +7,7 @@ namespace Booking.Models.Contracts.Requests.GetRequests
 {
     public class GetTicketRequest: TicketRequest
     {
-        public Guid BookingId { get; set; }
+        public Guid TicketId { get; set; }
         public string SeatCoordinates { get; set; }
         public DateTime EventDate { get; set; }
         public decimal Price { get; set; }

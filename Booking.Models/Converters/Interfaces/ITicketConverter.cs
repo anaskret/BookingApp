@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Booking.Models.Converters.Interfaces
 {
-    public interface IBookingConverter
+    public interface ITicketConverter
     {
-        GetBookingRequest BookingToGetBookingRequest(Booking Booking);
-        Booking CreateBookingRequestToBooking(CreateBookingRequest Booking);
+        GetTicketRequest TicketToGetTicketRequest(Ticket ticket);
+        Ticket CreateTicketRequestToTicket(CreateTicketRequest ticket);
     }
 }

@@ -8,6 +8,8 @@ using BookingApp.Data;
 using BookingApp.Installers.Interfaces;
 using BookingApp.Services;
 using BookingApp.Services.Interfaces;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,10 +42,12 @@ namespace BookingApp.Installers
 
             services.AddSingleton<ISectorPriceConverter, SectorPriceConverter>();
 
-            services.AddTransient<IBookingService, BookingService>();
+            services.AddTransient<ITicketService, TicketService>();
 
-            services.AddScoped<IBookingRepository, BookingRepository>();
-            services.AddSingleton<IBookingConverter, BookingConverter>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddSingleton<ITicketConverter, TicketConverter>();
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
         }
     }
 }

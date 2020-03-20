@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.Azure;
+using Booking.App.Utility;
+using System.IO;
 
 namespace BookingApp
 {
@@ -28,6 +30,9 @@ namespace BookingApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.InstallServicesAssembly(Configuration);
+            var context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+
 
             services.AddAzureClients(builder =>
             {
