@@ -29,9 +29,11 @@ namespace Booking.Models.Contracts.Requests.FilterRequests
         [Display(Name = "Maximum Sector Number")]
         public int? MaxSectorNumber { get; set; }
         [Display(Name = "Minimum Place Id")]
-        public int? MinPlaceId { get; set; }
-        [Display(Name = "Maximum Place Id")]
-        public int? MaxPlaceId { get; set; }
 #nullable disable
+        [Required]
+        public int MinPlaceId { get; set; }
+        [Required]
+        [Display(Name = "Maximum Place Id")]
+        public int MaxPlaceId { get; set; }
     }
 }

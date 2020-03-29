@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Booking.Models.Contracts.Requests.RequestModels
+﻿namespace Booking.Models.Contracts.Requests.RequestModels
 {
     public class SeatRequest
     {

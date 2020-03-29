@@ -10,6 +10,7 @@ namespace Booking.Services.Interfaces
 {
     public interface ITicketService
     {
+        Task<ICollection<GetTicketRequest>> GetTickets();
         Task<GetTicketRequest> GetTicketById(Guid ticketId);
         Task<Ticket> CreateTicket(CreateTicketRequest createTicket);
     }

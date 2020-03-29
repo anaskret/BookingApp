@@ -6,6 +6,7 @@ using Booking.Repositories.Interfaces;
 using Booking.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,13 @@ namespace Booking.Services
         {
             _ticketRepository = ticketRepository;
             _ticketConverter = ticketConverter;
+        }
+
+        public async Task<ICollection<GetTicketRequest>> GetTickets()
+        {
+            var tickets = await _ticketRepository.GetTickets();
+
+            return tickets.Select(t => _ticketConverter.TicketToGetTicketRequest(t)).ToList();
         }
 
         public async Task<GetTicketRequest> GetTicketById(Guid ticketId)
@@ -53,5 +61,7 @@ namespace Booking.Services
 
             return ticket;
         }
+
+        
     }
 }

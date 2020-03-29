@@ -18,6 +18,10 @@ namespace Booking.Repositories
             _dataContext = dataContext;
         }
 
+        public async Task<List<Ticket>> GetTickets()
+        {
+            return await _dataContext.Tickets.ToListAsync();
+        }
 
         public async Task<Ticket> GetTicketById(Guid ticketId)
         {
@@ -46,5 +50,7 @@ namespace Booking.Repositories
 
             return created > 0;
         }
+
+        
     }
 }

@@ -300,6 +300,10 @@
               "target": "Package",
               "version": "[1.0.8, )"
             },
+            "Microsoft.AspNetCore.AzureKeyVault.HostingStartup": {
+              "target": "Package",
+              "version": "[2.0.4, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.1.2, )"

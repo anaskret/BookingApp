@@ -24,6 +24,11 @@ namespace Booking.App.Controllers
             _converter = converter;
         }
 
+        [HttpGet(ApiRoutes.Tickets.GetAll)]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _ticketService.GetTickets());
+        }
         [HttpGet(ApiRoutes.Tickets.Get)]
         public async Task<IActionResult> GetById([FromRoute] Guid ticketId)
         {
