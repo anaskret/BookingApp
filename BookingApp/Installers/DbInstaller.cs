@@ -47,6 +47,11 @@ namespace BookingApp.Installers
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddSingleton<ITicketConverter, TicketConverter>();
 
+            services.AddTransient<IEventTypeService, EventTypeService>();
+
+            services.AddScoped<IEventTypeRepository, EventTypeRepository>();
+            services.AddSingleton<IEventTypeConverter, EventTypeConverter>();
+
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
         }
     }
