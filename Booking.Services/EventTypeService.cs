@@ -19,10 +19,10 @@ namespace Booking.Services
             _eventTypeConverter = eventTypeConverter;
         }
 
-        public async Task<ICollection<GetEventTypeRequest>> GetEventTypes()
+        public async Task<IEnumerable<GetEventTypeRequest>> GetEventTypes()
         {
             var types = await _eventTypeRepository.GetEventTypes();
-            return types.Select(t => _eventTypeConverter.EventTypeToGetEventTypeRequest(t)).ToList();
+            return types.Select(t => _eventTypeConverter.EventTypeToGetEventTypeRequest(t));
         }
     }
 }

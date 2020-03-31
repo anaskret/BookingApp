@@ -20,7 +20,15 @@ namespace Booking.Repositories
 
         public async Task<List<Ticket>> GetTickets()
         {
-            return await _dataContext.Tickets.ToListAsync();
+            var tickets = await _dataContext.Tickets.ToListAsync();
+            foreach (var item in tickets)
+            { 
+                _dataContext.Entry(item).Reference(t => t.SeatStatus).Load();
+                _dataContext.Entry(item.SeatStatus).Reference(ss => ss.Seat).Load();
+                _dataContext.Entry(item.SeatStatus).Reference(ss => ss.Event).Load();
+                _dataContext.Entry(item.SeatStatus).Reference(ss => ss.SectorPrice).Load();
+            }
+            return tickets;
         }
 
         public async Task<Ticket> GetTicketById(Guid ticketId)

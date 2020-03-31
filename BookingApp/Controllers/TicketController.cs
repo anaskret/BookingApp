@@ -29,6 +29,7 @@ namespace Booking.App.Controllers
         {
             return Ok(await _ticketService.GetTickets());
         }
+
         [HttpGet(ApiRoutes.Tickets.Get)]
         public async Task<IActionResult> GetById([FromRoute] Guid ticketId)
         {
@@ -67,8 +68,9 @@ namespace Booking.App.Controllers
             };
 
             var file = _converter.Convert(pdf);
+            Convert.ToBase64String(file);
 
-            return File(file, "api/pdf", "Ticket.pdf");
+            return Ok(file);
         }
 
         [HttpPost(ApiRoutes.Tickets.Create)]

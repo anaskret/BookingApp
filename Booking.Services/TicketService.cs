@@ -23,11 +23,11 @@ namespace Booking.Services
             _ticketConverter = ticketConverter;
         }
 
-        public async Task<ICollection<GetTicketRequest>> GetTickets()
+        public async Task<IEnumerable<GetTicketRequest>> GetTickets()
         {
             var tickets = await _ticketRepository.GetTickets();
 
-            return tickets.Select(t => _ticketConverter.TicketToGetTicketRequest(t)).ToList();
+            return tickets.Select(t => _ticketConverter.TicketToGetTicketRequest(t));
         }
 
         public async Task<GetTicketRequest> GetTicketById(Guid ticketId)

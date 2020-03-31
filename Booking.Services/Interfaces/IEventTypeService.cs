@@ -6,6 +6,6 @@ namespace Booking.Services.Interfaces
 {
     public interface IEventTypeService
     {
-        Task<ICollection<GetEventTypeRequest>> GetEventTypes();
+        Task<IEnumerable<GetEventTypeRequest>> GetEventTypes();
     }
 }
