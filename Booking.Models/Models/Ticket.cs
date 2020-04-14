@@ -20,6 +20,9 @@ namespace Booking.Models.Models
 
         [Display(Name = "Status Id")]
         public int StatusId { get; set; }
+/*#nullable enable
+        public string? Thumbnail { get; set; }
+#nullable disable*/
 
         public string SeatCoordinates()
         {

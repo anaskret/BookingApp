@@ -33,11 +33,12 @@ namespace BookingApp
             var context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
 
-
+            services.AddCors();
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(Configuration["ConnectionStrings:DefaultConnection1"]);
             });
+
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
@@ -56,11 +57,15 @@ namespace BookingApp
                 app.UseHsts();
             }
 
+            app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
 
             var swaggerOptions = new SwaggerConfig();
             Configuration.GetSection(nameof(SwaggerConfig)).Bind(swaggerOptions);
